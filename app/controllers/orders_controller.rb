@@ -1,17 +1,15 @@
 class OrdersController < ApplicationController
-  before_action :find_work_by_params_id, only: [:show, :edit, :update, :destroy]
+  before_action :find_order_by_params_id, only: [:show, :edit, :update, :destroy]
 
   def index
-    @books = Work.sort_by_category("book")
-    @albums = Work.sort_by_category("album")
-    @movies = Work.sort_by_category("movie")
+    @orders = Order.all
   end
 
   def create
-    @work = Work.new(work_params)
+    @order = Order.new(order_params)
 
-    if save_and_flash(@work)
-      redirect_to work_path(@work)
+    if save_and_flash(@order)
+      redirect_to order_path(@order)
     else
       render :new, status: :bad_request
     end
@@ -19,7 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @work = Work.new
+    @order = Order.new
   end
 
   def edit
@@ -29,26 +27,39 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @work.update_attributes(work_params)
-    if save_and_flash(@work, edit:"updated")
-      redirect_to(work_path(@work))
+    @order.update_attributes(order_params)
+    if save_and_flash(@order, edit:"updated")
+      redirect_to(order_path(@order))
     else
       render :edit, status: :bad_request
     end
   end
 
   def destroy
-    save_and_flash(@work, edit: "destroyed", save: @work.destroy)
-    redirect_to root_path
+    save_and_flash(@order, edit: "destroyed", save: @order.destroy)
+    redirect_to orders_path
   end
 
   private
-  def work_params
-    return params.require(:work).permit(:category, :title, :creator, :publication_year, :description)
+  def order_params
+    return params.require(:order).permit(:status, :email, :mailing_address, :buyer_name, :card_number, :expiration, :cvv, :zipcode)
   end
 
-  def find_work_by_params_id
-    @work = Work.find_by(id: params[:id])
-    head :not_found unless @work
+  def find_order_by_params_id
+    @order = Order.find_by(id: params[:id])
+    head :not_found unless @order
+  end
+
+  def save_and_flash(model, edit: "created", save: model.save)
+    result = save
+    if result
+      flash[:status] = :success
+      flash[:message] = "Successfully #{edit} #{model.class} #{model.id}"
+    else
+      flash.now[:status] = :failure
+      flash.now[:message] = "A problem occurred: Could not create #{model.class}"
+      flash.now[:details] = model.errors.messages
+      return false
+    end
   end
 end
