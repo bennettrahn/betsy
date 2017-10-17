@@ -1,1 +1,5 @@
 <h2>All Merchants</h2>
+
+<% @merchants.each do |m| %>
+  <%= link_to m.username, merchant_path(m.id) %>
+<% end %>
