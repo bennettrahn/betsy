@@ -1,0 +1,11 @@
+<h1>Index page for Products! ALL OF the 3's!</h1>
+
+<% @products.each do |product| %>
+<div class="product" >
+  <%= link_to product.name, product_path(product.id) %>
+  <%= product.price %>
+  <%= product.description %>
+</div>
+<% end %>
+
+<%= link_to "Add a Product", new_product_path %>
