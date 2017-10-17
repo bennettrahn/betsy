@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+anders:
+  username: anders
+  email: anders@tricycle.com
+
+lauren:
+  username: lauren
+  email: lauren@tricycle.com
+
+bennett:
+  username: bennett
+  email: bennett@tricycle.com
