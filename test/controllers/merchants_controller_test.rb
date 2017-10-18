@@ -29,15 +29,55 @@ describe MerchantsController do
   end
 
   describe "edit" do
-  it "succeeds for an extant merchant ID" do
-    get edit_merchant_path(Merchant.first)
-    must_respond_with :success
+    it "succeeds for an extant merchant ID" do
+      get edit_merchant_path(Merchant.first)
+      must_respond_with :success
+    end
+
+    it "renders 404 not_found for an invalid merchant ID" do
+      invalid_merchant_id = Merchant.last.id + 1
+      get edit_merchant_path(invalid_merchant_id)
+      must_respond_with :not_found
+    end
   end
 
-  it "renders 404 not_found for an invalid merchant ID" do
-    invalid_merchant_id = Merchant.last.id + 1
-    get edit_merchant_path(invalid_merchant_id)
-    must_respond_with :not_found
+  describe "update" do
+    it "succeeds for valid data and an extant merchant ID" do
+      merchant = Merchant.first
+      merchant_data = {
+        merchant: {
+          username: merchant.username + "new",
+          email: merchant.email
+        }
+      }
+
+      patch merchant_path(merchant.id), params: merchant_data
+      must_redirect_to merchant_path(merchant.id)
+
+      # Verify the DB was really modified
+      Merchant.find(merchant.id).username.must_equal merchant_data[:merchant][:username]
+    end
+
+    it "renders bad_request for invalid data" do
+      merchant = Merchant.first
+      merchant_data = {
+        merchant: {
+          username: "",
+          email: merchant.email
+        }
+      }
+
+      patch merchant_path(merchant), params: merchant_data
+      must_respond_with :not_found
+
+      # Verify the DB was not modified
+      Merchant.find(merchant.id).username.must_equal merchant.username
+    end
+
+    it "renders 404 not_found for a invalid merchant ID" do
+      invalid_merchant_id = Merchant.last.id + 1
+      get merchant_path(invalid_merchant_id)
+      must_respond_with :not_found
+    end
   end
-end
 end

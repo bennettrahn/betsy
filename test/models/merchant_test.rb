@@ -1,9 +1,11 @@
 require "test_helper"
 
 describe Merchant do
-  let(:merchant) { Merchant.new }
+  before do
+    @valid_test_m = Merchant.new(username: "tricycle", email: "tricycle@tricycle.com" )
+  end
 
   it "must be valid" do
-    value(merchant).must_be :valid?
+    @valid_test_m.must_be :valid?
   end
 end
