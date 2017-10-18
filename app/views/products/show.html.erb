@@ -1,9 +1,12 @@
 <h1>Show page for Individual Product!</h1>
-<p><%= @product.name %></p>
-<p><%= @product.description %></p>
+<p>Name: <%= @product.name %></p>
+<p>Description: <%= @product.description %></p>
 <p>Price: $<%= '%.2f' % @product.price %></p>
+
+<p>Reviews: <%= @product.reviews %></p>
 
 
 <p><%= link_to "Back to All Products", products_path, class: "button" %></p>
+<p><%= link_to "Write a Review", new_review_path, class: "button" %></p>
 <p><%= link_to "Edit", edit_product_path(@product), class: "button" %></p>
 <p><%= link_to "Delete", product_path(@product), class: "alert button", method: "delete", data: { confirm: "Are you sure?" } %></p>

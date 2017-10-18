@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   resources :orders
   resources :products
   resources :merchants
+  resources :reviews, only: [:new, :create]
+  # nested route /product/:id/review 
 end
