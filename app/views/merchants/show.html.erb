@@ -1,0 +1,10 @@
+<h2><%= @merchant.username %>'s Page</h2>
+
+<%= link_to "Back to Merchants List", merchants_path, class: "button" %>
+<%= link_to "Edit", edit_merchant_path(@merchant.id), class: "button" %>
+<%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
+
+<%# TODO %>
+<%# all money %>
+<%# all products sold %>
+<%# all customers who have bought products %>

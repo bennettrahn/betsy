@@ -1,0 +1,9 @@
+<h2>All Merchants</h2>
+
+<%= link_to "Become a Merchant", new_merchant_path, class: "button" %>
+
+<div class="">
+  <% @merchants.each do |m| %>
+    <%= link_to m.username, merchant_path(m.id) %>
+  <% end %>
+</div>
