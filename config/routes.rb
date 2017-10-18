@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :orders
   resources :products
   resources :merchants
+  post '/order_products', to: 'order_products#create', as: 'create_order_product'
 end

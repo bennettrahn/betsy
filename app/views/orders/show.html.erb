@@ -1,8 +1,12 @@
 <h2>Your Cart</h2>
 
-<%# @order.products.each do |product| %>
-
-<%# end %>
+<ul>
+  <% @order.order_products.each do |order_product| %>
+    <li>
+      <%= order_product.product.name %>
+    </li>
+  <% end %>
+</ul>
 <p>
   Order <%= @order.id %>
 </p>
