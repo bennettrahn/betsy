@@ -6,6 +6,26 @@ before_action :find_id_by_params, except: [:index, :new, :create]
     @merchants = Merchant.all
   end
 
+  def new
+    @merchant = Merchant.new
+  end
+
+  def create
+    @merchant = Merchant.new(merchant_params)
+    # @merchant.user_id = session[:user_id]
+    if @merchant.save
+      # @merchant = session[:user_id]
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created: #{@merchant.username}"
+      redirect_to merchant_path(@merchant.id)
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "Could not create new merchant"
+      flash[:messages] = @merchant.errors.messages
+      render :new, status: :bad_request
+    end
+  end
+
   def show
     @merchant = Merchant.find_by(id: params[:id])
   end

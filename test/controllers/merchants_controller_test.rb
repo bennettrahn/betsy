@@ -15,6 +15,84 @@ describe MerchantsController do
     end
   end
 
+  describe "new" do
+    it "works" do
+      get new_merchant_path
+      must_respond_with :success
+    end
+  end
+
+  describe "create" do
+    it "creates a merchant with valid data" do
+      merchant_data = {
+        merchant: {
+          username: "test test",
+          email: "test@test.com"
+        }
+      }
+
+      start_count = Merchant.count
+
+      post merchants_path, params: merchant_data
+      must_redirect_to merchant_path(Merchant.last)
+
+      Merchant.count.must_equal start_count + 1
+    end
+
+    it "renders bad_request and does not update the DB for invalid merchant data" do
+      invalid_merchant_data = {
+        merchant: {
+          username: "",
+          email: ""
+        }
+      }
+
+      start_count = Merchant.count
+
+      post merchants_path, params: invalid_merchant_data
+      must_respond_with :bad_request
+
+      Merchant.count.must_equal start_count
+    end
+
+
+    it "renders 400 bad_request for invalid email entries" do
+      invalid_email = {
+        merchant: {
+          username: "namename",
+          email: "name"
+        }
+      }
+
+      invalid_email_2 = {
+        merchant: {
+          username: "namename",
+          email: "name@"
+        }
+      }
+
+      invalid_email_3 = {
+        merchant: {
+          username: "namename",
+          email: "name@name."
+        }
+      }
+
+      start_count = Merchant.count
+
+      post merchants_path, params: invalid_email
+      must_respond_with :bad_request
+
+      post merchants_path, params: invalid_email_2
+      must_respond_with :bad_request
+
+      post merchants_path, params: invalid_email_3
+      must_respond_with :bad_request
+
+      Merchant.count.must_equal start_count
+    end
+  end
+
   describe "show" do
     it "succeeds for an extant merchant ID" do
       get merchant_path(Merchant.first)

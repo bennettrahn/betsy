@@ -28,17 +28,16 @@ describe Merchant do
       merchant.errors.messages.must_include :email
 
       merchant1 = Merchant.new(username: "username", email: "tricycle@")
-      merchant.valid?.must_equal false
+      merchant1.valid?.must_equal false
       merchant.errors.messages.must_include :email
 
       merchant2 = Merchant.new(username: "username", email: "tricycle@tricycle")
-      merchant.valid?.must_equal false
+      merchant2.valid?.must_equal false
       merchant.errors.messages.must_include :email
 
-      merchant2 = Merchant.new(username: "username", email: "tricycle@tricycle.")
-      merchant.valid?.must_equal false
+      merchant3 = Merchant.new(username: "username", email: "tricycle@tricycle.")
+      merchant3.valid?.must_equal false
       merchant.errors.messages.must_include :email
-      
     end
   end
 end
