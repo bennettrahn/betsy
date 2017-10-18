@@ -1,7 +1,8 @@
 <h1>Show page for Individual Product!</h1>
-<%= @product.name %>
-<%= @product.description %>
-<% @product.price %>
+<p><%= @product.name %></p>
+<p><%= @product.description %></p>
+<p>Price: $<%= '%.2f' % @product.price %></p>
 
 
-<%= link_to "Back to All Products", products_path %>
+<p><%= link_to "Back to All Products", products_path %></p>
+<p><%= link_to "Edit", edit_product_path(@product) %></p>
