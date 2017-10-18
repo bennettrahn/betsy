@@ -30,8 +30,20 @@ before_action :find_id_by_params, except: [:index, :new, :create]
         flash.now[:messages] = @merchant.errors.messages
         render :edit, status: :not_found
       end
-    # end
-  end
+    end
+
+    def destroy
+    # if @merchant.user_id != session[:user_id]
+    #   flash[:status] = :failure
+    #   flash[:result_text] = "Only the merchant has permission to delete"
+    #   redirect_to root_path
+    # else
+      @merchant.destroy
+      flash[:status] = :success
+      flash[:result_text] = "Successfully deleted"
+      # redirect_to root_path
+      redirect_to merchants_path
+    end
 
   private
 

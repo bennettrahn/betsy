@@ -80,4 +80,26 @@ describe MerchantsController do
       must_respond_with :not_found
     end
   end
+
+  describe "destroy" do
+    it "succeeds for an extant work ID" do
+      merchant_id = Merchant.first.id
+
+      delete merchant_path(merchant_id)
+      must_redirect_to merchants_path
+
+      # The work should really be gone
+      Merchant.find_by(id: merchant_id).must_be_nil
+    end
+
+    it "renders 404 not_found and does not update the DB for a bogus work ID" do
+      start_count = Merchant.count
+
+      bogus_work_id = Merchant.last.id + 1
+      delete merchant_path(bogus_work_id)
+      must_respond_with :not_found
+
+      Merchant.count.must_equal start_count
+    end
+  end
 end
