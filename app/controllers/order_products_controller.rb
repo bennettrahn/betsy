@@ -5,7 +5,8 @@ class OrderProductsController < ApplicationController
 
     @order_product.save
 
-    redirect_to order_path(order)
+    # redirect_to order_path(order)
+    redirect_to orders_path
   end
 
 end
