@@ -1,9 +1,7 @@
 class Product < ApplicationRecord
-<<<<<<< HEAD
+
   has_many :order_products
-=======
-has_many :reviews
->>>>>>> lauren-reviews
+  has_many :reviews
 
   belongs_to :merchant
 
