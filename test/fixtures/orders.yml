@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+order1:
+  status: "pending"
+  email: "bennett@email.com"
+  mailing_address: "123 S 1st Ave"
+  buyer_name: "Bennett"
+  card_number: "1234 5678 9101 1121"
+  expiration: "01/12"
+  cvv: "123"
+  zipcode: "98013"
+
+order2:
+  status: "pending"
+  email: "suzy@email.com"
+  mailing_address: "456 N 2nd Ave"
+  buyer_name: "Suzy"
+  card_number: "3141 5161 7181 9202"
+  expiration: "03/07"
+  cvv: "678"
+  zipcode: "73452"

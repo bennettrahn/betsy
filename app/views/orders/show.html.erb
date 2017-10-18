@@ -1,0 +1,14 @@
+<h2>Your Cart</h2>
+
+<%# @order.products.each do |product| %>
+
+<%# end %>
+<p>
+  Order <%= @order.id %>
+</p>
+<p>
+  Status: <%= @order.status %>
+</p>
+
+
+<%= link_to "Back to All Orders", orders_path, class:'button'%>
