@@ -10,6 +10,9 @@ before_action :find_id_by_params, except: [:index, :new, :create]
     @merchant = Merchant.find_by(id: params[:id])
   end
 
+  def edit
+  end
+
   private
 
   def find_id_by_params
@@ -18,5 +21,4 @@ before_action :find_id_by_params, except: [:index, :new, :create]
       head :not_found
     end
   end
-
 end
