@@ -1,5 +1,7 @@
 class Merchant < ApplicationRecord
 
+  has_many :products
+
   validates :username, presence: {message: "Please enter a username"}
 
   validates :email, presence: {message: "Please enter an email"}
