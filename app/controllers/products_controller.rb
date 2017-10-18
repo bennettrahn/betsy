@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
     product_params
     )
     # this could be a hidden field view, or it could be in the strong params, or it could be here
-    @product.merchant_id = session[:merchant_id]
+    # @product.merchant_id = session[:merchant_id]
 
     if @product.save
       redirect_to products_path

@@ -2,7 +2,14 @@ require "test_helper"
 
 describe Merchant do
   before do
+    @m = Merchant.new
     @valid_test_m = Merchant.new(username: "tricycle", email: "tricycle@tricycle.com" )
+  end
+
+  describe "relations" do
+    it "responds to products" do
+      @m.must_respond_to :products
+    end
   end
 
   describe "validations" do

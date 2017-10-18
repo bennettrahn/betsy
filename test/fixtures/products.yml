@@ -14,7 +14,7 @@
 tricycle:
   name: tricycle
   description: "A fun toy!"
-  merchant_id: 1
+  merchant: anders
   inventory: 2
   photo_url: www.fillmurray.com
-  price: 2.40 
+  price: 2.40
