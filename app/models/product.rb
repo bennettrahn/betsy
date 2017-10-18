@@ -1,5 +1,9 @@
 class Product < ApplicationRecord
+<<<<<<< HEAD
   has_many :order_products
+=======
+has_many :reviews
+>>>>>>> lauren-reviews
 
   belongs_to :merchant
 

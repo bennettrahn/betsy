@@ -1,0 +1,13 @@
+<h1> Write a new Review: </h1>
+<%= form_for [@product, @review] do |f| %>
+
+<%= f.label :rating, "Rating 1-5" %>
+<%= f.number_field :rating %>
+
+<%= f.label :text, "Write a review!" %>
+<%= f.text_area :text %>
+
+<%= f.hidden_field :product_id, :value => @product.id %>
+
+<input type="submit" class="button"<%= f.submit %>
+<% end %>
