@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
   def show ; end
 
   def new
+    # if @product.merchant_id != session[:merchant_id]
     @product = Product.new
   end
 
@@ -15,12 +16,13 @@ class ProductsController < ApplicationController
     @product = Product.new(
     product_params
     )
-    @product.merchant_id = session[:user_id]
     # this could be a hidden field view, or it could be in the strong params, or it could be here
+    @product.merchant_id = session[:merchant_id]
+
     if @product.save
       redirect_to products_path
     else
-      render :new
+      render :new, status: :bad_request
     end
   end
 
@@ -28,14 +30,18 @@ class ProductsController < ApplicationController
 
   def update
     @product.update_attributes(product_params)
-    if
-      redirect_to products_path(@product.id)
+    if @product.save
+      #change once add flash and save
+      redirect_to product_path(@product)
+      return
     else
-      render :edit
+      render :edit, status: :bad_request
+      return
     end
   end
 
   def destroy
+    # if @product.merchant_id != session[:merchant_id]
     @product.destroy
     flash[:status] = :success
     flash[:message] = "Successfully deleted!"
@@ -46,6 +52,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
+    # should merchant_id be here?
     return params.require(:product).permit(:name, :description, :price, :inventory, :photo_url)
   end
 

@@ -4,8 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+# one: {}
+# # column: value
+# #
+# two: {}
 # column: value
-#
-two: {}
-# column: value
+
+
+tricycle:
+  name: tricycle
+  description: "A fun toy!"
+  merchant_id: 1
+  inventory: 2
+  photo_url: www.fillmurray.com
+  price: 2.40 
