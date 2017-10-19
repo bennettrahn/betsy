@@ -1,7 +1,13 @@
 class ReviewsController < ApplicationController
+
   def new
-    @review = Review.new
     @product = Product.find_by(id: params[:product_id])
+    if session[:merchant_id] == @product.merchant_id
+      flash[:status] = :failure
+      flash[:message] = "You cannot review your own product!"
+      redirect_to products_path
+    end
+    @review = Review.new
   end
 
   def create
