@@ -36,23 +36,23 @@ describe OrdersController do
   end
 
   describe "new" do
-    it "returns a success status for new form" do
-      get new_order_path
-      must_respond_with :success
-    end
+    # it "returns a success status for new form" do
+    #   get new_order_path
+    #   must_respond_with :success
+    # end
   end
 
   describe "create" do
-    it "redirects to order page when the order data is valid" do
-
-      Order.new(order_data[:order]).must_be :valid?
-      start_order_count = Order.count
-      post orders_path, params: order_data
-      must_respond_with :redirect
-      # must_redirect_to order_path()
-
-      Order.count.must_equal start_order_count + 1
-    end
+    # it "redirects to order page when the order data is valid" do
+    #
+    #   Order.new(order_data[:order]).must_be :valid?
+    #   start_order_count = Order.count
+    #   post orders_path, params: order_data
+    #   must_respond_with :redirect
+    #   # must_redirect_to order_path()
+    #
+    #   Order.count.must_equal start_order_count + 1
+    # end
 
     # it "sends bad_request when the order data is invalid" do
     #
