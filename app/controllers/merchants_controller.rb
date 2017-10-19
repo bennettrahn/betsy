@@ -11,6 +11,28 @@ before_action :find_id_by_params, except: [:index, :new, :create]
   end
 
   def create
+  #   auth_hash = request.env['omniauth.auth']
+  #
+  #   if auth_hash['uid']
+  #     merchant = Merchant.find_by(provider: params[:provider], uid: auth_hash[:uid])
+  #     if merchant.nil? #merchant hasn't logged in before
+  #       merchant = Merchant.from_auth_hash(params[:provider])
+  #       save_and_flash(merchant)
+  #     else #merchant has logged in before
+  #       flash[:status] = :success
+  #       flash[:message] = "Successfully logged in as returning merchant #{merchant.name}"
+  #     end
+  #
+  #     session[:merchant_id] = merchant.id
+  #
+  #   else
+  #     flash[:status] = :failure
+  #     flash[:message] = "Could not create merchant from OAuth data"
+  #   end
+  #
+  #   redirect_to root_path
+  # end
+
     @merchant = Merchant.new(merchant_params)
     # @merchant.user_id = session[:user_id]
     if @merchant.save
@@ -76,5 +98,22 @@ before_action :find_id_by_params, except: [:index, :new, :create]
     unless @merchant
       head :not_found
     end
+  end
+
+  def save_and_flash(model)
+    result = model.save
+
+    if result
+      flash[:status] = :success
+      flash[:message] = "Successfully saved #{model.class} #{model.name}"
+    else
+      flash.now[:status] = :failure
+      flash.now[:message] = "Failed to save #{model.class}"
+      flash.now[:details] = model.errors.messages
+    end
+
+    puts "In save_and_flash: Result: #{result}"
+
+    return result
   end
 end
