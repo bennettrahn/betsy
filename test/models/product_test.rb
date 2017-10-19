@@ -10,6 +10,11 @@ describe Product do
     it "must respond to merchant" do
       @p.must_respond_to :merchant
     end
+
+    it "can have order_products" do
+      @p.must_respond_to :order_products
+    end
+
   end
 
   describe 'validations' do

@@ -2,10 +2,10 @@
 
 one:
   quantity: 1
-  product_id: 1
-  order_id: 1
+  product: tricycle
+  order: order1
 
 two:
   quantity: 1
-  product_id: 1
-  order_id: 1
+  product: tripod
+  order: order1

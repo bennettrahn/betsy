@@ -3,7 +3,15 @@
 <p>Description: <%= @product.description %></p>
 <p>Price: $<%= '%.2f' % @product.price %></p>
 
-<p><%= link_to "Add to Order", create_order_product_path(product_id: @product.id), method:'post', class: "button" %></p>
+<section>
+  <%= form_tag create_order_product_path(product_id: @product.id), method: :post do %>
+
+  <%= text_field_tag "quantity", 1 %>
+
+  <%= submit_tag "Add to Order", class: "button" %>
+  <% end %>
+</section>
+
 
 <p>Reviews: <% @product.reviews.each do |review| %></p>
 <%= review.text %>

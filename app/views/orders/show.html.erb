@@ -1,12 +1,25 @@
 <h2>Your Cart</h2>
 
-<ul>
-  <% @order.order_products.each do |order_product| %>
-    <li>
-      <%= order_product.product.name %>
-    </li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_products.each do |op| %>
+      <tr>
+        <td><%= link_to op.product.name, product_path(op.product) %></td>
+        <td><%= op.quantity %></td>
+        <td><%= op.product.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 <p>
   Order <%= @order.id %>
 </p>

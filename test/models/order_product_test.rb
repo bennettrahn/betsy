@@ -1,9 +1,16 @@
 require "test_helper"
 
 describe OrderProduct do
-  let(:order_product) { OrderProduct.new }
+  let (:op) { order_products(:one) }
+  describe "relationships" do
+    it "has an order" do
+      op.must_respond_to :order
+      op.order.must_be_kind_of Order
+    end
 
-  it "must be valid" do
-    value(order_product).must_be :valid?
+    it "has a product" do
+      op.must_respond_to :product
+      op.product.must_be_kind_of Product
+    end
   end
 end
