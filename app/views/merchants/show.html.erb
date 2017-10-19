@@ -5,7 +5,7 @@
 <%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
 
 <% @merchant.products.each do |product| %>
-<p><%= product.name %></p>
+<p><%= link_to product.name, product_path(product.id) %></p>
 <% end %>
 
 <%# TODO %>
