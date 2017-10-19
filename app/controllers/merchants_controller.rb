@@ -3,7 +3,13 @@ class MerchantsController < ApplicationController
   before_action :find_id_by_params, except: [:index, :new, :create, :logout]
 
   def index
-    @merchants = Merchant.all
+    if session[:merchant_id] == nil
+      flash[:status] = :failure
+      flash[:message] = "You must be logged in to do that!"
+      redirect_to products_path
+    else
+      @merchants = Merchant.all
+    end
   end
 
   def new
@@ -32,7 +38,7 @@ class MerchantsController < ApplicationController
 
     redirect_to products_path
   end
-  
+
   def logout
     session[:merchant_id] = nil
     flash[:status] = :success

@@ -24,6 +24,13 @@ class ApplicationController < ActionController::Base
   #   end
   #   return result
   # end
+  def must_be_logged_in
+    if session[:merchant_id] == nil
+      flash[:status] = :failure
+      flash[:message] = "You must be logged in to do that!"
+      redirect_to products_path
+    end
+  end
 
   def save_and_flash(model, edit: "", save: model.save)
     result = save

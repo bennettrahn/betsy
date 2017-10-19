@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :must_be_logged_in, only: [:show, :new]
   def root
   end
   def index
@@ -9,13 +10,9 @@ class ProductsController < ApplicationController
   def show ; end
 
   def new
-    if session[:merchant_id] == nil
-      flash[:status] = :failure
-      flash[:message] = "You must be logged in to do that!"
       redirect_to products_path
     else
       @product = Product.new
-    end
   end
 
   def create
