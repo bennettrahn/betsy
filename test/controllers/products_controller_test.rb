@@ -91,12 +91,14 @@ describe ProductsController do
 
   describe "update" do
     it "returns success when change is valid" do
+      # charles says we need to log in to make this test pass
+      merchant = Merchant.first
+      login(merchant)
       product = Product.first
       product_data = {
         product: {
           name: "book",
           price: 4.32,
-          merchant: merchants(:anders)
         }
       }
       product.update_attributes(product_data[:product])

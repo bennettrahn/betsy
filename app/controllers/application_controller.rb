@@ -12,4 +12,29 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  # def save_and_flash(model)
+  #   result = model.save
+  #   if result
+  #     flash[:status] = :success
+  #     flash[:message] = "Succesfully saved #{model.class} #{model.name}"
+  #   else
+  #     flash.now[:status] = :failure
+  #     flash.now[:message] = "Failed to save #{model.class}"
+  #     flash.now[:details] = model.errors.messages
+  #   end
+  #   return result
+  # end
+
+  def save_and_flash(model, edit: "", save: model.save)
+    result = save
+    if result
+      flash[:status] = :success
+      flash[:message] = "Successfully #{edit} #{model.class} #{model.id}"
+    else
+      flash.now[:status] = :failure
+      flash.now[:message] = "A problem occurred: Could not #{edit} #{model.class}"
+      flash.now[:details] = model.errors.messages
+      return false
+    end
+  end
 end

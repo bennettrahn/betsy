@@ -1,6 +1,6 @@
 class MerchantsController < ApplicationController
 
-before_action :find_id_by_params, except: [:index, :new, :create, :logout]
+  before_action :find_id_by_params, except: [:index, :new, :create, :logout]
 
   def index
     @merchants = Merchant.all
@@ -69,31 +69,31 @@ before_action :find_id_by_params, except: [:index, :new, :create, :logout]
     #   flash[:result_text] = "Only the merchant has permission to do this"
     #   redirect_to root_path
     # else
-      @merchant.update_attributes(merchant_params)
-      if @merchant.save
-        flash[:status] = :success
-        flash[:result_text] = "Successfully updated"
-        redirect_to merchant_path(@merchant)
-      else
-        flash.now[:status] = :failure
-        flash.now[:result_text] = "Could not update"
-        flash.now[:messages] = @merchant.errors.messages
-        render :edit, status: :not_found
-      end
+    @merchant.update_attributes(merchant_params)
+    if @merchant.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated"
+      redirect_to merchant_path(@merchant)
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not update"
+      flash.now[:messages] = @merchant.errors.messages
+      render :edit, status: :not_found
     end
+  end
 
-    def destroy
+  def destroy
     # if @merchant.id != session[:merchant_id]
     #   flash[:status] = :failure
     #   flash[:result_text] = "Only the merchant has permission to delete"
     #   redirect_to root_path
     # else
-      @merchant.destroy
-      flash[:status] = :success
-      flash[:result_text] = "Successfully deleted"
-      # redirect_to root_path
-      redirect_to merchants_path
-    end
+    @merchant.destroy
+    flash[:status] = :success
+    flash[:result_text] = "Successfully deleted"
+    # redirect_to root_path
+    redirect_to merchants_path
+  end
 
   private
 
@@ -108,20 +108,4 @@ before_action :find_id_by_params, except: [:index, :new, :create, :logout]
     end
   end
 
-  def save_and_flash(model)
-    result = model.save
-
-    if result
-      flash[:status] = :success
-      flash[:message] = "Successfully saved #{model.class} #{model.name}"
-    else
-      flash.now[:status] = :failure
-      flash.now[:message] = "Failed to save #{model.class}"
-      flash.now[:details] = model.errors.messages
-    end
-
-    puts "In save_and_flash: Result: #{result}"
-
-    return result
-  end
 end

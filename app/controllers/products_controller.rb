@@ -30,19 +30,19 @@ class ProductsController < ApplicationController
   def edit ; end
 
   def update
+    @product.merchant_id = session[:merchant_id]
     @product.update_attributes(product_params)
-    if @product.save
-      #change once add flash and save
+puts "before save and flash"
+puts @product.merchant_id
+    if save_and_flash(@product, edit: "updated", save: @product.save )
       redirect_to product_path(@product)
       return
     else
       render :edit, status: :bad_request
-      return
     end
   end
 
   def destroy
-    # if @product.merchant_id != session[:merchant_id]
     @product.destroy
     flash[:status] = :success
     flash[:message] = "Successfully deleted!"
@@ -53,7 +53,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    # should merchant_id be here?
     return params.require(:product).permit(:name, :description, :price, :inventory, :photo_url)
   end
 
