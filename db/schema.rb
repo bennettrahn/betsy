@@ -25,14 +25,6 @@ ActiveRecord::Schema.define(version: 20171019005522) do
     t.string "uid", null: false
   end
 
-  create_table "order_items", force: :cascade do |t|
-    t.integer "quantity"
-    t.integer "product_id"
-    t.integer "order_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "order_products", force: :cascade do |t|
     t.integer "quantity"
     t.integer "product_id"

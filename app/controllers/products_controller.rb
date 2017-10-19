@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
-
+  def root
+  end
   def index
     @products = Product.all
   end
