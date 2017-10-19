@@ -5,22 +5,23 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
 
-  def create
-    @order = Order.new(order_params)
-
-    if save_and_flash(@order)
-      redirect_to order_path(@order)
-    else
-      render :new, status: :bad_request
-    end
-
-  end
-
-  def new
-    @order = Order.new
-  end
+  # def create
+  #   @order = Order.new(order_params)
+  #
+  #   if save_and_flash(@order)
+  #     redirect_to order_path(@order)
+  #   else
+  #     render :new, status: :bad_request
+  #   end
+  #
+  # end
+  #
+  # def new
+  #   @order = Order.new
+  # end
 
   def edit
+    # edit is actually more like check_out
   end
 
   def show
