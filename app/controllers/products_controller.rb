@@ -9,8 +9,13 @@ class ProductsController < ApplicationController
   def show ; end
 
   def new
-    # if @product.merchant_id != session[:merchant_id]
-    @product = Product.new
+    if session[:merchant_id] == nil
+      flash[:status] = :failure
+      flash[:message] = "You must be logged in to do that!"
+      redirect_to products_path
+    else
+      @product = Product.new
+    end
   end
 
   def create
