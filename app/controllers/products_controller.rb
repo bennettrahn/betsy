@@ -17,7 +17,6 @@ class ProductsController < ApplicationController
     @product = Product.new(
     product_params
     )
-    # this could be a hidden field view, or it could be in the strong params, or it could be here
     @product.merchant_id = session[:merchant_id]
 
     if @product.save

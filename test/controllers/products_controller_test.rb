@@ -39,7 +39,26 @@ describe ProductsController do
   end
 
   describe "create" do
-    # it "saves and redirects to products_path when the product data is valid" do
+    it "saves and redirects to products_path when the product data is valid" do
+      merchant = Merchant.first
+      login(merchant)
+      product_data = {
+        product: {
+          name: "book",
+          price: 4.32,
+          merchant_id: merchant.id
+        }
+      }
+      product = Product.new(product_data[:product])
+      product.must_be :valid?
+      start_product_count = Product.count
+
+      post products_path, params: product_data
+      must_respond_with :redirect
+      must_redirect_to products_path(product.id)
+      Product.count.must_equal start_product_count + 1
+    end
+
     #   product_data = {
     #     product: {
     #       name: "book",
