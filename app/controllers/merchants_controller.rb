@@ -1,6 +1,6 @@
 class MerchantsController < ApplicationController
 
-before_action :find_id_by_params, except: [:index, :new, :create]
+before_action :find_id_by_params, except: [:index, :new, :create, :logout]
 
   def index
     @merchants = Merchant.all
@@ -11,41 +11,49 @@ before_action :find_id_by_params, except: [:index, :new, :create]
   end
 
   def create
-  #   auth_hash = request.env['omniauth.auth']
-  #
-  #   if auth_hash['uid']
-  #     merchant = Merchant.find_by(provider: params[:provider], uid: auth_hash[:uid])
-  #     if merchant.nil? #merchant hasn't logged in before
-  #       merchant = Merchant.from_auth_hash(params[:provider])
-  #       save_and_flash(merchant)
-  #     else #merchant has logged in before
-  #       flash[:status] = :success
-  #       flash[:message] = "Successfully logged in as returning merchant #{merchant.name}"
-  #     end
-  #
-  #     session[:merchant_id] = merchant.id
-  #
-  #   else
-  #     flash[:status] = :failure
-  #     flash[:message] = "Could not create merchant from OAuth data"
-  #   end
-  #
-  #   redirect_to root_path
-  # end
+    auth_hash = request.env['omniauth.auth']
 
-    @merchant = Merchant.new(merchant_params)
-    # @merchant.user_id = session[:user_id]
-    if @merchant.save
-      # @merchant = session[:user_id]
-      flash[:status] = :success
-      flash[:result_text] = "Successfully created: #{@merchant.username}"
-      redirect_to merchant_path(@merchant.id)
+    if auth_hash['uid']
+      merchant = Merchant.find_by(provider: params[:provider], uid: auth_hash[:uid])
+      if merchant.nil? #merchant hasn't logged in before
+        merchant = Merchant.from_auth_hash(params[:provider], auth_hash)
+        save_and_flash(merchant)
+      else #merchant has logged in before
+        flash[:status] = :success
+        flash[:message] = "Successfully logged in as returning merchant #{merchant.name}"
+      end
+
+      session[:merchant_id] = merchant.id
+
     else
       flash[:status] = :failure
-      flash[:result_text] = "Could not create new merchant"
-      flash[:messages] = @merchant.errors.messages
-      render :new, status: :bad_request
+      flash[:message] = "Could not create merchant from OAuth data"
     end
+
+    redirect_to products_path
+  end
+
+  # def create
+  #   @merchant = Merchant.new(merchant_params)
+  #   # @merchant.id = session[:merchant_id]
+  #   if @merchant.save
+  #     # @merchant = session[:merchant_id]
+  #     flash[:status] = :success
+  #     flash[:result_text] = "Successfully created: #{@merchant.username}"
+  #     redirect_to merchant_path(@merchant.id)
+  #   else
+  #     flash[:status] = :failure
+  #     flash[:result_text] = "Could not create new merchant"
+  #     flash[:messages] = @merchant.errors.messages
+  #     render :new, status: :bad_request
+  #   end
+  # end
+
+  def logout
+    session[:merchant_id] = nil
+    flash[:status] = :success
+    flash[:message] = "You have been logged out"
+    redirect_to products_path
   end
 
   def show
@@ -56,7 +64,7 @@ before_action :find_id_by_params, except: [:index, :new, :create]
   end
 
   def update
-    # if @merchant.user_id != session[:user_id]
+    # if @merchant.id != session[:merchant_id]
     #   flash[:status] = :failure
     #   flash[:result_text] = "Only the merchant has permission to do this"
     #   redirect_to root_path
@@ -75,7 +83,7 @@ before_action :find_id_by_params, except: [:index, :new, :create]
     end
 
     def destroy
-    # if @merchant.user_id != session[:user_id]
+    # if @merchant.id != session[:merchant_id]
     #   flash[:status] = :failure
     #   flash[:result_text] = "Only the merchant has permission to delete"
     #   redirect_to root_path
