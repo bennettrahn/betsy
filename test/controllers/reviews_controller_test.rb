@@ -34,21 +34,25 @@ describe ReviewsController do
    end
 
 
-  #   it "renders a bad_request when the review data is invalid" do
-  #     bad_review = {
-  #       review: {
-  #         rating: "",
-  #         # no rating given!!
-  #       }
-  #     }
-  #     Review.new(bad_review[:review]).wont_be :valid?
-  #     start_review_count = Review.count
-  #     post new_product_review_path, params: bad_review
-  #
-  #     must_respond_with :bad_request
-  #     Review.count.must_equal start_review_count
-  #   end
-  #   # need to write test for when create is not allowed (not merchant_id)
+    # it "renders a bad_request when the review data is invalid" do
+    #   product =  Product.first
+    #   bad_review = {
+    #     review: {
+    #       rating: "",
+    #       product_id: product.id
+    #       # no rating given!!
+    #     }
+    #   }
+    #   product.reviews.new(bad_review[:review]).wont_be :valid?
+    #
+    #   start_review_count = Review.count
+    #   post reviews_path, params: bad_review
+    #
+    #   must_respond_with :bad_request
+    #
+    #   Review.count.must_equal start_review_count
+    # end
+    # need to write test for when create is not allowed (not merchant_id)
   end
 
 
