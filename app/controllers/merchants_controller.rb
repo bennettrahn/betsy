@@ -1,15 +1,10 @@
 class MerchantsController < ApplicationController
 
   before_action :find_id_by_params, except: [:index, :new, :create, :logout]
-
+  before_action :must_be_logged_in, only: [:index]
+  
   def index
-    if session[:merchant_id] == nil
-      flash[:status] = :failure
-      flash[:message] = "You must be logged in to do that!"
-      redirect_to products_path
-    else
-      @merchants = Merchant.all
-    end
+    @merchants = Merchant.all
   end
 
   def new

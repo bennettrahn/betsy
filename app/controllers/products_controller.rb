@@ -10,9 +10,7 @@ class ProductsController < ApplicationController
   def show ; end
 
   def new
-      redirect_to products_path
-    else
-      @product = Product.new
+    @product = Product.new
   end
 
   def create
