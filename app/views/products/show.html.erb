@@ -4,7 +4,6 @@
 <p>Price: $<%= '%.2f' % @product.price %></p>
 
 <p class="image"><%= image_tag "#{@product.photo_url}", alt:"image", size: "100x100"%></p>
-<!-- <p class="image"><img src="<%= @product.photo_url %>", alt:"image"></p> -->
 <section>
   <%= form_tag create_order_product_path(product_id: @product.id), method: :post do %>
 
