@@ -5,12 +5,12 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @product = Product.find_by(id: params[:product_id])
+    # @product = Product.find_by(id: params[:product_id])
     @review = Review.new(
     review_params
     )
     if @review.save
-      redirect_to product_path(@product)
+      redirect_to product_path(review_params[:product_id])
     else
       render :new, status: :bad_request
     end

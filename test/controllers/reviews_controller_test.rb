@@ -1,10 +1,7 @@
 require "test_helper"
 
 describe ReviewsController do
-  # it "must be a real test" do
-  #   flunk "Need real tests"
-  # end
-  let (:review) {reviews(:review1)}
+  # let (:review) {reviews(:review1)}
 
   describe "new" do
     it "creates a new review successfully" do
@@ -17,22 +14,24 @@ describe ReviewsController do
   describe "create" do
     #  BOTH create tests need :product_id! HOW DO WE PASS IN?
 
-  #   it "saves and redirects to product show page when the review data is valid" do
-  #    review_data = {
-  #      review: {
-  #        rating: 3,
-  #        text: "I loved it!",
-  #      }
-  #    }
-  #    @product =  Product.first.id
-  #    Review.new(review_data[:review]).must_be :valid?
-  #    start_review_count = Review.count
-  #
-  #    post new_product_review_path, params: product_data
-  #    must_respond_with :redirect
-  #    must_redirect_to product_path(@product)
-  #    Review.count.must_equal start_review_count + 1
-  #  end
+    it "saves and redirects to product show page when the review data is valid" do
+      product =  Product.first
+     review_data = {
+       review: {
+         rating: 3,
+         text: "I loved it!",
+         product_id: product.id
+       }
+     }
+     product.reviews.new(review_data[:review]).must_be :valid?
+     start_review_count = Review.count
+
+     post reviews_path, params: review_data
+
+     must_respond_with :redirect
+     must_redirect_to product_path(product.id)
+     Review.count.must_equal start_review_count + 1
+   end
 
 
   #   it "renders a bad_request when the review data is invalid" do
