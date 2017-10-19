@@ -1,6 +1,72 @@
 require "test_helper"
 
 describe MerchantsController do
+
+  describe "auth_callback" do
+    it "logs in an existing user and redirects to the products route" do
+      # Count the merchants, to make sure we're not (for example) creating
+      # a new merchant every time we get a login request
+      start_count = Merchant.count
+
+      # Get a merchant from the fixtures
+      merchant = merchants(:anders)
+
+      # Tell OmniAuth to use this merchant's info when it sees
+      # an auth callback from github
+      login(merchant)
+      # OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+
+      # Send a login request for that merchant
+      # Note that we're using the named path for the callback, as defined
+      # in the `as:` clause in `config/routes.rb`
+      # get auth_callback_path(:github)
+
+      must_redirect_to products_path
+
+      # Since we can read the session, check that the user ID was set as expected
+      session[:merchant_id].must_equal merchant.id
+
+      # Should *not* have created a new user
+      Merchant.count.must_equal start_count
+    end
+
+    it "creates an account for a new merchant and redirects to the products route" do
+      # Merchant.destroy_all
+      start_count = Merchant.count
+
+      # merchant = merchants(:anders)
+
+       merchant = Merchant.new(provider: "github", uid: 123124564, username: "test_merchant", email: "test@merchant.com", name: "trio")
+
+       puts "merchant: provider: #{merchant.provider}, uid: #{merchant.uid}"
+
+      login(merchant)
+
+      puts "merchant: provider: #{merchant.provider}, uid: #{merchant.uid}"
+
+
+      must_redirect_to products_path
+      flash[:status].must_equal :success
+
+      # Should have created a new user
+      Merchant.count.must_equal start_count + 1
+
+      # The new user's ID should be set in the session
+      merchant_id = Merchant.find_by(username: merchant[:username]).id
+      session[:merchant_id].must_equal merchant_id
+    end
+
+    it "redirects to the products route if given invalid user data" do
+      invalid_merchant = Merchant.first
+      invalid_merchant.uid = ""
+
+      login(invalid_merchant)
+
+      must_redirect_to products_path
+      flash[:status].must_equal :success
+    end
+  end
+
   describe "index" do
     it "succeeds when there are merchants" do
       Merchant.count.must_be :>, 0, "No merchants in the test fixtures"
@@ -22,76 +88,76 @@ describe MerchantsController do
     end
   end
 
-  describe "create" do
-    it "creates a merchant with valid data" do
-      merchant_data = {
-        merchant: {
-          username: "test test",
-          email: "test@test.com"
-        }
-      }
-
-      start_count = Merchant.count
-
-      post merchants_path, params: merchant_data
-      must_redirect_to merchant_path(Merchant.last)
-
-      Merchant.count.must_equal start_count + 1
-    end
-
-    it "renders bad_request and does not update the DB for invalid merchant data" do
-      invalid_merchant_data = {
-        merchant: {
-          username: "",
-          email: ""
-        }
-      }
-
-      start_count = Merchant.count
-
-      post merchants_path, params: invalid_merchant_data
-      must_respond_with :bad_request
-
-      Merchant.count.must_equal start_count
-    end
-
-
-    it "renders 400 bad_request for invalid email entries" do
-      invalid_email = {
-        merchant: {
-          username: "namename",
-          email: "name"
-        }
-      }
-
-      invalid_email_2 = {
-        merchant: {
-          username: "namename",
-          email: "name@"
-        }
-      }
-
-      invalid_email_3 = {
-        merchant: {
-          username: "namename",
-          email: "name@name."
-        }
-      }
-
-      start_count = Merchant.count
-
-      post merchants_path, params: invalid_email
-      must_respond_with :bad_request
-
-      post merchants_path, params: invalid_email_2
-      must_respond_with :bad_request
-
-      post merchants_path, params: invalid_email_3
-      must_respond_with :bad_request
-
-      Merchant.count.must_equal start_count
-    end
-  end
+  # describe "create" do
+  #   it "creates a merchant with valid data" do
+  #     merchant_data = {
+  #       merchant: {
+  #         username: "test test",
+  #         email: "test@test.com"
+  #       }
+  #     }
+  #
+  #     start_count = Merchant.count
+  #
+  #     post merchants_path, params: merchant_data
+  #     must_redirect_to merchant_path(Merchant.last)
+  #
+  #     Merchant.count.must_equal start_count + 1
+  #   end
+  #
+  #   it "renders bad_request and does not update the DB for invalid merchant data" do
+  #     invalid_merchant_data = {
+  #       merchant: {
+  #         username: "",
+  #         email: ""
+  #       }
+  #     }
+  #
+  #     start_count = Merchant.count
+  #
+  #     post merchants_path, params: invalid_merchant_data
+  #     must_respond_with :bad_request
+  #
+  #     Merchant.count.must_equal start_count
+  #   end
+  #
+  #
+  #   it "renders 400 bad_request for invalid email entries" do
+  #     invalid_email = {
+  #       merchant: {
+  #         username: "namename",
+  #         email: "name"
+  #       }
+  #     }
+  #
+  #     invalid_email_2 = {
+  #       merchant: {
+  #         username: "namename",
+  #         email: "name@"
+  #       }
+  #     }
+  #
+  #     invalid_email_3 = {
+  #       merchant: {
+  #         username: "namename",
+  #         email: "name@name."
+  #       }
+  #     }
+  #
+  #     start_count = Merchant.count
+  #
+  #     post merchants_path, params: invalid_email
+  #     must_respond_with :bad_request
+  #
+  #     post merchants_path, params: invalid_email_2
+  #     must_respond_with :bad_request
+  #
+  #     post merchants_path, params: invalid_email_3
+  #     must_respond_with :bad_request
+  #
+  #     Merchant.count.must_equal start_count
+  #   end
+  # end
 
   describe "show" do
     it "succeeds for an extant merchant ID" do

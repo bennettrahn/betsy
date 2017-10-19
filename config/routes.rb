@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   resources :merchants
   post '/order_products', to: 'order_products#create', as: 'create_order_product'
 
-  get "/auth/:provider/callback", to: "merchants#create"
+  get "/auth/:provider/callback", to: "merchants#create", as: 'auth_callback'
   get '/logout', to: 'merchants#logout', as: 'logout'
 end
