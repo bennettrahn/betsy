@@ -18,3 +18,11 @@ tricycle:
   inventory: 2
   photo_url: www.fillmurray.com
   price: 2.40
+
+tripod:
+  name: tripod
+  description: "Good for cameras"
+  merchant: lauren
+  inventory: 4
+  photo_url: www.fillmurray.com
+  price: 12.56
