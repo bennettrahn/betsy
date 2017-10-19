@@ -9,15 +9,12 @@ class ReviewsController < ApplicationController
     @review = Review.new(
     review_params
     )
-    if @review.save
+    if save_and_flash(@review, edit: "saved", save: @review.save )
       redirect_to product_path(review_params[:product_id])
+      return
     else
       render :new, status: :bad_request
     end
-  end
-
-  def show
-    @review = Review.find_by[id: params[:id]]
   end
 end
 
