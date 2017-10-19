@@ -4,8 +4,8 @@ describe OrderProductsController do
   describe "create" do
     it "creates an OrderProduct with a product and an order" do
       product_params = {
-        params: {
-          product_id: products(:tricycle)
+        order_product: {
+          product_id: products(:tricycle).id
         }
       }
 
