@@ -1,5 +1,26 @@
 class OrderProductsController < ApplicationController
   def create
+    assign_order
+    @product = Product.find_by(id: params[:product_id])
+
+    quantity = params[:quantity].to_i
+
+    if @product.check_inventory(quantity)
+      @order_product = OrderProduct.new(quantity: quantity, product_id: params[:product_id], order_id: @order)
+      if save_and_flash(@order_product, edit:"created")
+        redirect_to order_path(@order)
+      else
+        render "products/show", status: :bad_request
+      end
+    else
+      flash[:status] = :failure
+      flash[:message] = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
+      render "products/show", status: :bad_request
+    end
+  end
+
+private
+  def assign_order
     if session[:cart]
       @order = session[:cart]
     else
@@ -7,17 +28,6 @@ class OrderProductsController < ApplicationController
       @order = order.id
       session[:cart] = order.id
     end
-    @product = Product.find_by(id: params[:product_id])
-    @order_product = OrderProduct.new(quantity: params[:quantity], product_id: params[:product_id], order_id: @order)
-    if save_and_flash(@order_product, edit:"created")
-      #I don't think these flash messages are what we want, but I can't test it, so its staying like this for awhile
-      @product.decrease_inventory(params[:quantity])
-
-      redirect_to order_path(@order)
-    else
-      render "products/show", status: :bad_request
-    end
-    # redirect_to orders_path
   end
 
 end

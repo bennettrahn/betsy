@@ -9,6 +9,16 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+
+
+  def check_inventory(quantity)
+    if self.inventory >= quantity
+      return true
+    end
+    return false
+  end
+
+
   def decrease_inventory(quantity)
     self.inventory -= quantity
   end

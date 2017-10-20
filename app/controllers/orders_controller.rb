@@ -22,6 +22,8 @@ class OrdersController < ApplicationController
 
   def edit
     # edit is actually more like check_out
+    # @product.decrease_inventory(params[:quantity].to_i)
+    #when they check_out, test 
   end
 
   def show
