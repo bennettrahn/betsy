@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_order_by_params_id, only: [:show, :edit, :update, :destroy]
+  before_action :find_order_by_params_id, only: [:show, :edit, :update, :destroy, :checkout]
 
   def index
     @orders = Order.all
@@ -22,6 +22,8 @@ class OrdersController < ApplicationController
 
   def edit
     # edit is actually more like check_out
+    # @product.decrease_inventory(params[:quantity].to_i)
+    #when they check_out, test
   end
 
   def show
@@ -29,16 +31,23 @@ class OrdersController < ApplicationController
 
   def update
     @order.update_attributes(order_params)
-    if save_and_flash(@order, edit:"updated")
+    if save_and_flash(@order, edit:"submitted")
+      @order.status = "paid"
+      session[:cart] = nil
       redirect_to(order_path(@order))
+      # at some point this should be a reciept page of some kind
     else
-      render :edit, status: :bad_request
+      render :checkout, status: :bad_request
     end
   end
 
   def destroy
     save_and_flash(@order, edit: "destroyed", save: @order.destroy)
     redirect_to orders_path
+  end
+
+  def checkout
+
   end
 
   private

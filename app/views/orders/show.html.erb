@@ -6,6 +6,7 @@
       <th>Product</th>
       <th>Quantity</th>
       <th>Cost</th>
+      <th>Edit</th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +15,7 @@
         <td><%= link_to op.product.name, product_path(op.product) %></td>
         <td><%= op.quantity %></td>
         <td><%= op.product.price %></td>
+        <td><%= link_to "Edit Quantity", edit_order_product_path(product_id: op.product_id), class:'button' %></td>
       </tr>
     <% end %>
   </tbody>

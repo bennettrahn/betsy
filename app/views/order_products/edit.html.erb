@@ -1,0 +1,14 @@
+<ul>
+  <%= form_for @op do |f| %>
+    <li>
+      <%= f.label :quantity%>
+      <%= f.text_field :quantity%>
+    </li>
+    <li>
+      <%= f.hidden_field :product_id, value: params[:product_id] %>
+    </li>
+    <li>
+      <%= f.submit "Update", class:'button' %>
+    </li>
+  <% end %>
+</ul>

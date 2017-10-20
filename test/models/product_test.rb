@@ -50,6 +50,36 @@ describe Product do
     end
   end
 
+  describe "decrease_inventory" do
+    let(:tricycle) { products(:tricycle) }
+    it "decreases the inventory by the given quantity" do
+      start = tricycle.inventory
+
+      tricycle.decrease_inventory(1)
+
+      tricycle.inventory.must_equal start - 1
+    end
+  end
+
+  describe "decrease_inventory" do
+    let(:tripod) { products(:tripod) }
+    it "decreases the inventory by the given quantity" do
+      max = tripod.inventory
+
+      tripod.check_inventory(max).must_equal true
+
+      tripod.check_inventory(max - 1).must_equal true
+
+      tripod.check_inventory(max + 1).must_equal false
+    end
+
+    it "returns false if the inventory is 0" do
+      tripod.inventory = 0
+
+      tripod.check_inventory(1).must_equal false
+    end
+    #since quantity has been validated to be always more than 0, do I still need to check other edge cases?
+
   describe "#average_rating" do
     it "returns an Integer that is the average of all ratings" do
       #arrange
