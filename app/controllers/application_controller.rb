@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def must_be_merchant_of_product
     if session[:merchant_id] != @product.merchant_id
-      lash[:status] = :failure
+      flash[:status] = :failure
       flash[:message] = "You must be the owner of this product to do that!"
       redirect_to products_path
     end
