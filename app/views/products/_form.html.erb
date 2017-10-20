@@ -1,21 +1,21 @@
-
 <%= form_for @product do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= f.label :name %>
+<%= f.text_field :name %>
 
-  <!-- <%=  check_box_tag "tag_ids[]", 1, true %> -->
+<%= f.label :category %>
+<%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
 
-  <%= f.label :description %>
-  <%= f.text_area :description %>
+<%= f.label :description %>
+<%= f.text_area :description %>
 
-  <%= f.label :price %>
-  <%= f.text_field :price %>
+<%= f.label :price %>
+<%= f.text_field :price %>
 
-  <%= f.label :inventory %>
-  <%= f.text_field :inventory %>
+<%= f.label :inventory %>
+<%= f.text_field :inventory %>
 
-  <%= f.label :photo_url %>
-  <%= f.text_field :photo_url %>
+<%= f.label :photo_url %>
+<%= f.text_field :photo_url %>
 
-  <input type="submit" class="button"<%= f.submit %>
-  <% end %>
+<input type="submit" class="button"<%= f.submit %>
+<% end %>
