@@ -1,22 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "3Bae" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "3Bae" %></title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-  </head>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
 
-  <body>
-    <header>
-      <%= link_to "Home", products_path %>
-    </header>
+<body>
+  <header>
+    <%= link_to "Home", root_path %>
+  </header>
 
-    <%= yield %>
+  <header class="page-header row">
+    <h2 class="columns small-12">
+      <%= link_to "3Bae", root_path %>
+      <small>Good Things Happen in Threes</small>
+    </h2>
 
-  </body>
+    <nav class="columns small-12">
+      <%= link_to "View all products", products_path, class: "button" %>
+      <% unless session[:merchant_id] == nil %>
+      <%= link_to "View all merchants", merchants_path, class: "button" %>
+      <% end %>
+      <div class="float-right">
+        <%= link_to "My Cart", products_path, class: "button" %>
+        <% if session[:merchant_id] %>
+        <%= link_to "Log out", logout_path, class: "button" %>
+        <% else %>
+        <%= link_to "Log in", '/auth/github', class: "button" %>
+        <% end %>
+      </div>
+    </nav>
+  </header>
+
+  <% if flash[:message] %>
+  <section class="row status <%= flash[:status] %>">
+    <%= flash[:message] %>
+  </section>
+  <% end %>
+
+  <% if flash[:result_text] or flash[:messages] %>
+  <section class="row status <%= flash[:status] %>">
+    <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:result_text] %></h3>
+    <% if flash[:messages] %>
+    <ul>
+      <% flash[:messages].each do |name, problems| %>
+      <% problems.each do |problem| %>
+      <li><%= name %>: <%= problem %></li>
+      <% end %>
+      <% end %>
+    </ul>
+    <% end %>
+  </section>
+  <% end %>
+
+  <%= yield %>
+
+</body>
 </html>

@@ -2,7 +2,7 @@
 <%= form_for @review do |f| %>
 
 <%= f.label :rating, "Rating 1-5" %>
-<%= f.number_field :rating %>
+<%= f.select :rating, [1,2,3,4,5] %>
 
 <%= f.label :text, "Write a review!" %>
 <%= f.text_area :text %>

@@ -1,13 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 anders:
+  provider: github
+  uid: 12345
   username: anders
   email: anders@tricycle.com
 
 lauren:
+  provider: github
+  uid: 67896789
   username: lauren
   email: lauren@tricycle.com
 
 bennett:
+  provider: github
+  uid: 123123123
   username: bennett
   email: bennett@tricycle.com

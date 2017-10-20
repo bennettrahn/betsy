@@ -1,7 +1,8 @@
 class MerchantsController < ApplicationController
 
-before_action :find_id_by_params, except: [:index, :new, :create]
-
+  before_action :find_id_by_params, except: [:index, :new, :create, :logout]
+  before_action :must_be_logged_in, only: [:index]
+  
   def index
     @merchants = Merchant.all
   end
@@ -11,19 +12,33 @@ before_action :find_id_by_params, except: [:index, :new, :create]
   end
 
   def create
-    @merchant = Merchant.new(merchant_params)
-    # @merchant.user_id = session[:user_id]
-    if @merchant.save
-      # @merchant = session[:user_id]
-      flash[:status] = :success
-      flash[:result_text] = "Successfully created: #{@merchant.username}"
-      redirect_to merchant_path(@merchant.id)
+    auth_hash = request.env['omniauth.auth']
+
+    if auth_hash['uid']
+      merchant = Merchant.find_by(provider: params[:provider], uid: auth_hash[:uid])
+      if merchant.nil? #merchant hasn't logged in before
+        merchant = Merchant.from_auth_hash(params[:provider], auth_hash)
+        save_and_flash(merchant)
+      else #merchant has logged in before
+        flash[:status] = :success
+        flash[:message] = "Successfully logged in as returning merchant #{merchant.name}"
+      end
+
+      session[:merchant_id] = merchant.id
+
     else
       flash[:status] = :failure
-      flash[:result_text] = "Could not create new merchant"
-      flash[:messages] = @merchant.errors.messages
-      render :new, status: :bad_request
+      flash[:message] = "Could not create merchant from OAuth data"
     end
+
+    redirect_to products_path
+  end
+
+  def logout
+    session[:merchant_id] = nil
+    flash[:status] = :success
+    flash[:message] = "You have been logged out"
+    redirect_to products_path
   end
 
   def show
@@ -34,36 +49,36 @@ before_action :find_id_by_params, except: [:index, :new, :create]
   end
 
   def update
-    # if @merchant.user_id != session[:user_id]
+    # if @merchant.id != session[:merchant_id]
     #   flash[:status] = :failure
     #   flash[:result_text] = "Only the merchant has permission to do this"
     #   redirect_to root_path
     # else
-      @merchant.update_attributes(merchant_params)
-      if @merchant.save
-        flash[:status] = :success
-        flash[:result_text] = "Successfully updated"
-        redirect_to merchant_path(@merchant)
-      else
-        flash.now[:status] = :failure
-        flash.now[:result_text] = "Could not update"
-        flash.now[:messages] = @merchant.errors.messages
-        render :edit, status: :not_found
-      end
+    @merchant.update_attributes(merchant_params)
+    if @merchant.save
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated"
+      redirect_to merchant_path(@merchant)
+    else
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not update"
+      flash.now[:messages] = @merchant.errors.messages
+      render :edit, status: :not_found
     end
+  end
 
-    def destroy
-    # if @merchant.user_id != session[:user_id]
+  def destroy
+    # if @merchant.id != session[:merchant_id]
     #   flash[:status] = :failure
     #   flash[:result_text] = "Only the merchant has permission to delete"
     #   redirect_to root_path
     # else
-      @merchant.destroy
-      flash[:status] = :success
-      flash[:result_text] = "Successfully deleted"
-      # redirect_to root_path
-      redirect_to merchants_path
-    end
+    @merchant.destroy
+    flash[:status] = :success
+    flash[:result_text] = "Successfully deleted"
+    # redirect_to root_path
+    redirect_to merchants_path
+  end
 
   private
 
@@ -77,4 +92,5 @@ before_action :find_id_by_params, except: [:index, :new, :create]
       head :not_found
     end
   end
+
 end
