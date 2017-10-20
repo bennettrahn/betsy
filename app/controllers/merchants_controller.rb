@@ -36,6 +36,7 @@ class MerchantsController < ApplicationController
 
   def logout
     session[:merchant_id] = nil
+    session[:cart] = nil
     flash[:status] = :success
     flash[:message] = "You have been logged out"
     redirect_to products_path

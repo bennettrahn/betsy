@@ -39,12 +39,12 @@ describe ReviewsController do
       merchant = merchants(:anders)
       login(merchant)
       product =  Product.find_by(merchant: merchant)
-      anders_review = {
-        review: {
-          rating: 1,
-          product_id: product.id
-        }
-      }
+      # anders_review = {
+      #   review: {
+      #     rating: 1,
+      #     product_id: product.id
+      #   }
+      # }
       # Review.new(anders_review[:review]).wont_be :valid?
 
       start_review_count = Review.count
