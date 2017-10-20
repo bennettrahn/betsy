@@ -1,11 +1,31 @@
 <h2><%= @merchant.username %>'s Page</h2>
 
 <%= link_to "Back to Merchants List", merchants_path, class: "button" %>
-<%= link_to "Edit", edit_merchant_path(@merchant.id), class: "button" %>
-<%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
+<% if @merchant.id == session[:merchant_id] %>
+  <%= link_to "Edit", edit_merchant_path(@merchant.id), class: "button" %>
+  <%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
+<% end %>
 
 <% @merchant.products.each do |product| %>
 <p><%= link_to product.name, product_path(product.id) %></p>
+<% end %>
+
+<% if @merchant.id == session[:merchant_id] %>
+<ul>
+  <% @orders.each do |order| %>
+  <li>
+    <h4><strong><%= link_to "#{order[:order].id}", order_path(order[:order]) %></strong> - status: <%= order[:order].status %></h4>
+
+    <ul>
+      <% order[:products].each do |product| %>
+      <li>
+        <%= product.name %>
+      </li>
+      <% end %>
+    </ul>
+  </li>
+  <% end %>
+</ul>
 <% end %>
 
 <%# TODO %>
