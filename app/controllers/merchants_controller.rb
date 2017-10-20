@@ -2,7 +2,7 @@ class MerchantsController < ApplicationController
 
   before_action :find_id_by_params, except: [:index, :new, :create, :logout]
   before_action :must_be_logged_in, only: [:index]
-  
+
   def index
     @merchants = Merchant.all
   end
