@@ -100,6 +100,7 @@ describe ProductsController do
           product: {
             name: "book",
             price: 4.32,
+            category_ids: Category.first.id
           }
         }
         product.update_attributes(product_data[:product])
@@ -184,7 +185,7 @@ describe ProductsController do
 #       must_redirect_to products_path
 #       Product.find_by(id: product.id).must_be_nil
 #       # product_count.must_equal Product.count + 1
-    
+
     describe "destroy" do
       it "will set flash[:status] to failure and redirect to products_path" do
         delete product_path(Product.first)

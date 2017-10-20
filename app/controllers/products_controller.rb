@@ -19,13 +19,12 @@ class ProductsController < ApplicationController
     product_params
     )
     @product.merchant_id = session[:merchant_id]
-
-    if save_and_flash(@product, edit: "created", save: @product.save )
-      redirect_to products_path
-      return
-    else
-      render :edit, status: :bad_request
-    end
+      if save_and_flash(@product, edit: "created", save: @product.save )
+        redirect_to products_path
+        return
+      else
+        render :edit, status: :bad_request
+      end
   end
 
   def edit ; end

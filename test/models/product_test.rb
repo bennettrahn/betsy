@@ -20,6 +20,7 @@ describe Product do
   describe 'validations' do
     it 'is valid' do
       b = Product.new(name: "book", price: 2,   merchant_id: Product.first.merchant_id)
+      b.category_ids = Category.first.id
       b.must_be :valid?
     end
 
@@ -81,7 +82,7 @@ describe Product do
     #since quantity has been validated to be always more than 0, do I still need to check other edge cases?
 
   end
-  
+
   describe "#average_rating" do
     it "returns an Integer that is the average of all ratings" do
       #arrange
