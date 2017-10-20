@@ -15,7 +15,14 @@
         <td><%= link_to op.product.name, product_path(op.product) %></td>
         <td><%= op.quantity %></td>
         <td><%= op.product.price %></td>
-        <td><%= link_to "Edit Quantity", edit_order_product_path(product_id: op.product_id), class:'button' %></td>
+        <td>
+          <%= form_tag order_product_path(product_id: op.product_id), method: :patch do %>
+
+          <%= text_field_tag "quantity" %>
+
+          <%= submit_tag "Update Quantity", class: "button" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

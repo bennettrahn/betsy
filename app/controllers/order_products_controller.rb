@@ -1,25 +1,24 @@
 class OrderProductsController < ApplicationController
-  before_action :find_op_by_params_id, only: [:edit, :update]
-  def edit
-
-  end
-
+  # before_action :find_op_by_params_id, only: [:edit, :update]
   def update
-    @op.update_attributes(order_params)
+    @op = OrderProduct.find_by(id: params[:id])
 
     @product = Product.find_by(id: params[:product_id])
     quantity = params[:quantity].to_i
+    @op.quantity = quantity
 
     if @product.check_inventory(quantity)
-      if save_and_flash(@order, edit:"updated")
-        redirect_to(order_path(@order))
-      else
-        render :edit, status: :bad_request
-      end
+      @op.save
+      # if save_and_flash(@op, edit:"updated")
+      #   # redirect_to(order_path(@op.order))
+        redirect_to root_path
+      # else
+      #   render :edit, status: :bad_request
+      # end
     else
       flash.now[:status] = :failure
       flash.now[:message] = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
-      render "products/show", status: :bad_request
+      render "orders/show", status: :bad_request
     end
   end
 
@@ -54,9 +53,9 @@ private
     end
   end
 
-  def order_params
-    return params.require(:order_product).permit(:quantity, :product_id)
-  end
+  # def order_params
+  #   return params.require(:order_product).permit(:quantity, :product_id)
+  # end
 
   def find_op_by_params_id
     @op = OrderProduct.find_by(id: params[:id])
