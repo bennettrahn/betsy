@@ -50,4 +50,36 @@ describe Product do
     end
   end
 
+  describe "#average_rating" do
+    it "returns an Integer that is the average of all ratings" do
+      #arrange
+
+      product = Product.first
+
+      review = Review.create!(rating: 5, product_id: product.id)
+      review_2 = Review.create!(rating: 3, product_id: product.id)
+      review_3 = Review.create!(rating: 1, product_id: product.id)
+
+      all_reviews_product_1 = [review, review_2, review_3]
+      sum_rating = 0
+      review_count = 0
+      all_reviews_product_1.each do |review|
+        sum_rating += review.rating
+        review_count += 1
+      end
+
+      ave_rating = sum_rating / review_count
+
+      #act
+      #assert
+      product.average_rating.must_equal ave_rating
+    end
+
+    it "returns 0 if no reviews" do
+      product = Product.first
+
+      product.average_rating.must_equal 0
+    end
+  end
+
 end

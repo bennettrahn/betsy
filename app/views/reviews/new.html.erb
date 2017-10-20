@@ -1,8 +1,17 @@
 <h1> Write a new Review: </h1>
 <%= form_for @review do |f| %>
 
-<%= f.label :rating, "Rating 1-5" %>
-<%= f.select :rating, [1,2,3,4,5] %>
+<% rating_array = [] %>
+    <% (1..5).each do |rating|
+        stars = render partial: "/layouts/stars", locals: {rating: rating}
+        rating_array << [stars, rating]
+      end %>
+
+    <%= f.select :rating, rating_array, {include_blank: 'Select a rating'}, :selected => rating_array[:rating.to_s.to_i - 1] %>
+  </div>
+
+<%# f.label :rating, "Rating 1-5" %>
+<%# f.select :rating, [1,2,3,4,5] %>
 
 <%= f.label :text, "Write a review!" %>
 <%= f.text_area :text %>
