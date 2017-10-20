@@ -31,19 +31,12 @@ describe MerchantsController do
     end
 
     it "creates an account for a new merchant and redirects to the products route" do
-      # Merchant.destroy_all
       start_count = Merchant.count
 
-      # merchant = merchants(:anders)
+      merchant = Merchant.new(provider: "github", uid: 123124564, username: "test_merchant", email: "test@merchant.com", name: "trio")
 
-       merchant = Merchant.new(provider: "github", uid: 123124564, username: "test_merchant", email: "test@merchant.com", name: "trio")
-
-       puts "merchant: provider: #{merchant.provider}, uid: #{merchant.uid}"
 
       login(merchant)
-
-      puts "merchant: provider: #{merchant.provider}, uid: #{merchant.uid}"
-
 
       must_redirect_to products_path
       flash[:status].must_equal :success
@@ -67,14 +60,29 @@ describe MerchantsController do
     end
   end
 
+  describe "logout" do
+    it "succeeds, redirects to products_path, sets flash[:status] to success and session[:merchant_id] to nil" do
+      get logout_path
+      must_respond_with :redirect
+      must_redirect_to products_path
+      flash[:status].must_equal :success
+      session[:merchant_id].must_equal nil
+    end
+  end
+
   describe "index" do
     it "succeeds when there are merchants" do
+      merchant = merchants(:anders)
+      login(merchant)
+
       Merchant.count.must_be :>, 0, "No merchants in the test fixtures"
       get merchants_path
       must_respond_with :success
     end
 
     it "succeeds when there are no merchants" do
+      merchant = merchants(:anders)
+      login(merchant)
       Merchant.destroy_all
       get merchants_path
       must_respond_with :success

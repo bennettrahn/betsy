@@ -32,6 +32,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def must_be_merchant_of_product
+    if session[:merchant_id] != @product.merchant_id
+      flash[:status] = :failure
+      flash[:message] = "You must be the owner of this product to do that!"
+      redirect_to products_path
+    end
+  end
+
   def save_and_flash(model, edit: "", save: model.save)
     result = save
     if result
