@@ -37,8 +37,8 @@ class OrderProductsController < ApplicationController
         render "products/show", status: :bad_request
       end
     else
-      flash[:status].now = :failure
-      flash[:message].now = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
+      flash.now[:status] = :failure
+      flash.now[:message] = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
       render "products/show", status: :bad_request
     end
   end
