@@ -41,6 +41,7 @@ describe ProductsController do
         get new_product_path
         must_respond_with :success
       end
+       # need to write test for when new is not allowed (not merchant_id)
     end
 
     describe "create" do
@@ -172,6 +173,18 @@ describe ProductsController do
       end
     end
 
+#       describe "destroy" do
+#     it "success when product is deleted" do
+#       merchant = merchants(:anders)
+#       login(merchant)
+#       product = Product.first
+#       # product_count = Product.count
+#       delete product_path(product)
+#       must_respond_with :redirect
+#       must_redirect_to products_path
+#       Product.find_by(id: product.id).must_be_nil
+#       # product_count.must_equal Product.count + 1
+    
     describe "destroy" do
       it "will set flash[:status] to failure and redirect to products_path" do
         delete product_path(Product.first)

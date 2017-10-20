@@ -32,7 +32,9 @@ describe MerchantsController do
 
     it "creates an account for a new merchant and redirects to the products route" do
       start_count = Merchant.count
+
       merchant = Merchant.new(provider: "github", uid: 123124564, username: "test_merchant", email: "test@merchant.com", name: "trio")
+
 
       login(merchant)
 
@@ -70,12 +72,17 @@ describe MerchantsController do
 
   describe "index" do
     it "succeeds when there are merchants" do
+      merchant = merchants(:anders)
+      login(merchant)
+
       Merchant.count.must_be :>, 0, "No merchants in the test fixtures"
       get merchants_path
       must_respond_with :success
     end
 
     it "succeeds when there are no merchants" do
+      merchant = merchants(:anders)
+      login(merchant)
       Merchant.destroy_all
       get merchants_path
       must_respond_with :success
