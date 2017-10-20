@@ -28,7 +28,7 @@
       <%= link_to "View all merchants", merchants_path, class: "button" %>
       <% end %>
       <div class="float-right">
-        <%= link_to products_path do %>
+        <%= link_to session[:cart] ? order_path(session[:cart]) : products_path do %>
         <%= image_tag 'cart.png', size: "40x40" %>
         <% end %>
         <!-- <a href="/products"><img src="/images/cart.png" alt="cart"></a> -->
