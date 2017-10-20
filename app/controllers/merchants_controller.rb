@@ -33,22 +33,6 @@ before_action :find_id_by_params, except: [:index, :new, :create, :logout]
     redirect_to products_path
   end
 
-  # def create
-  #   @merchant = Merchant.new(merchant_params)
-  #   # @merchant.id = session[:merchant_id]
-  #   if @merchant.save
-  #     # @merchant = session[:merchant_id]
-  #     flash[:status] = :success
-  #     flash[:result_text] = "Successfully created: #{@merchant.username}"
-  #     redirect_to merchant_path(@merchant.id)
-  #   else
-  #     flash[:status] = :failure
-  #     flash[:result_text] = "Could not create new merchant"
-  #     flash[:messages] = @merchant.errors.messages
-  #     render :new, status: :bad_request
-  #   end
-  # end
-
   def logout
     session[:merchant_id] = nil
     flash[:status] = :success
