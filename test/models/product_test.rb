@@ -80,6 +80,8 @@ describe Product do
     end
     #since quantity has been validated to be always more than 0, do I still need to check other edge cases?
 
+  end
+  
   describe "#average_rating" do
     it "returns an Integer that is the average of all ratings" do
       #arrange
