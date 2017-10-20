@@ -27,6 +27,7 @@
       <% unless session[:merchant_id] == nil %>
       <%= link_to "View all merchants", merchants_path, class: "button" %>
       <% end %>
+      <%= link_to "Create new category", new_category_path, class: "button "%>
       <div class="float-right">
         <%= link_to session[:cart] ? order_path(session[:cart]) : products_path do %>
         <%= image_tag 'cart.png', size: "40x40" %>
