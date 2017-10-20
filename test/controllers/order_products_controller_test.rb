@@ -9,12 +9,14 @@ describe OrderProductsController do
       }
       orders_start = Order.count
       start_count = OrderProduct.count
+      inventory = products(:tricycle).inventory
 
       post create_order_product_path, params: product_params
       must_redirect_to order_path(session[:cart])
 
       OrderProduct.count.must_equal start_count + 1
       Order.count.must_equal orders_start + 1
+      products(:tricycle).inventory.must_equal inventory - 1
     end
 
     it "creates an OrderProduct with a product and an order, adds to existin cart if it has already been initiated" do

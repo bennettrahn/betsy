@@ -9,4 +9,7 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  def decrease_inventory(quantity)
+    self.inventory -= quantity
+  end
 end
