@@ -1,8 +1,60 @@
 require "test_helper"
 
 describe MerchantsController do
+  describe "for logged in user" do
+    before do
+      @merchant = merchants(:anders)
+      login(@merchant)
+    end
+    describe "index" do
+      it "succeeds when there are merchants" do
+        Merchant.count.must_be :>, 0, "No merchants in the test fixtures"
+        get merchants_path
+        must_respond_with :success
+      end
 
-  describe "auth_callback" do
+      it "succeeds when there are no merchants" do
+        Merchant.destroy_all
+        get merchants_path
+        must_respond_with :success
+      end
+    end
+
+    describe "show" do
+      it "succeeds for a logged in merchant's own page" do
+        get merchant_path(@merchant)
+        must_respond_with :success
+      end
+
+      it "only shows merchant their own page" do
+        get merchant_path(merchants(:lauren))
+        must_redirect_to merchant_path(@merchant)
+        flash[:message].must_equal "You can only see your own details"
+      end
+
+      it "renders 404 not_found for a invalid merchant ID" do
+        invalid_merchant_id = Merchant.last.id + 1
+        get merchant_path(invalid_merchant_id)
+        must_respond_with :not_found
+      end
+    end
+  end
+
+  describe "non logged in user" do
+    it "show fails for a non-logged in user" do
+      get merchant_path(merchants(:anders))
+      must_redirect_to products_path
+      flash[:message].must_equal "You must be logged in to do that!"
+    end
+
+    it "index fails for a non-logged in user" do
+      get merchants_path
+      must_redirect_to products_path
+      flash[:message].must_equal "You must be logged in to do that!"
+    end
+  end
+
+  describe "create and login with auth_callback" do
     it "logs in an existing user and redirects to the products route" do
       # Count the merchants, to make sure we're not (for example) creating
       # a new merchant every time we get a login request
@@ -61,33 +113,17 @@ describe MerchantsController do
   end
 
   describe "logout" do
-    it "succeeds, redirects to products_path, sets flash[:status] to success and session[:merchant_id] to nil" do
+    it "succeeds, redirects to products_path, sets flash[:status] to success and session[:merchant_id], [:cart] to nil" do
       get logout_path
       must_respond_with :redirect
       must_redirect_to products_path
       flash[:status].must_equal :success
       session[:merchant_id].must_equal nil
+      session[:cart].must_equal nil
     end
   end
 
-  describe "index" do
-    it "succeeds when there are merchants" do
-      merchant = merchants(:anders)
-      login(merchant)
 
-      Merchant.count.must_be :>, 0, "No merchants in the test fixtures"
-      get merchants_path
-      must_respond_with :success
-    end
-
-    it "succeeds when there are no merchants" do
-      merchant = merchants(:anders)
-      login(merchant)
-      Merchant.destroy_all
-      get merchants_path
-      must_respond_with :success
-    end
-  end
 
   describe "new" do
     it "works" do
@@ -166,19 +202,6 @@ describe MerchantsController do
   #     Merchant.count.must_equal start_count
   #   end
   # end
-
-  describe "show" do
-    it "succeeds for an extant merchant ID" do
-      get merchant_path(Merchant.first)
-      must_respond_with :success
-    end
-
-    it "renders 404 not_found for a invalid merchant ID" do
-      invalid_merchant_id = Merchant.last.id + 1
-      get merchant_path(invalid_merchant_id)
-      must_respond_with :not_found
-    end
-  end
 
   describe "edit" do
     it "succeeds for an extant merchant ID" do
