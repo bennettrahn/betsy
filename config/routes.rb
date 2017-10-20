@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews, only: [:new]
   end
-  resources :reviews, only: [:create]
+  resources :reviews, only: [:new, :create]
   resources :merchants
 
   resources :order_products, only: [:edit, :update]

@@ -12,8 +12,6 @@ describe ReviewsController do
   end
 
   describe "create" do
-    #  BOTH create tests need :product_id! HOW DO WE PASS IN?
-
     it "saves and redirects to product show page when the review data is valid" do
      product =  Product.first
      review_data = {
@@ -23,6 +21,7 @@ describe ReviewsController do
          product_id: product.id
        }
      }
+     puts review_data[:review][:product_id]
      product.reviews.new(review_data[:review]).must_be :valid?
      start_review_count = Review.count
 
@@ -35,25 +34,25 @@ describe ReviewsController do
 
 
     # it "renders a bad_request when the review data is invalid" do
-      # don't know how to simulate an invalid review now that the 1-5 rating is a dropdown and there is no way the data could be bad anymore...
+      # what if the star is left blank...
       it "doesn't allow a merchant to review their own product" do
-      # Except for if the user trying to review it is the merchant of the product.
-      # merchant = merchants(:anders)
-      # login(merchant)
-      # product =  Product.first
-      # anders_review = {
-      #   review: {
-      #     rating: 1,
-      #     product_id: product.id
-      #   }
-      # }
-      # product.reviews.new(anders_review[:review]).wont_be :valid?
-      #
-      # start_review_count = Review.count
-      # post reviews_path, params: anders_review
-      #
-      # must_redirect_to products_path
-      # Review.count.must_equal start_review_count
+      merchant = merchants(:anders)
+      login(merchant)
+      product =  Product.find_by(merchant: merchant)
+      anders_review = {
+        review: {
+          rating: 1,
+          product_id: product.id
+        }
+      }
+      # Review.new(anders_review[:review]).wont_be :valid?
+
+      start_review_count = Review.count
+      get new_product_review_path(product)
+
+      must_redirect_to products_path
+      flash[:message].must_equal "You cannot review your own product!"
+      Review.count.must_equal start_review_count
     end
     # need to write test for when create is not allowed (not merchant_id)
   end
