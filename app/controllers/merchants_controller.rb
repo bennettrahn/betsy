@@ -1,7 +1,7 @@
 class MerchantsController < ApplicationController
 
   before_action :find_id_by_params, except: [:index, :new, :create, :logout]
-  before_action :must_be_logged_in, only: [:index, :show]
+  # before_action :must_be_logged_in, only: [:index, :show]
 
   def index
     @merchants = Merchant.all
@@ -43,12 +43,12 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    if @merchant.id != session[:merchant_id]
-      flash[:status] = :success
-      flash[:message] = "You can only see your own details"
-      redirect_to merchant_path(session[:merchant_id])
-    end
-
+    # if @merchant.id != session[:merchant_id]
+    #   flash[:status] = :success
+    #   flash[:message] = "You can only see your own details"
+    #   redirect_to merchants_path
+    # end
+    @orders = @merchant.relevant_orders
   end
 
   def edit

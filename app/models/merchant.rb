@@ -19,4 +19,20 @@ class Merchant < ApplicationRecord
 
     return merchant
   end
+
+  def relevant_orders
+    relevant_orders = []
+    Order.all.each do |order|
+      relevant_products = order.products.select { |product|
+        product.merchant == self
+      }
+      if relevant_products.length > 0
+        relevant_orders << {
+          order: order,
+          products: relevant_products
+        }
+      end
+    end
+    return relevant_orders
+  end
 end
