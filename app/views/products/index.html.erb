@@ -1,21 +1,25 @@
 <h1>All Products</h1>
 
-
 <h2>Categories:</h2>
-<% Category.all.each do |category| %>
-  <%= category.name %>
-
-<%= category.product_ids %>
-<% category.product_ids.each do |prod| %>
-<div class="product" >
-  <p>Name: <%= link_to prod.name, product_path(prod.id) %></p>
-  <p>Price: $<%= '%.2f' % prod.price %></p>
-  <p>Description: <%= prod.description %></p>
-  <p class="image"><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
-
-  <br>
-</div>
-<% end %>
-<% end %>
+  <% Category.all.each do |category| %>
+    <h4><%= category.name %></h4>
+    <% category.products.each do |prod| %>
+      <div class="product" >
+        <p>Name:
+          <%= link_to prod.name, product_path(prod.id) %>
+        </p>
+        <p>Price: $
+          <%= '%.2f' % prod.price %>
+        </p>
+        <p>Description:
+          <%= prod.description %>
+        </p>
+        <p class="image">
+          <%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%>
+        </p>
+        <br>
+      </div>
+    <% end %>
+  <% end %>
 
 <%= link_to "Add a Product", new_product_path, class: "button" %>
