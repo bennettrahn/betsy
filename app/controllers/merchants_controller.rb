@@ -1,7 +1,7 @@
 class MerchantsController < ApplicationController
 
   before_action :find_id_by_params, except: [:index, :new, :create, :logout]
-  before_action :must_be_logged_in, only: [:index]
+  before_action :must_be_logged_in, only: [:index, :show]
 
   def index
     @merchants = Merchant.all
@@ -43,7 +43,12 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find_by(id: params[:id])
+    if @merchant.id != session[:merchant_id]
+      flash[:status] = :success
+      flash[:message] = "You can only see your own details"
+      redirect_to merchant_path(session[:merchant_id])
+    end
+
   end
 
   def edit
@@ -58,12 +63,12 @@ class MerchantsController < ApplicationController
       @merchant.update_attributes(merchant_params)
       if @merchant.save
         flash[:status] = :success
-        flash[:result_text] = "Successfully updated"
+        flash[:message] = "Successfully updated"
         redirect_to merchant_path(@merchant)
       else
         flash.now[:status] = :failure
-        flash.now[:result_text] = "Could not update"
-        flash.now[:messages] = @merchant.errors.messages
+        flash.now[:message] = "Could not update"
+        flash.now[:details] = @merchant.errors.messages
         render :edit, status: :not_found
       end
     end
@@ -76,7 +81,7 @@ class MerchantsController < ApplicationController
     # else
       @merchant.destroy
       flash[:status] = :success
-      flash[:result_text] = "Successfully deleted"
+      flash[:message] = "Successfully deleted"
       # redirect_to root_path
       redirect_to merchants_path
     end
