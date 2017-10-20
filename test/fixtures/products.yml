@@ -16,7 +16,7 @@ tricycle:
   description: "A fun toy!"
   merchant: anders
   inventory: 2
-  photo_url: www.fillmurray.com
+  photo_url: http://www.fillmurray.com/g/200/300
   price: 2.40
 
 tripod:
@@ -24,5 +24,5 @@ tripod:
   description: "Good for cameras"
   merchant: lauren
   inventory: 4
-  photo_url: www.fillmurray.com
+  photo_url: http://www.fillmurray.com/200/300
   price: 12.56

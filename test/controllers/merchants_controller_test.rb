@@ -36,9 +36,9 @@ describe MerchantsController do
 
       # merchant = merchants(:anders)
 
-       merchant = Merchant.new(provider: "github", uid: 123124564, username: "test_merchant", email: "test@merchant.com", name: "trio")
+      merchant = Merchant.new(provider: "github", uid: 123124564, username: "test_merchant", email: "test@merchant.com", name: "trio")
 
-       puts "merchant: provider: #{merchant.provider}, uid: #{merchant.uid}"
+      puts "merchant: provider: #{merchant.provider}, uid: #{merchant.uid}"
 
       login(merchant)
 
@@ -69,12 +69,17 @@ describe MerchantsController do
 
   describe "index" do
     it "succeeds when there are merchants" do
+      merchant = merchants(:anders)
+      login(merchant)
+
       Merchant.count.must_be :>, 0, "No merchants in the test fixtures"
       get merchants_path
       must_respond_with :success
     end
 
     it "succeeds when there are no merchants" do
+      merchant = merchants(:anders)
+      login(merchant)
       Merchant.destroy_all
       get merchants_path
       must_respond_with :success

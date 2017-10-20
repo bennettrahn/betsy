@@ -32,6 +32,8 @@ describe ProductsController do
 
   describe "new" do
     it "creates a new product successfully" do
+      merchant = merchants(:anders)
+      login(merchant)
       get new_product_path
       must_respond_with :success
     end
@@ -163,11 +165,15 @@ describe ProductsController do
 
   describe "destroy" do
     it "success when product is deleted" do
-      product_count = Product.count
-      delete product_path(Product.first)
+      merchant = merchants(:anders)
+      login(merchant)
+      product = Product.first
+      # product_count = Product.count
+      delete product_path(product)
       must_respond_with :redirect
       must_redirect_to products_path
-      product_count.must_equal Product.count + 1
+      Product.find_by(id: product.id).must_be_nil
+      # product_count.must_equal Product.count + 1
     end
 
     # need to write test for when destroy is not allowed (not merchant_id)

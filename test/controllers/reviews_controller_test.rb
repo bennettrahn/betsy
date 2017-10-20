@@ -15,7 +15,7 @@ describe ReviewsController do
     #  BOTH create tests need :product_id! HOW DO WE PASS IN?
 
     it "saves and redirects to product show page when the review data is valid" do
-      product =  Product.first
+     product =  Product.first
      review_data = {
        review: {
          rating: 3,
@@ -34,24 +34,24 @@ describe ReviewsController do
    end
 
 
-    # it "renders a bad_request when the review data is invalid" do
-    #   product =  Product.first
-    #   bad_review = {
-    #     review: {
-    #       rating: "",
-    #       product_id: product.id
-    #       # no rating given!!
-    #     }
-    #   }
-    #   product.reviews.new(bad_review[:review]).wont_be :valid?
-    #
-    #   start_review_count = Review.count
-    #   post reviews_path, params: bad_review
-    #
-    #   must_respond_with :bad_request
-    #
-    #   Review.count.must_equal start_review_count
-    # end
+    it "renders a bad_request when the review data is invalid" do
+      # don't know how to simulate an invalid review now that the 1-5 rating is a dropdown and there is no way the data could be bad anymore...
+
+      # product =  Product.first
+      # bad_review = {
+      #   review: {
+      #     rating: 1,
+      #     product_id: product.id
+      #   }
+      # }
+      # product.reviews.new(bad_review[:review]).wont_be :valid?
+      #
+      # start_review_count = Review.count
+      # post reviews_path, params: bad_review
+      #
+      # must_respond_with :bad_request
+      # Review.count.must_equal start_review_count
+    end
     # need to write test for when create is not allowed (not merchant_id)
   end
 
