@@ -2,7 +2,7 @@ class MerchantsController < ApplicationController
 
   before_action :find_id_by_params, except: [:index, :new, :create, :logout]
   before_action :must_be_logged_in, only: [:index]
-  
+
   def index
     @merchants = Merchant.all
   end
@@ -38,6 +38,7 @@ class MerchantsController < ApplicationController
     session[:merchant_id] = nil
     flash[:status] = :success
     flash[:message] = "You have been logged out"
+    session[:cart] = nil
     redirect_to products_path
   end
 

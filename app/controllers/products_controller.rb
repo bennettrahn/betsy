@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
-  before_action :must_be_logged_in, only: [:show, :new]
+  before_action :must_be_logged_in, only: [:new, :destroy, :edit]
+  before_action :must_be_merchant_of_product, only: [:destroy, :edit]
   def root
   end
   def index
