@@ -20,4 +20,3 @@
 
 # Keep secrets secret
 .env
-/coverage/*
