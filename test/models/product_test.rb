@@ -126,10 +126,6 @@ describe Product do
     end
   end
 
-  describe "check_inventory" do
-    
-  end
-
   describe "decrease_inventory" do
     let(:tricycle) { products(:tricycle) }
     it "decreases the inventory by the given quantity" do
@@ -141,9 +137,9 @@ describe Product do
     end
   end
 
-  describe "decrease_inventory" do
+  describe "check_inventory" do
     let(:tripod) { products(:tripod) }
-    it "decreases the inventory by the given quantity" do
+    it "returns true when there is inventory, and returns false when there isn't" do
       max = tripod.inventory
 
       tripod.check_inventory(max).must_equal true
