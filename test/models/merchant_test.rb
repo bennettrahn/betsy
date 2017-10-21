@@ -10,6 +10,17 @@ describe Merchant do
     it "responds to products" do
       @m.must_respond_to :products
     end
+
+    it "has one or many products" do
+      @m.must_respond_to :products
+      @m.products.must_be :empty?
+
+      product = products(:tricycle)
+
+      @m.products << product
+
+      @m.products.must_include product
+    end
   end
 
   describe "validations" do
