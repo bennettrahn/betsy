@@ -1,7 +1,7 @@
 {
   "MiniTest": {
     "coverage": {
-      "/Users/anders/Dropbox/Ada/betsy/app/helpers/application_helper.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/helpers/application_helper.rb": [
         1,
         1,
         9,
@@ -21,31 +21,31 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/helpers/categories_helper.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/helpers/categories_helper.rb": [
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/helpers/merchants_helper.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/helpers/merchants_helper.rb": [
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/helpers/order_products_helper.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/helpers/order_products_helper.rb": [
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/helpers/orders_helper.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/helpers/orders_helper.rb": [
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/helpers/products_helper.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/helpers/products_helper.rb": [
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/helpers/reviews_helper.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/helpers/reviews_helper.rb": [
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/controllers/categories_controller.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/controllers/categories_controller.rb": [
         1,
         1,
         null,
@@ -75,7 +75,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/controllers/application_controller.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/controllers/application_controller.rb": [
         1,
         1,
         null,
@@ -135,7 +135,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/controllers/merchants_controller.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/controllers/merchants_controller.rb": [
         1,
         null,
         1,
@@ -265,7 +265,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/controllers/order_products_controller.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/controllers/order_products_controller.rb": [
         1,
         null,
         1,
@@ -332,7 +332,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/controllers/orders_controller.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/controllers/orders_controller.rb": [
         1,
         1,
         null,
@@ -397,7 +397,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/controllers/products_controller.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/controllers/products_controller.rb": [
         1,
         1,
         1,
@@ -464,7 +464,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/controllers/reviews_controller.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/controllers/reviews_controller.rb": [
         1,
         null,
         1,
@@ -508,19 +508,19 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/models/category.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/models/category.rb": [
         1,
         1,
         null,
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/models/application_record.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/models/application_record.rb": [
         1,
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/models/merchant.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/models/merchant.rb": [
         1,
         null,
         1,
@@ -559,7 +559,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/models/order_product.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/models/order_product.rb": [
         1,
         1,
         1,
@@ -569,7 +569,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/models/order.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/models/order.rb": [
         1,
         1,
         1,
@@ -584,7 +584,7 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/models/product.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/models/product.rb": [
         1,
         null,
         1,
@@ -629,30 +629,30 @@
         null,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/models/review.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/models/review.rb": [
         1,
         1,
         null,
         1,
         null
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/channels/application_cable/channel.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/channels/application_cable/connection.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/channels/application_cable/connection.rb": [
         0,
         0,
         0,
         0
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/jobs/application_job.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/jobs/application_job.rb": [
         0,
         0
       ],
-      "/Users/anders/Dropbox/Ada/betsy/app/mailers/application_mailer.rb": [
+      "/Users/laurenlee/Documents/ada/Betsy/betsy/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
