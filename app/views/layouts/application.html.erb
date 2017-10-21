@@ -25,18 +25,19 @@
     <nav class="columns small-12">
       <%= link_to "View all products", products_path, class: "button" %>
 
-      <%= link_to "All categories", categories_path, class: "button" %>
 
-      <% if session[:merchant_id] %>
-        <%= link_to "Create new category", new_category_path, class: "button "%>
-      <% end %>
+
 
       <%# unless session[:merchant_id] == nil %>
       <%= link_to "All merchants", merchants_path, class: "button" %>
       <%# add a dropdown menu here %>
       <%# end %>
-      <%= link_to "Create new category", new_category_path, class: "button "%>
+
+      <!-- <%= link_to "Create new category", new_category_path, class: "button "%> -->
       <%= link_to "All categories", categories_path, class: "button" %>
+      <% if session[:merchant_id] %>
+        <%= link_to "Create new category", new_category_path, class: "button "%>
+      <% end %>
 
       <%# add a dropdown menu here to "Shop by categories" %>
 

@@ -48,7 +48,7 @@ class MerchantsController < ApplicationController
     #   flash[:message] = "You can only see your own details"
     #   redirect_to merchants_path
     # else
-      @orders = @merchant.relevant_orders
+    @orders = @merchant.relevant_orders
     # end
 
   end
@@ -81,19 +81,19 @@ class MerchantsController < ApplicationController
     end
   end
 
-    def destroy
-      if @merchant.id != session[:merchant_id]
-        flash[:status] = :failure
-        flash[:result_text] = "Only the merchant has permission to delete"
-        redirect_to root_path
-      else
-        @merchant.destroy
-        flash[:status] = :success
-        flash[:message] = "Successfully deleted"
-        # redirect_to root_path
-        redirect_to merchants_path
-      end
+  def destroy
+    if @merchant.id != session[:merchant_id]
+      flash[:status] = :failure
+      flash[:result_text] = "Only the merchant has permission to delete"
+      redirect_to root_path
+    else
+      @merchant.destroy
+      flash[:status] = :success
+      flash[:message] = "Successfully deleted"
+      # redirect_to root_path
+      redirect_to merchants_path
     end
+  end
 
   private
 
