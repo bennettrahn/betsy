@@ -19,7 +19,7 @@ describe Product do
 
   describe 'validations' do
     it 'is valid' do
-      b = Product.new(name: "book", price: 2,   merchant_id: Product.first.merchant_id)
+      b = Product.new(name: "book", price: 2, merchant_id: Product.first.merchant_id, inventory: Product.first.inventory)
       b.category_ids = Category.first.id
       b.must_be :valid?
     end
@@ -32,8 +32,8 @@ describe Product do
 
     it 'requires a unique name' do
       name = "test book"
-      b1 = Product.create!(name: name, price: 1,   merchant_id: Product.first.merchant_id)
-      b2 = Product.new(name: name, price: 2,   merchant_id: Product.first.merchant_id)
+      Product.create!(name: name, price: 1, merchant_id: Product.first.merchant_id, inventory: Product.first.inventory, category_ids: Category.first.id)
+      b2 = Product.new(name: name, price: 2, merchant_id: Product.first.merchant_id, inventory: Product.first.inventory, category_ids: Category.first.id)
       b2.wont_be :valid?
     end
 

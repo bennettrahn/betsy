@@ -1,11 +1,12 @@
 require "test_helper"
 
 describe MerchantsController do
-  describe "for logged in user" do
+  describe "for logged in merchant" do
     before do
       @merchant = merchants(:anders)
       login(@merchant)
     end
+
     describe "index" do
       it "succeeds when there are merchants" do
         Merchant.count.must_be :>, 0, "No merchants in the test fixtures"
@@ -26,10 +27,75 @@ describe MerchantsController do
         must_respond_with :success
       end
 
-      it "only shows merchant their own page" do
-        get merchant_path(merchants(:lauren))
-        must_redirect_to merchants_path
-        flash[:message].must_equal "You can only see your own details"
+      # commented below test out, because everyone should be able to see all merchant show pages
+      # it "only shows merchant their own page" do
+      #   get merchant_path(merchants(:lauren))
+      #   must_redirect_to merchants_path
+      #   flash[:message].must_equal "You can only see your own details"
+      # end
+
+      it "renders 404 not_found for a invalid merchant ID" do
+        invalid_merchant_id = Merchant.last.id + 1
+        get merchant_path(invalid_merchant_id)
+        must_respond_with :not_found
+      end
+
+      it "returns a success status for a different merchant's page" do
+        merchant = merchants(:bennett)
+        get merchant_path(merchant)
+        must_respond_with :success
+      end
+    end
+
+    describe "edit" do
+      it "succeeds if the merchant is logged in" do
+        get edit_merchant_path(@merchant)
+        must_respond_with :success
+      end
+
+      it "renders 404 not_found for an invalid merchant ID" do
+        invalid_merchant_id = Merchant.last.id + 1
+        get edit_merchant_path(invalid_merchant_id)
+        must_respond_with :not_found
+      end
+
+      it "sets flash[:status] to failure and redirects to products_path when logged in merchant tries to edit a different merchant's information" do
+        merchant = merchants(:bennett)
+        get edit_merchant_path(merchant.id)
+        flash[:status].must_equal :failure
+        must_redirect_to root_path
+      end
+    end
+
+    describe "update" do
+      it "succeeds for valid data and if merchant is logged in" do
+        merchant_data = {
+          merchant: {
+            username: "new name",
+            email: @merchant.email
+          }
+        }
+
+        patch merchant_path(@merchant.id), params: merchant_data
+        must_redirect_to merchant_path(@merchant.id)
+
+        # Verify the DB was really modified
+        Merchant.find(@merchant.id).username.must_equal merchant_data[:merchant][:username]
+      end
+
+      it "renders bad_request for invalid data" do
+        merchant_data = {
+          merchant: {
+            username: "",
+            email: @merchant.email
+          }
+        }
+
+        patch merchant_path(@merchant.id), params: merchant_data
+        must_respond_with :not_found
+
+        # Verify the DB was not modified
+        Merchant.find(@merchant.id).username.must_equal @merchant.username
       end
 
       it "renders 404 not_found for a invalid merchant ID" do
@@ -37,22 +103,105 @@ describe MerchantsController do
         get merchant_path(invalid_merchant_id)
         must_respond_with :not_found
       end
+
+      it "sets flash[:status] to failure, and redirects to root_path if logged in merchants tries to update information of another merchant" do
+        merchant = merchants(:bennett)
+        merchant_username = merchant.username
+        merchant_data = {
+          merchant: {
+            username: "new name",
+            email: merchant.email
+          }
+        }
+
+        patch merchant_path(merchant.id), params: merchant_data
+        flash[:status].must_equal :failure
+        must_redirect_to root_path
+
+        # Verify the DB was not changed
+        Merchant.find(merchant.id).username.must_equal merchant_username
+      end
+    end
+
+    describe "destroy" do
+      it "succeeds for a logged in merchant who is deleting their own account" do
+        delete merchant_path(@merchant.id)
+        must_redirect_to merchants_path
+
+        # The work should really be gone
+        Merchant.find_by(id: @merchant.id).must_be_nil
+      end
+
+      it "renders 404 not_found and does not update the DB for a bogus work ID" do
+        start_count = Merchant.count
+
+        bogus_work_id = Merchant.last.id + 1
+        delete merchant_path(bogus_work_id)
+        must_respond_with :not_found
+
+        Merchant.count.must_equal start_count
+      end
+
+      it "sets flash[:status] to failiure and redirects to root_path if a logged in merchant is trying to delete another merchant's account" do
+        other_merchant = merchants(:bennett)
+
+        delete merchant_path(other_merchant.id)
+        flash[:status].must_equal :failure
+        must_redirect_to root_path
+      end
     end
   end
 
-  # describe "non logged in user" do
-  #   it "show fails for a non-logged in user" do
-  #     get merchant_path(merchants(:anders))
-  #     must_redirect_to products_path
-  #     flash[:message].must_equal "You must be logged in to do that!"
-  #   end
-  #
-  #   it "index fails for a non-logged in user" do
-  #     get merchants_path
-  #     must_redirect_to products_path
-  #     flash[:message].must_equal "You must be logged in to do that!"
-  #   end
-  # end
+  describe "non logged in user" do
+    describe "index" do
+      it "returns success for a non-logged in user" do
+        get merchants_path
+        must_respond_with :success
+      end
+    end
+
+    describe "show" do
+      it "returns success for a non-logged in user" do
+        get merchant_path(merchants(:anders))
+        must_respond_with :success
+      end
+    end
+
+    #this test is failing -- how to pass session[:merchant_id] as nil?
+    describe "edit" do
+      it "edit fails for a non-logged in user" do
+        get merchants_path
+        flash[:status].must_equal :failure
+        must_respond_with :redirect
+        must_redirect_to products_path
+      end
+    end
+
+    describe "update" do
+      it "update fails for a non-logged in user and redirects to products path" do
+        merchant = merchants(:bennett)
+        # merchant_username = merchant.username
+        merchant_data = {
+          merchant: {
+            username: "new name",
+            email: merchant.email
+          }
+        }
+        patch merchant_path(merchant.id), params: merchant_data
+        flash[:status].must_equal :failure
+        must_redirect_to products_path
+      end
+    end
+
+    describe "destroy" do
+      it "destroy fails for a non-logged in user" do
+        merchant = merchants(:bennett)
+        delete merchant_path(merchant.id)
+        must_redirect_to products_path
+        flash[:status].must_equal :failure
+      end
+    end
+  end
 
   describe "create and login with auth_callback" do
     it "logs in an existing user and redirects to the products route" do
@@ -86,7 +235,6 @@ describe MerchantsController do
       start_count = Merchant.count
 
       merchant = Merchant.new(provider: "github", uid: 123124564, username: "test_merchant", email: "test@merchant.com", name: "trio")
-
 
       login(merchant)
 
@@ -123,14 +271,15 @@ describe MerchantsController do
     end
   end
 
-
-
   describe "new" do
     it "works" do
       get new_merchant_path
       must_respond_with :success
     end
   end
+end
+
+
 
   # describe "create" do
   #   it "creates a merchant with valid data" do
@@ -201,80 +350,3 @@ describe MerchantsController do
   #
   #     Merchant.count.must_equal start_count
   #   end
-  # end
-
-  describe "edit" do
-    it "succeeds for an extant merchant ID" do
-      get edit_merchant_path(Merchant.first)
-      must_respond_with :success
-    end
-
-    it "renders 404 not_found for an invalid merchant ID" do
-      invalid_merchant_id = Merchant.last.id + 1
-      get edit_merchant_path(invalid_merchant_id)
-      must_respond_with :not_found
-    end
-  end
-
-  describe "update" do
-    it "succeeds for valid data and an extant merchant ID" do
-      merchant = Merchant.first
-      merchant_data = {
-        merchant: {
-          username: merchant.username + "new",
-          email: merchant.email
-        }
-      }
-
-      patch merchant_path(merchant.id), params: merchant_data
-      must_redirect_to merchant_path(merchant.id)
-
-      # Verify the DB was really modified
-      Merchant.find(merchant.id).username.must_equal merchant_data[:merchant][:username]
-    end
-
-    it "renders bad_request for invalid data" do
-      merchant = Merchant.first
-      merchant_data = {
-        merchant: {
-          username: "",
-          email: merchant.email
-        }
-      }
-
-      patch merchant_path(merchant), params: merchant_data
-      must_respond_with :not_found
-
-      # Verify the DB was not modified
-      Merchant.find(merchant.id).username.must_equal merchant.username
-    end
-
-    it "renders 404 not_found for a invalid merchant ID" do
-      invalid_merchant_id = Merchant.last.id + 1
-      get merchant_path(invalid_merchant_id)
-      must_respond_with :not_found
-    end
-  end
-
-  describe "destroy" do
-    it "succeeds for an extant work ID" do
-      merchant_id = Merchant.first.id
-
-      delete merchant_path(merchant_id)
-      must_redirect_to merchants_path
-
-      # The work should really be gone
-      Merchant.find_by(id: merchant_id).must_be_nil
-    end
-
-    it "renders 404 not_found and does not update the DB for a bogus work ID" do
-      start_count = Merchant.count
-
-      bogus_work_id = Merchant.last.id + 1
-      delete merchant_path(bogus_work_id)
-      must_respond_with :not_found
-
-      Merchant.count.must_equal start_count
-    end
-  end
-end
