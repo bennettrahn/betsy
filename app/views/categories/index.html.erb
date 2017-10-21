@@ -1,11 +1,15 @@
 <section>
   <h2>All Categories</h2>
   <% @categories.each do |cat| %>
-    <div class="">
-      <h4><%= cat.name.capitalize %></h4>
-      <%# can we have an associated image for a category or that would be too much because then you'd have to include that in the form when creating a new category? %>
-      <%# Instead of an image, we could just have some nice text in a clickable box? %>
-      <% end %>
-    </div>
-
+  <div class="">
+    <h4><%= cat.name.capitalize %></h4>
+    <% cat.products.each do |prod| %>
+    <p><%= link_to prod.name, product_path(prod.id) %></p>
+    <p>$<%= prod.price %></p>
+    <p><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
+    <% end %>
+    <%# can we have an associated image for a category or that would be too much because then you'd have to include that in the form when creating a new category? %>
+    <%# Instead of an image, we could just have some nice text in a clickable box? %>
+    <% end %>
+  </div>
 </section>
