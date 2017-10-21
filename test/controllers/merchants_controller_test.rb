@@ -256,7 +256,7 @@ describe MerchantsController do
       login(invalid_merchant)
 
       must_redirect_to products_path
-      flash[:status].must_equal :success
+      flash[:status].must_equal :failure
     end
   end
 
