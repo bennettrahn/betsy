@@ -71,6 +71,7 @@ end
 group :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
+
 end
 
 gem 'awesome_print'
