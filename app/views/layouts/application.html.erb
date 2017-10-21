@@ -24,9 +24,9 @@
 
     <nav class="columns small-12">
       <%= link_to "View all products", products_path, class: "button" %>
-      <% unless session[:merchant_id] == nil %>
-        <%= link_to "View all merchants", merchants_path, class: "button" %>
-      <% end %>
+      <%# unless session[:merchant_id] == nil %>
+      <%= link_to "View all merchants", merchants_path, class: "button" %>
+      <%# end %>
 
       <%= link_to "All categories", categories_path, class: "button" %>
 

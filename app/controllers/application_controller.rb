@@ -3,27 +3,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # def require_login
-  #   @merchant = Merchant.find_by(id: session[:user_id])
-  #   unless @merchant
-  #     flash[:status] = :failure
-  #     flash[:message] = "You must be logged in to do that!"
-  #     redirect_to products_path
-  #   end
-  # end
-
-  # def save_and_flash(model)
-  #   result = model.save
-  #   if result
-  #     flash[:status] = :success
-  #     flash[:message] = "Succesfully saved #{model.class} #{model.name}"
-  #   else
-  #     flash.now[:status] = :failure
-  #     flash.now[:message] = "Failed to save #{model.class}"
-  #     flash.now[:details] = model.errors.messages
-  #   end
-  #   return result
-  # end
   def must_be_logged_in
     if session[:merchant_id] == nil
       flash[:status] = :failure
@@ -53,3 +32,27 @@ class ApplicationController < ActionController::Base
     end
   end
 end
+
+
+
+  # def require_login
+  #   @merchant = Merchant.find_by(id: session[:user_id])
+  #   unless @merchant
+  #     flash[:status] = :failure
+  #     flash[:message] = "You must be logged in to do that!"
+  #     redirect_to products_path
+  #   end
+  # end
+
+  # def save_and_flash(model)
+  #   result = model.save
+  #   if result
+  #     flash[:status] = :success
+  #     flash[:message] = "Succesfully saved #{model.class} #{model.name}"
+  #   else
+  #     flash.now[:status] = :failure
+  #     flash.now[:message] = "Failed to save #{model.class}"
+  #     flash.now[:details] = model.errors.messages
+  #   end
+  #   return result
+  # end
