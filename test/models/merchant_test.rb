@@ -87,12 +87,18 @@ describe Merchant do
     end
 
     describe "relevant_orders" do
-      it "returns an Array of Order objects" do
-        
+      it "returns an Array of Hashes Order objects" do
+        merchant = merchants(:lauren)
+        should_return = merchant.relevant_orders
+        should_return.must_be_instance_of Array
+        should_return[0].must_be_instance_of Hash
       end
 
       it "returns an empty Array if no orders" do
-
+        Order.destroy_all
+        merchant = merchants(:lauren)
+        should_return = merchant.relevant_orders
+        should_return.length.must_equal 0
       end
     end
 
