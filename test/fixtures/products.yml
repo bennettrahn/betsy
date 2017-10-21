@@ -18,6 +18,7 @@ tricycle:
   inventory: 3
   photo_url: https://i-d-images.vice.com/images/2016/09/16/bill-murray-has-a-couple-of-shifts-at-a-brooklyn-bar-this-weekend-body-image-1473999364.jpg
   price: 2.40
+  # category_ids
 
 tripod:
   name: tripod
