@@ -2,7 +2,27 @@
 
 
 <h3>Spotlight: </h3>
+<div class="row">
+  <% spot = Product.all.sample%>
+  <div class="small-3 small-centered columns">
+    <%=link_to spot.name, product_path(spot.id)%>
+    <%= spot.price %>
+    <%= image_tag "#{spot.photo_url}" %>
+  </div>
+</div>
 
-<h3>Picks for you:</h3>
+<!-- <h3>Picks for you:</h3> -->
 
-<h3>Seasonal hits: </h3>
+<h3>Spooky Seasonal Hits: </h3>
+<div class="row">
+  <%cat = Category.all.where(name:"Halloween").each do |halloween| %>
+  <%  halloween.products.each do |product| %>
+
+  <div class="small-2 large-4 columns"> <%=link_to product.name, product_path(product.id)%>
+    <%=product.price%>
+    <%= image_tag "#{product.photo_url}" %>
+  </div>
+  <% end %>
+  <% end %>
+
+</div>
