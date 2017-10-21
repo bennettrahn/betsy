@@ -11,8 +11,64 @@ describe Product do
       @p.must_respond_to :merchant
     end
 
+    it "has a merchant" do
+      prod = products(:tricycle)
+      merch = merchants(:anders)
+
+      prod.merchant.must_equal merch
+      prod.merchant_id.must_equal merch.id
+    end
+
     it "can have order_products" do
       @p.must_respond_to :order_products
+
+      prod = products(:tricycle)
+      order = orders(:order1)
+      order_prod = OrderProduct.create!(quantity: 1, product: prod, order: order)
+
+      prod.order_products << order_prod
+
+      prod.order_products.must_include order_prod
+      # prod = products(:tricycle)
+      # order_prod = order_products(:one)
+      #
+      # prod.order_products.must_equal order_prod
+      # prod.order_products_ids.must_equal order_prod.id
+    end
+
+    #TODO: tried to work on this test. not understanding the through relationship well enough. Product doesn't have a direct relationship with Order, so how to connect them in tests?
+    it "can have orders through order_products" do
+      @p.must_respond_to :orders
+      #
+      # prod = products(:tricycle)
+      # order = orders(:order2)
+      # order_prod = OrderProduct.create!(quantity: 1, product: prod, order: order)
+      #
+      # prod.order_products.product_id.must_equal order.order_products.product_id
+    end
+
+    it "can have reviews" do
+      @p.must_respond_to :reviews
+
+      product = products(:tricycle)
+
+      review = Review.create!(rating: 4, text: "great", product_id: product.id)
+      product.reviews << review
+      product.reviews.must_include review
+    end
+
+    it "has at least one category, and can have multiple" do
+      @p.must_respond_to :categories
+
+      @p.categories.must_be :empty?
+
+      cat = Category.create!(name: "computers")
+      @p.categories << cat
+      @p.categories.must_include cat
+
+      cat2 = Category.create!(name: "three-legged chairs")
+      @p.categories << cat2
+      @p.categories.must_include cat2
     end
 
   end
@@ -44,11 +100,34 @@ describe Product do
     end
 
     it 'requires a price greater than 0' do
-      b = Product.new(name: name, price: -1)
+      b = Product.new(name: "tom petty video", price: -1)
       is_valid = b.valid?
       is_valid.must_equal false
       b.errors.messages.must_include :price
     end
+
+    it "requires inventory that is greater or equal to 0" do
+      p = Product.new(name: "tom petty video", price: 1)
+      is_valid = p.valid?
+      is_valid.must_equal false
+      p.errors.messages.must_include :inventory
+
+      p2 = Product.new(name: "tom petty video", price: 1, inventory: -1)
+      is_valid = p2.valid?
+      is_valid.must_equal false
+      p2.errors.messages.must_include :inventory
+    end
+
+    it "requires the presence of a category" do
+      p = Product.new(name: "tom petty video", price: 1, inventory: 1)
+      is_valid = p.valid?
+      is_valid.must_equal false
+      p.errors.messages.must_include :category_ids
+    end
+  end
+
+  describe "check_inventory" do
+    
   end
 
   describe "decrease_inventory" do
