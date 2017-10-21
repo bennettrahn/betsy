@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :must_be_logged_in, only: [:new, :create]
+
   def index
     @categories = Category.all
   end
