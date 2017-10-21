@@ -72,4 +72,30 @@ describe Merchant do
       merchant.errors.messages.must_include :email
     end
   end
+
+  describe "custom methods" do
+
+    #below test not passing - in merchant.rb, if I comment out all the auth_hash['info'] lines, then it passes. In test_helper.rb, #mock_auth_hash does not set an ['info']['name']... but that can't be all the problem (if it is even a problem), because ['info']['email'] and ['info']['nickname'] also aren't being recognized
+    describe "#self.from_auth_hash" do
+      it "returns an instance of Merchant" do
+        merchant = merchants(:lauren)
+
+        merchant_instance = Merchant.from_auth_hash('github', mock_auth_hash(merchant))
+
+        merchant_instance.must_be_instance_of Merchant
+      end
+    end
+
+    describe "relevant_orders" do
+      it "returns an Array of Order objects" do
+        
+      end
+
+      it "returns an empty Array if no orders" do
+
+      end
+    end
+
+  end
+
 end
