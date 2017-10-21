@@ -11,8 +11,40 @@ describe Product do
       @p.must_respond_to :merchant
     end
 
+    it "has a merchant" do
+      prod = products(:tricycle)
+      merch = merchants(:anders)
+
+      prod.merchant.must_equal merch
+      prod.merchant_id.must_equal merch.id
+    end
+
     it "can have order_products" do
       @p.must_respond_to :order_products
+    end
+
+    it "can have orders" do
+      @p.must_respond_to :orders
+    end
+
+    it "can have reviews" do
+      @p.must_respond_to :reviews
+
+      product = products(:tricycle)
+
+      review = Review.create!(rating: 4, text: "great", product_id: product.id)
+      product.reviews << review
+      product.reviews.must_include review
+    end
+
+    it "has at least one category" do
+      @p.must_respond_to :categories
+
+      @p.categories.must_be :empty?
+
+      cat = Category.create!(name: "computers")
+      @p.categories << cat
+      @p.categories.must_include cat
     end
 
   end
