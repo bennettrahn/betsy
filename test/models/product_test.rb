@@ -57,7 +57,7 @@ describe Product do
       product.reviews.must_include review
     end
 
-    it "has at least one category" do
+    it "has at least one category, and can have multiple" do
       @p.must_respond_to :categories
 
       @p.categories.must_be :empty?
@@ -65,6 +65,10 @@ describe Product do
       cat = Category.create!(name: "computers")
       @p.categories << cat
       @p.categories.must_include cat
+
+      cat2 = Category.create!(name: "three-legged chairs")
+      @p.categories << cat2
+      @p.categories.must_include cat2
     end
 
   end
@@ -96,18 +100,29 @@ describe Product do
     end
 
     it 'requires a price greater than 0' do
-      b = Product.new(name: name, price: -1)
+      b = Product.new(name: "tom petty video", price: -1)
       is_valid = b.valid?
       is_valid.must_equal false
       b.errors.messages.must_include :price
     end
 
     it "requires inventory that is greater or equal to 0" do
+      p = Product.new(name: "tom petty video", price: 1)
+      is_valid = p.valid?
+      is_valid.must_equal false
+      p.errors.messages.must_include :inventory
 
+      p2 = Product.new(name: "tom petty video", price: 1, inventory: -1)
+      is_valid = p2.valid?
+      is_valid.must_equal false
+      p2.errors.messages.must_include :inventory
     end
 
     it "requires the presence of a category" do
-
+      p = Product.new(name: "tom petty video", price: 1, inventory: 1)
+      is_valid = p.valid?
+      is_valid.must_equal false
+      p.errors.messages.must_include :category_ids
     end
   end
 
@@ -122,9 +137,9 @@ describe Product do
     end
   end
 
-  describe "decrease_inventory" do
+  describe "check_inventory" do
     let(:tripod) { products(:tripod) }
-    it "decreases the inventory by the given quantity" do
+    it "returns true when there is inventory, and returns false when there isn't" do
       max = tripod.inventory
 
       tripod.check_inventory(max).must_equal true
