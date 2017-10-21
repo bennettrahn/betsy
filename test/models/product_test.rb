@@ -21,10 +21,30 @@ describe Product do
 
     it "can have order_products" do
       @p.must_respond_to :order_products
+
+      prod = products(:tricycle)
+      order = orders(:order1)
+      order_prod = OrderProduct.create!(quantity: 1, product: prod, order: order)
+
+      prod.order_products << order_prod
+
+      prod.order_products.must_include order_prod
+      # prod = products(:tricycle)
+      # order_prod = order_products(:one)
+      #
+      # prod.order_products.must_equal order_prod
+      # prod.order_products_ids.must_equal order_prod.id
     end
 
-    it "can have orders" do
+    #TODO: tried to work on this test. not understanding the through relationship well enough. Product doesn't have a direct relationship with Order, so how to connect them in tests?
+    it "can have orders through order_products" do
       @p.must_respond_to :orders
+      #
+      # prod = products(:tricycle)
+      # order = orders(:order2)
+      # order_prod = OrderProduct.create!(quantity: 1, product: prod, order: order)
+      #
+      # prod.order_products.product_id.must_equal order.order_products.product_id
     end
 
     it "can have reviews" do
@@ -80,6 +100,14 @@ describe Product do
       is_valid = b.valid?
       is_valid.must_equal false
       b.errors.messages.must_include :price
+    end
+
+    it "requires inventory that is greater or equal to 0" do
+
+    end
+
+    it "requires the presence of a category" do
+
     end
   end
 
