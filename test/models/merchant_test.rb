@@ -34,10 +34,24 @@ describe Merchant do
       merchant.errors.messages.must_include :username
     end
 
+    it "requires a unique username" do
+      merchant = merchants(:anders)
+      same_username = Merchant.new(username: merchant.username, email: merchant.username)
+      same_username.valid?.must_equal false
+      same_username.errors.messages.must_include :username
+    end
+
     it "requires an email" do
       merchant = Merchant.new(username: "username", email: "")
       merchant.valid?.must_equal false
       merchant.errors.messages.must_include :email
+    end
+
+    it "requires a unique email" do
+      merchant = merchants(:anders)
+      same_email = Merchant.new(username: merchant.username, email: merchant.username)
+      same_email.valid?.must_equal false
+      same_email.errors.messages.must_include :email
     end
 
     it "requires an email in a certain format" do
