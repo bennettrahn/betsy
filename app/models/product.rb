@@ -29,8 +29,6 @@ class Product < ApplicationRecord
     self.inventory += quantity
   end
 
-  end
-
   def average_rating
     avg = 0
     count = 0

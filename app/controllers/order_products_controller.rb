@@ -4,17 +4,26 @@ class OrderProductsController < ApplicationController
     @op = OrderProduct.find_by(id: params[:id])
 
     @product = Product.find_by(id: params[:product_id])
-    quantity = params[:quantity].to_i
+    new_quantity = params[:quantity].to_i
+
+    #find instance of order
+    order_id = session[:cart]
+    @order = Order.find_by(id: order_id)
 
     #put previous quantity back to inventory
-    @product.
+    @product.increase_inventory(@op.quantity)
 
-    new_quantity =
-    if @product.check_inventory(quantity)
-      @op.save
+    if @product.check_inventory(new_quantity)
+      @op.quantity = new_quantity
+      if @op.save
       # if save_and_flash(@op, edit:"updated")
       #   # redirect_to(order_path(@op.order))
-        redirect_to root_path
+        flash[:status] = :success
+        flash[:message] = "Successfully updated cart"
+        redirect_to order_path(@order.id)
+      else
+        render "orders/show", status: :bad_request
+      end
       # else
       #   render :edit, status: :bad_request
       # end
