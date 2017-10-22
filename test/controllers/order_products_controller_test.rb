@@ -58,10 +58,9 @@ describe OrderProductsController do
     #TODO: this test is failing
     it "changes the quantity of an existing OrderProduct if trying to add more of the same product" do
       order_prod = order_products(:one)
-
-
+      order_prod_prod_id = order_prod.product_id
       product = {
-        product_id: products(:tricycle).id,
+        product_id: order_prod_prod_id,
         quantity: 1
       }
 
@@ -98,9 +97,20 @@ describe OrderProductsController do
     end
   end
 
+  #TODO: this test is failing
   describe "update" do
     it "changes the quantity of an existing OrderProduct" do
+      post create_order_product_path, params: @product_params
+      order_prod = order_products(:one)
+      puts "ORDER PRODUCT ID: #{order_prod.id}"
 
+      update_order_prod = {
+        product_id: order_prod.product_id,
+        quantity: 2
+      }
+      patch order_product_path(order_prod.id), params: update_order_prod
+
+      order_prod.quantity.must_equal 2
     end
 
     it "sets flash[:status] to failure if there isn't enough inventory to update" do
