@@ -15,7 +15,24 @@
  *= require foundation_and_overrides
 
  */
-
+.page-header {
+  background-image: url(pineapple1.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.button {
+  background-color: rgba(232, 174, 86, 0.66);
+}
+.good {
+  color: rgb(120, 131, 179);
+  background-color: rgba(200, 232, 241, 0.64);
+}
+a {
+  color: rgb(66, 83, 92);
+}
+body {
+  color: rgb(84, 87, 107);
+}
  /***********/
  /*  STARS  */
  /***********/
