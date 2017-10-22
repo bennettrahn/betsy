@@ -3,11 +3,11 @@
 
 <h3>Spotlight: </h3>
 <div class="row">
-  <% spot = Product.all.sample%>
+  <!-- <% @spot = Product.all.sample%> -->
   <div class="small-3 small-centered columns">
-    <%=link_to spot.name, product_path(spot.id)%>
-    <%= spot.price %>
-    <%= image_tag "#{spot.photo_url}" %>
+    <%=link_to Category.spot.name, product_path(@spot.id)%>
+    <%= @spot.price %>
+    <%= image_tag "#{@spot.photo_url}" %>
   </div>
 </div>
 

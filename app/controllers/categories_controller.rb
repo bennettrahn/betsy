@@ -3,6 +3,12 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @spot = Category.spot
+    # @holiday = Category.view_by_category(category)
+  end
+
+  def show
+    @category = Category.find(params[:id])
   end
 
   def new

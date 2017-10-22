@@ -23,27 +23,38 @@
     </h2>
 
     <nav class="columns small-12">
+      <div class="dropdown">
+        <span class="button"><%= link_to "All merchants", merchants_path  %></span>
+        <div class="dropdown-content">
+          <% Merchant.all.each do |merchant| %>
+          <%= link_to "#{merchant.name}", merchant_path(merchant.id) %>
+          <% end %>
+        </div>
+      </div>
+
       <%= link_to "View all products", products_path, class: "button" %>
 
-      <%# unless session[:merchant_id] == nil %>
-      <%= link_to "All merchants", merchants_path, class: "button" %>
-      <%# add a dropdown menu here %>
-      <%# end %>
 
-      <!-- <%= link_to "Create new category", new_category_path, class: "button "%> -->
-      <%= link_to "All categories", categories_path, class: "button" %>
+      <div class="dropdown">
+        <span class="button"><%= link_to "All categories", categories_path  %></span>
+        <div class="dropdown-content">
+          <% Category.all.each do |category| %>
+          <%= link_to "#{category.name}", category_path(category.id)%>
+          <% end  %>
+        </div>
+      </div>
+
+
       <% if session[:merchant_id] %>
-        <%= link_to "Create new category", new_category_path, class: "button "%>
+      <%= link_to "Create new category", new_category_path, class: "button "%>
       <% end %>
 
-      <%# add a dropdown menu here to "Shop by categories" %>
 
       <div class="float-right">
         <%= link_to session[:cart] ? order_path(session[:cart]) : products_path do %>
         <%= image_tag 'cart.png', size: "40x40" %>
         <% end %>
-        <!-- <a href="/products"><img src="/images/cart.png" alt="cart"></a> -->
-        <!-- <%= link_to "My Cart", products_path, class: "button" %> -->
+
         <% if session[:merchant_id] %>
         <%= link_to "Log out", logout_path, class: "button" %>
         <% else %>
