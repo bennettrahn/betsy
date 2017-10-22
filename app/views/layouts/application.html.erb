@@ -36,7 +36,7 @@
 
 
       <div class="dropdown">
-        <span class="button"><%= link_to "All categories", categories_path  %></span>
+        <span class="button"><%= link_to "All categories", products_path  %></span>
         <div class="dropdown-content">
           <% Category.all.each do |category| %>
           <%= link_to "#{category.name}", category_path(category.id)%>

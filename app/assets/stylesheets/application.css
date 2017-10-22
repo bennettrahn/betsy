@@ -35,6 +35,9 @@ h1 {
   color: rgb(20, 17, 83);
   text-align: center;
 }
+h3 {
+  text-align: center;
+}
 a {
   color: rgb(66, 83, 92);
 }
@@ -112,7 +115,25 @@ body {
 .spooky {
   margin-top: 90px;
 }
-
 .add {
   margin-left: 40%;
+}
+
+.buy {
+  background-color: rgb(141, 114, 215);
+}
+main {
+  padding-bottom: 50px;
+}
+.product {
+  font-weight: bold;
+  padding-top: 30px;
+  border-style: solid;
+  padding-bottom: 30px;
+}
+.product a {
+  color: rgb(213, 117, 38);
+}
+.product-image {
+  padding-bottom: 30px;
 }

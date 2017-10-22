@@ -13,15 +13,16 @@
 <!-- <h3>Picks for you:</h3> -->
 
 <h3 class="spooky">Spooky Seasonal Hits | <small> Boo!</small> </h3>
-<div class="row">
+<div class="row product">
   <%cat = Category.all.where(name:"Halloween").each do |halloween| %>
   <%  halloween.products.each do |product| %>
 
-  <div class="small-2 large-4 columns"> <%=link_to product.name, product_path(product.id)%>
-    <%=product.price%>
-    <%= image_tag "#{product.photo_url}" %>
+  <div class="small-2 large-4 columns">
+    <p><%=link_to product.name.capitalize, product_path(product.id)%></p>
+    <p>$<%='%.2f' % product.price%>  </p>
+    <p class="product-image"><%= image_tag "#{product.photo_url}" %></p>
   </div>
-  <% end %>
-  <% end %>
 
+  <% end %>
+  <% end %>
 </div>

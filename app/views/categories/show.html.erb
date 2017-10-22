@@ -1,7 +1,7 @@
-<h2> <%= @category.name %></h2>
+<h2 class="category"> <%= @category.name %></h2>
 <% @category.products.each do |prod| %>
 
 <p><%= link_to prod.name, product_path(prod.id) %></p>
-<p>$<%= prod.price %></p>
+<p>$<%= '%.2f' % prod.price %></p>
 <p><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
 <% end %>
