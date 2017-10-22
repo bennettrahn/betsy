@@ -15,23 +15,36 @@
  *= require foundation_and_overrides
 
  */
+
 .page-header {
   background-image: url(pineapple1.jpg);
   background-repeat: no-repeat;
   background-position: center center;
+  height: 300px;
 }
+/***********/
+/*  MAIN  */
+/***********/
 .button {
   background-color: rgba(232, 174, 86, 0.66);
 }
 .good {
-  color: rgb(120, 131, 179);
-  background-color: rgba(200, 232, 241, 0.64);
+  color: rgb(20, 17, 83);
+}
+h1 {
+  color: rgb(20, 17, 83);
+  text-align: center;
 }
 a {
   color: rgb(66, 83, 92);
 }
 body {
   color: rgb(84, 87, 107);
+}
+.wrap {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 700px;
 }
  /***********/
  /*  STARS  */
@@ -91,4 +104,12 @@ body {
 }
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+
+.spooky {
+  margin-top: 90px;
+}
+.add {
+  margin-left: 40%;
 }

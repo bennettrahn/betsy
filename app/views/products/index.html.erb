@@ -1,25 +1,19 @@
-<h1>All Products</h1>
+<h1>All things that come in 3s</h1>
+<span class="add"><%= link_to "Add a Product", new_product_path, class: "button" %></span>
 
-<h2>Categories:</h2>
-  <% Category.all.each do |category| %>
-    <h4><%= category.name %></h4>
-    <% category.products.each do |prod| %>
-      <div class="product" >
-        <p>Name:
-          <%= link_to prod.name, product_path(prod.id) %>
-        </p>
-        <p>Price: $
-          <%= '%.2f' % prod.price %>
-        </p>
-        <p>Description:
-          <%= prod.description %>
-        </p>
-        <p class="image">
-          <%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%>
-        </p>
-        <br>
-      </div>
-    <% end %>
+
+<% Category.all.each do |category| %>
+<h3><%= link_to category.name, category_path(category.id) %></h3>
+<div class="row">
+
+  <% category.products.each do |prod| %>
+  <div class="small-2 large-4 columns">
+
+    <p><%= link_to prod.name.capitalize, product_path(prod.id) %></p>
+    <p>Price: $<%= '%.2f' % prod.price %></p>
+    <p>Description:<%= prod.description %></p>
+    <p class="image"><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
+  </div>
   <% end %>
-
-<%= link_to "Add a Product", new_product_path, class: "button" %>
+  <% end %>
+</div>
