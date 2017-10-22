@@ -2,45 +2,46 @@ require "test_helper"
 
 describe ProductsController do
 
-  describe "root" do
-    it "returns a success" do
-      get root_path
-      must_respond_with :success
-    end
-  end
-
-  describe "index" do
-    it "shows all products" do
-      get products_path
-      must_respond_with :success
-    end
-
-    it "returns success status when there are no products" do
-      Product.destroy_all
-      get products_path
-      must_respond_with :success
-    end
-  end
-
-  describe "show" do
-    it "returns success when given a valid product id" do
-      product_id = Product.first.id
-      # user_id = session[:user_id]
-      get product_path(product_id)
-      must_respond_with :success
-    end
-
-    it "returns not_found when given a bad work id" do
-      bad_product_id = Product.last.id + 1
-      get product_path(bad_product_id)
-      must_respond_with :not_found
-    end
-  end
-
-  describe "logged in merchants" do
+##########LOGGED IN MERCHANT#################
+  describe "logged in merchant" do
     before do
       merchant = Merchant.first
       login(merchant)
+    end
+
+    describe "root" do
+      it "returns a success status" do
+        get root_path
+        must_respond_with :success
+      end
+    end
+
+    describe "index" do
+      it "shows all products" do
+        get products_path
+        must_respond_with :success
+      end
+
+      it "returns success status when there are no products" do
+        Product.destroy_all
+        get products_path
+        must_respond_with :success
+      end
+    end
+
+    describe "show" do
+      it "returns success when given a valid product id" do
+        product_id = Product.first.id
+        # user_id = session[:user_id]
+        get product_path(product_id)
+        must_respond_with :success
+      end
+
+      it "returns not_found when given a bad work id" do
+        bad_product_id = Product.last.id + 1
+        get product_path(bad_product_id)
+        must_respond_with :not_found
+      end
     end
 
     describe "new" do
@@ -48,7 +49,6 @@ describe ProductsController do
         get new_product_path
         must_respond_with :success
       end
-       # need to write test for when new is not allowed (not merchant_id)
     end
 
     describe "create" do
@@ -160,10 +160,52 @@ describe ProductsController do
         must_redirect_to products_path
         Product.count.must_equal product_count - 1
       end
+
+      it "returns not_found if given invalid product id" do
+        bad_product_id = Product.last.id + 1
+
+        delete product_path(bad_product_id)
+        must_respond_with :not_found
+      end
     end
   end
 
+##########NOT LOGGED IN USERS#################
   describe "not logged in users" do
+    describe "root" do
+      it "returns a success status" do
+        get root_path
+        must_respond_with :success
+      end
+    end
+
+    describe "index" do
+      it "shows all products" do
+        get products_path
+        must_respond_with :success
+      end
+
+      it "returns success status when there are no products" do
+        Product.destroy_all
+        get products_path
+        must_respond_with :success
+      end
+    end
+
+    describe "show" do
+      it "returns success when given a valid product id" do
+        product_id = Product.first.id
+        # user_id = session[:user_id]
+        get product_path(product_id)
+        must_respond_with :success
+      end
+
+      it "returns not_found when given a bad work id" do
+        bad_product_id = Product.last.id + 1
+        get product_path(bad_product_id)
+        must_respond_with :not_found
+      end
+    end
     describe "new" do
       it "will set flash[:status] to failure and redirect to products_path" do
         get new_product_path
