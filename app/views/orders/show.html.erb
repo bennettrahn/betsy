@@ -16,7 +16,7 @@
         <td><%= op.quantity %></td>
         <td><%= op.product.price %></td>
         <td>
-          <%= form_tag order_product_path(product_id: op.product_id), method: :patch do %>
+          <%= form_tag order_product_path(op.id, product_id: op.product_id), method: :patch do %>
 
           <%= text_field_tag "quantity" %>
 
