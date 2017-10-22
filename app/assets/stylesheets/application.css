@@ -106,10 +106,13 @@ body {
   display: block;
 }
 
-
+.category {
+  border-bottom: solid;
+}
 .spooky {
   margin-top: 90px;
 }
+
 .add {
   margin-left: 40%;
 }
