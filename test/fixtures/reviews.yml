@@ -13,14 +13,14 @@
 review1:
     rating: 1
     text: "Terrible"
-    product_id: 1
+    product: tricycle
 
 review2:
     rating: 4
     text: "Great"
-    product_id: 1
+    product: tricycle
 
 review3:
     rating: 5
     text: "A hit!"
-    product_id: 1
+    product: tripod
