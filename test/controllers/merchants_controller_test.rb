@@ -170,7 +170,7 @@ describe MerchantsController do
     #this test is failing -- how to pass session[:merchant_id] as nil?
     describe "edit" do
       it "edit fails for a non-logged in user" do
-        get merchants_path
+        get edit_merchant_path(merchants(:bennett))
         flash[:status].must_equal :failure
         must_respond_with :redirect
         must_redirect_to products_path
@@ -256,7 +256,7 @@ describe MerchantsController do
       login(invalid_merchant)
 
       must_redirect_to products_path
-      flash[:status].must_equal :success
+      flash[:status].must_equal :failure
     end
   end
 

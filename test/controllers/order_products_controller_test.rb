@@ -22,7 +22,7 @@ describe OrderProductsController do
 
     end
 
-    it "creates an OrderProduct with a product and an order, adds to existin cart if it has already been initiated" do
+    it "creates an OrderProduct with a product and an order, adds to existing cart if it has already been initiated" do
 
       post create_order_product_path, params: @product_params
       #I have to do this in order to set session.
@@ -64,5 +64,10 @@ describe OrderProductsController do
 
       OrderProduct.count.must_equal start_count
     end
+  end
+
+  describe "update" do
+
+
   end
 end
