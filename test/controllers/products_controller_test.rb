@@ -206,6 +206,7 @@ describe ProductsController do
         must_respond_with :not_found
       end
     end
+
     describe "new" do
       it "will set flash[:status] to failure and redirect to products_path" do
         get new_product_path
@@ -226,18 +227,6 @@ describe ProductsController do
       end
     end
 
-#       describe "destroy" do
-#     it "success when product is deleted" do
-#       merchant = merchants(:anders)
-#       login(merchant)
-#       product = Product.first
-#       # product_count = Product.count
-#       delete product_path(product)
-#       must_respond_with :redirect
-#       must_redirect_to products_path
-#       Product.find_by(id: product.id).must_be_nil
-#       # product_count.must_equal Product.count + 1
-
     describe "destroy" do
       it "will set flash[:status] to failure and redirect to products_path" do
         delete product_path(Product.first)
@@ -246,5 +235,7 @@ describe ProductsController do
         must_redirect_to products_path
       end
     end
+
+    #Do we need tests for #create and #update here?
   end
 end

@@ -13,8 +13,13 @@ describe Review do
 
   describe "relations" do
     it "must respond to product" do
+      prod = products(:tricycle)
+
       review.must_respond_to :product
+      review.product_id.must_equal prod.id
+      review.product.must_equal prod
     end
+
   end
   describe 'validations' do
     it 'is valid' do
