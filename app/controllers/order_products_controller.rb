@@ -29,12 +29,30 @@ class OrderProductsController < ApplicationController
     quantity = params[:quantity].to_i
 
     if @product.check_inventory(quantity)
-      @order_product = OrderProduct.new(quantity: quantity, product_id: params[:product_id], order_id: @order)
-      if save_and_flash(@order_product, edit:"created")
-        redirect_to order_path(@order)
-      else
-        render "products/show", status: :bad_request
+      #find order object
+      order = Order.find_by(id: @order)
+
+      #check if this order already has this product
+      result = order.order_products.select {|op| op.product_id == @product.id}
+
+      if result.empty? #no current products with this id
+        @order_product = OrderProduct.new(quantity: quantity, product_id: params[:product_id], order_id: @order)
+        if save_and_flash(@order_product, edit:"created")
+          redirect_to order_path(@order)
+        else
+          render "products/show", status: :bad_request
+        end
+      else #there is an op in result(should be just one)
+        @op = result[0]
+        new_quantity = @op.quantity + quantity
+        @op.quantity = new_quantity
+        if save_and_flash(@op, edit:"updated")
+          redirect_to order_path(@order)
+        else
+          render "products/show", status: :bad_request
+        end
       end
+
     else
       flash.now[:status] = :failure
       flash.now[:message] = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
