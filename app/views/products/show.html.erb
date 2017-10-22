@@ -1,10 +1,7 @@
-<h3>Show page for Individual Product!</h3>
-
 <section>
-  <p>
-    <strong>Name: </strong>
-    <%= @product.name %>
-  </p>
+  <h3>
+    <%= @product.name.capitalize %>
+  </h3>
   <p>
     <strong>Description: </strong>
     <%= @product.description %>
@@ -26,7 +23,7 @@
   <% end  %>
 </section>
 
-<p class="image"><%= image_tag "#{@product.photo_url}", alt:"image", size: "100x100"%></p>
+<p class="image"><%= image_tag "#{@product.photo_url}", alt:"image"%></p>
 
 <section>
   <em>Currently in stock:</em> <%= @product.inventory %>
@@ -37,17 +34,17 @@
 
   <%= text_field_tag "quantity", 1 %>
 
-  <%= submit_tag "Add to Order", class: "button" %>
+  <%= submit_tag "Add to Order", class: "buy button" %>
   <% end %>
 </section>
 
+  <p>Reviews:
+    <% @product.reviews.each do |review| %>
+  </p>
+  <%= review.text %>
+  <%= render partial:"/layouts/stars", locals: {rating: review.rating} %>
+  <% end %>
 
-<p>Reviews:
-  <% @product.reviews.each do |review| %>
-</p>
-<%= review.text %>
-<%= render partial:"/layouts/stars", locals: {rating: review.rating} %>
-<% end %>
 
 
 <p><%= link_to "Back to All Products", products_path, class: "button" %></p>

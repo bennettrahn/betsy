@@ -16,6 +16,41 @@
 
  */
 
+
+.page-header {
+  background-image: url(pineapple1.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 300px;
+}
+/***********/
+/*  MAIN  */
+/***********/
+.button {
+  background-color: rgba(232, 174, 86, 0.66);
+}
+.good {
+  color: rgb(20, 17, 83);
+}
+h1 {
+  color: rgb(20, 17, 83);
+  text-align: center;
+}
+h3 {
+  text-align: center;
+
+}
+a {
+  color: rgb(66, 83, 92);
+}
+body {
+  color: rgb(84, 87, 107);
+}
+.wrap {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 700px;
+}
  /***********/
  /*  STARS  */
  /***********/
@@ -43,3 +78,79 @@
  .five-stars, .five-stars a{
    color: #33AC33;
  }
+.float-right {
+  padding-top: 30px;
+}
+ /***********/
+ /*  DROPDOWN  */
+ /***********/
+.button a {
+  color: white;
+}
+ .dropdown {
+  position: relative;
+  display: inline-block;
+  /*width: 100px;*/
+  padding: 3% 6%;
+  font-size: 20px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  font-size: 15px;
+}
+.dropdown-content a {
+  display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.category {
+  border-bottom: solid;
+}
+.spooky {
+  margin-top: 90px;
+}
+.add {
+  margin-left: 40%;
+}
+
+.buy {
+  background-color: rgb(141, 114, 215);
+}
+main {
+  padding-bottom: 50px;
+}
+.product {
+  font-weight: bold;
+  padding-top: 30px;
+  border-style: solid;
+  padding-bottom: 30px;
+}
+.product a {
+  color: rgb(213, 117, 38);
+}
+.product-image {
+  padding-bottom: 30px;
+}
+.spotlight {
+  font-weight: bold;
+  text-align: center;
+  border-style: solid;
+  padding-bottom: 30px;
+  background-color: rgba(180, 202, 241, 0.48);
+}
+.first-item a{
+  font-size: 1.5em;
+}
+.playing {
+  border-style: solid;
+  max-width: 200px;
+  height: 300px;
+}
