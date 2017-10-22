@@ -43,8 +43,16 @@ describe OrderProductsController do
       Order.count.must_equal orders_start
     end
 
-    it "will increase the quantity of an already existing orderproduct" do
+    it "if an orderproduct with the same product already exists, it will not create a new OrderProduct object" do
+      post create_order_product_path, params: @product_params
+      orders_start = Order.count
+      start_count = OrderProduct.count
 
+      post create_order_product_path, params: @product_params
+      must_redirect_to order_path(session[:cart])
+
+      OrderProduct.count.must_equal start_count
+      Order.count.must_equal orders_start
     end
 
     it "wont create if input is invalid" do
