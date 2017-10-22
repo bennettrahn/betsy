@@ -16,18 +16,13 @@ class OrderProductsController < ApplicationController
     if @product.check_inventory(new_quantity)
       @op.quantity = new_quantity
       if @op.save
-      # if save_and_flash(@op, edit:"updated")
-      #   # redirect_to(order_path(@op.order))
         flash[:status] = :success
         flash[:message] = "Successfully updated cart"
         redirect_to order_path(@order.id)
       else
         render "orders/show", status: :bad_request
       end
-      # else
-      #   render :edit, status: :bad_request
-      # end
-    else
+    else #not enough inventory
       flash.now[:status] = :failure
       flash.now[:message] = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
       render "orders/show", status: :bad_request

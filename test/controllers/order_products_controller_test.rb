@@ -22,7 +22,7 @@ describe OrderProductsController do
 
     end
 
-    it "creates an OrderProduct with a product and an order, adds to existin cart if it has already been initiated" do
+    it "creates a new OrderProduct with a product and an order if doesn't exist already, adds to existing cart if it has already been initiated" do
 
       post create_order_product_path, params: @product_params
       #I have to do this in order to set session.
@@ -30,8 +30,13 @@ describe OrderProductsController do
       orders_start = Order.count
       start_count = OrderProduct.count
 
-      #TODO: make this a new orderproduct
-      post create_order_product_path, params: @product_params
+
+      new_product = {
+        product_id: products(:tripod).id,
+        quantity: 1
+      }
+
+      post create_order_product_path, params: new_product
       must_redirect_to order_path(session[:cart])
 
       OrderProduct.count.must_equal start_count + 1
@@ -39,7 +44,7 @@ describe OrderProductsController do
     end
 
     it "will increase the quantity of an already existing orderproduct" do
-      
+
     end
 
     it "wont create if input is invalid" do
