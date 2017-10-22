@@ -32,7 +32,7 @@ end
 private
 
 def find_product
-  @product = Product.find_by(id: params[:id])
+  @product = Product.find_by(id: params[:product_id])
   unless @product
     head :not_found
   end
