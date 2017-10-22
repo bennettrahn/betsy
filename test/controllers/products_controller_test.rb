@@ -2,6 +2,13 @@ require "test_helper"
 
 describe ProductsController do
 
+  describe "root" do
+    it "returns a success" do
+      get root_path
+      must_respond_with :success
+    end
+  end
+
   describe "index" do
     it "shows all products" do
       get products_path
