@@ -50,10 +50,12 @@ describe ProductsController do
           product: {
             name: "book",
             price: 4.32,
-            merchant: merchants(:anders)
+            inventory: 2,
+            category_ids: [categories(:book).id]
           }
         }
         product = Product.new(product_data[:product])
+        product.merchant_id = session[:merchant_id]
         product.must_be :valid?
         start_product_count = Product.count
 
@@ -169,6 +171,7 @@ describe ProductsController do
         product_id = Product.first.id
         get edit_product_path(product_id)
         flash[:status].must_equal :failure
+        flash[:message].must_equal "You must be logged in to do that!"
         must_respond_with :redirect
         must_redirect_to products_path
       end
