@@ -126,6 +126,12 @@ describe Product do
     end
   end
 
+  #TODO:
+  describe "increase_inventory" do
+
+
+  end
+
   describe "decrease_inventory" do
     let(:tricycle) { products(:tricycle) }
     it "decreases the inventory by the given quantity" do

@@ -4,18 +4,25 @@ class OrderProductsController < ApplicationController
     @op = OrderProduct.find_by(id: params[:id])
 
     @product = Product.find_by(id: params[:product_id])
-    quantity = params[:quantity].to_i
-    @op.quantity = quantity
+    new_quantity = params[:quantity].to_i
 
-    if @product.check_inventory(quantity)
-      @op.save
-      # if save_and_flash(@op, edit:"updated")
-      #   # redirect_to(order_path(@op.order))
-        redirect_to root_path
-      # else
-      #   render :edit, status: :bad_request
-      # end
-    else
+    #find instance of order
+    order_id = session[:cart]
+    @order = Order.find_by(id: order_id)
+
+    #put previous quantity back to inventory
+    @product.increase_inventory(@op.quantity)
+
+    if @product.check_inventory(new_quantity)
+      @op.quantity = new_quantity
+      if @op.save
+        flash[:status] = :success
+        flash[:message] = "Successfully updated cart"
+        redirect_to order_path(@order.id)
+      else
+        render "orders/show", status: :bad_request
+      end
+    else #not enough inventory
       flash.now[:status] = :failure
       flash.now[:message] = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
       render "orders/show", status: :bad_request
@@ -29,12 +36,34 @@ class OrderProductsController < ApplicationController
     quantity = params[:quantity].to_i
 
     if @product.check_inventory(quantity)
-      @order_product = OrderProduct.new(quantity: quantity, product_id: params[:product_id], order_id: @order)
-      if save_and_flash(@order_product, edit:"created")
-        redirect_to order_path(@order)
-      else
-        render "products/show", status: :bad_request
+      #find order object
+      order = Order.find_by(id: @order)
+
+      #check if this order already has this product
+      result = order.order_products.select {|op| op.product_id == @product.id}
+
+      if result.empty? #no current products with this id
+        @order_product = OrderProduct.new(quantity: quantity, product_id: params[:product_id], order_id: @order)
+        #decrease inventory of product (doesn't seem to be working)
+        # @product.decrease_inventory(quantity)
+        if save_and_flash(@order_product, edit:"created")
+          redirect_to order_path(@order)
+        else
+          render "products/show", status: :bad_request
+        end
+      else #there is an op in result(should be just one)
+        @op = result[0]
+        #decrease inventory by quantity
+        # @product.decrease_inventory(quantity)
+        new_quantity = @op.quantity + quantity
+        @op.quantity = new_quantity
+        if save_and_flash(@op, edit:"updated")
+          redirect_to order_path(@order)
+        else
+          render "products/show", status: :bad_request
+        end
       end
+
     else
       flash.now[:status] = :failure
       flash.now[:message] = "Not enough #{@product.name.pluralize} in stock, please revise the quantity selected."
