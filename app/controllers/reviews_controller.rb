@@ -1,7 +1,9 @@
 class ReviewsController < ApplicationController
 
+before_action :find_product, only: [:new]
+
   def new
-    @product = Product.find_by(id: params[:product_id])
+    # @product = Product.find_by(id: params[:product_id])
     if session[:merchant_id] == @product.merchant_id
       flash[:status] = :failure
       flash[:message] = "You cannot review your own product!"
@@ -28,6 +30,14 @@ class ReviewsController < ApplicationController
 end
 
 private
+
+def find_product
+  @product = Product.find_by(id: params[:id])
+  unless @product
+    head :not_found
+  end
+end
+
 def review_params
   return params.require(:review).permit(:rating, :text, :product_id)
 end

@@ -19,8 +19,8 @@ describe Review do
       review.product_id.must_equal prod.id
       review.product.must_equal prod
     end
-
   end
+  
   describe 'validations' do
     it 'is valid' do
       review = Review.new(rating: 3, product_id: Product.first.id)
