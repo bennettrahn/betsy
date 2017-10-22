@@ -1,16 +1,17 @@
 <h1> Welcome, Bae</h1>
 
-<h3>Spotlight | <small> Something, just for you</small></h3>
-<div class="row">
-  <!-- <% @spot = Product.all.sample%> -->
-  <div class="small-3 small-centered columns">
-    <%=link_to Category.spot.name, product_path(@spot.id)%>
-    <%= @spot.price %>
-    <%= image_tag "#{@spot.photo_url}" %>
+  <h3>Spotlight | <small> Something, just for you</small></h3>
+  <section class="spotlight">
+  <div class="row">
+    <!-- <% @spot = Product.all.sample%> -->
+    <div class="small-3 small-centered columns">
+      <p class="first-item"><%=link_to Category.spot.name.capitalize, product_path(@spot.id)%></p>
+      <p>$<%='%.2f' %  @spot.price %></p>
+      <p class="image"><%= image_tag "#{@spot.photo_url}" %></p>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- <h3>Picks for you:</h3> -->
 
 <h3 class="spooky">Spooky Seasonal Hits | <small> Boo!</small> </h3>
 <div class="row product">

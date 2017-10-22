@@ -16,6 +16,7 @@
 
  */
 
+
 .page-header {
   background-image: url(pineapple1.jpg);
   background-repeat: no-repeat;
@@ -37,6 +38,7 @@ h1 {
 }
 h3 {
   text-align: center;
+
 }
 a {
   color: rgb(66, 83, 92);
@@ -136,4 +138,19 @@ main {
 }
 .product-image {
   padding-bottom: 30px;
+}
+.spotlight {
+  font-weight: bold;
+  text-align: center;
+  border-style: solid;
+  padding-bottom: 30px;
+  background-color: rgba(180, 202, 241, 0.48);
+}
+.first-item a{
+  font-size: 1.5em;
+}
+.playing {
+  border-style: solid;
+  max-width: 200px;
+  height: 300px;
 }
