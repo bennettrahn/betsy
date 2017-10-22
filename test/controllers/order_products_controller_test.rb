@@ -43,7 +43,7 @@ describe OrderProductsController do
       Order.count.must_equal orders_start
     end
 
-    it "if an orderproduct with the same product already exists, it will not create a new OrderProduct object" do
+    it "if an OrderProduct with the same product already exists, it will not create a new OrderProduct object" do
       post create_order_product_path, params: @product_params
       orders_start = Order.count
       start_count = OrderProduct.count
@@ -53,6 +53,20 @@ describe OrderProductsController do
 
       OrderProduct.count.must_equal start_count
       Order.count.must_equal orders_start
+    end
+
+    #TODO: this test is failing
+    it "changes the quantity of an existing OrderProduct if trying to add more of the same product" do
+      order_prod = order_products(:one)
+
+
+      product = {
+        product_id: products(:tricycle).id,
+        quantity: 1
+      }
+
+      post create_order_product_path, params: product
+      order_prod.quantity.must_equal 2
     end
 
     it "wont create if input is invalid" do
@@ -81,6 +95,20 @@ describe OrderProductsController do
       flash[:message].must_equal "Not enough tricycles in stock, please revise the quantity selected."
 
       OrderProduct.count.must_equal start_count
+    end
+  end
+
+  describe "update" do
+    it "changes the quantity of an existing OrderProduct" do
+
+    end
+
+    it "sets flash[:status] to failure if there isn't enough inventory to update" do
+
+    end
+
+    it "sets flash[:status] to success if enough inventory" do
+
     end
   end
 end
