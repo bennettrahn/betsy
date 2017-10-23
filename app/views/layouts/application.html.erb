@@ -11,20 +11,21 @@
   <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
   <%= csrf_meta_tags %>
 </head>
-
 <body>
+  <main class="background">
+
   <header>
     <%= link_to "Home", root_path %>
   </header>
 
+
+
   <header class="page-header row">
-    <h2 class="heading columns small-12">
-      <%= link_to "3Bae | Good Things Happen in Threes", root_path %></small>
-    </h2>
+
 
     <nav class="columns small-12">
       <div class="dropdown">
-        <span class="button"><%= link_to "All merchants", merchants_path  %></span>
+        <span class="button-link"><%= link_to "All merchants", merchants_path  %></span>
         <div class="dropdown-content">
           <% Merchant.all.each do |merchant| %>
           <%= link_to "#{merchant.name}", merchant_path(merchant.id) %>
@@ -32,11 +33,11 @@
         </div>
       </div>
 
-      <%= link_to "View all products", products_path, class: "button" %>
+      <%= link_to "View all products", products_path, class: "button-link" %>
 
 
       <div class="dropdown">
-        <span class="button"><%= link_to "All categories", products_path  %></span>
+        <span class="button-link"><%= link_to "All categories", products_path  %></span>
         <div class="dropdown-content">
           <% Category.all.each do |category| %>
           <%= link_to "#{category.name}", category_path(category.id)%>
@@ -46,7 +47,7 @@
 
 
       <% if session[:merchant_id] %>
-      <%= link_to "Create new category", new_category_path, class: "button "%>
+      <%= link_to "Create new category", new_category_path, class: "button-link "%>
       <% end %>
 
 
@@ -56,15 +57,20 @@
         <% end %>
 
         <% if session[:merchant_id] %>
-        <%= link_to "Log out", logout_path, class: "button" %>
+        <%= link_to "Log out", logout_path, class: "button-link" %>
         <% else %>
-        <%= link_to "Log in", '/auth/github', class: "button" %>
+        <%= link_to "Log in", '/auth/github', class: "button-link" %>
         <% end %>
       </div>
+
+      <h2 class="heading columns small-12">
+        <%= link_to "3Bae | Good Things Happen in Threes", root_path %></small>
+      </h2>
     </nav>
   </header>
-  <main class="wrap">
 
+  </main>>
+  <main class="wrap">
 
     <% if flash[:message] %>
     <section class="row status <%= flash[:status] %>">

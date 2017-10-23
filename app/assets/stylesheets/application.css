@@ -19,12 +19,13 @@
 html, body, main, header, h1, h2, h3 {
   font-family: 'Quicksand', sans-serif;
 }
-.page-header {
-  background-image: url(pine.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 300px;
+.background {
+  background-image: url(33.jpeg);
+  background-position: top;
+  background-repeat: repeat;
+  height: 700px;
 }
+
 .rand {
   margin-top: 10px;
   padding-bottom: 10px;
@@ -48,12 +49,14 @@ html, body, main, header, h1, h2, h3 {
 .columns:last-child:not(:first-child) {
   float: left;
 }
-.large-4 {
-  /*width: 30.33333%;*/
-}
 .heading:hover a {
-  color:rgb(134, 230, 233);
+  color:rgb(47, 110, 112);
 }
+.heading a {
+  font-size: 1.6em;
+  color: white;
+}
+
 
 /***********/
 /*  MAIN  */
@@ -65,6 +68,22 @@ html, body, main, header, h1, h2, h3 {
   background-color: rgba(245, 151, 230, 0.92);
 }
 
+.button-link{
+  color: white;
+  font-size: 20px;
+}
+.button-link:hover{
+  color:rgb(17, 185, 190);
+}
+
+.button-link a{
+  color: white;
+  font-size: 20px;
+
+}
+.button-link a:hover{
+  color:rgb(17, 185, 190);
+}
 .good {
   color: rgb(20, 17, 83);
 }
@@ -177,6 +196,7 @@ body {
   background-color: rgb(141, 114, 215);
 }
 main {
+
   padding-bottom: 50px;
 }
 .product {
