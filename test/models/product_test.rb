@@ -190,6 +190,7 @@ describe Product do
     end
 
     it "returns 0 if no reviews" do
+      Review.destroy_all
       product = Product.first
 
       product.average_rating.must_equal 0

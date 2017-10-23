@@ -34,7 +34,8 @@ class ActiveSupport::TestCase
     return {
       provider: merchant.provider,
       uid: merchant.uid,
-      info: {
+      :info.to_s => {
+        name: merchant.name,
         email: merchant.email,
         nickname: merchant.username
       }

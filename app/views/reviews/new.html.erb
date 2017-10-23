@@ -15,7 +15,8 @@
   <%= f.label :text, "Write a review!" %>
   <%= f.text_area :text %>
 
-  <%= f.hidden_field :product_id, :value => @product.id %>
+  <%= f.hidden_field :product_id, value: @product.id %>
 
-  <input type="submit" class="button"<%= f.submit %>
+  <%= f.submit "Submit", class:'button' %>
+
 <% end %>
