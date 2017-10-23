@@ -16,7 +16,9 @@
 
  */
 
-
+html, body, main, header, h1, h2, h3 {
+  font-family: 'Quicksand', sans-serif;
+}
 .page-header {
   background-image: url(pineapple1.jpg);
   background-repeat: no-repeat;
