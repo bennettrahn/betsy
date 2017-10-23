@@ -2,12 +2,14 @@ class OrderProductsController < ApplicationController
   # before_action :find_op_by_params_id, only: [:edit, :update]
   def update
     @op = OrderProduct.find_by(id: params[:id])
+    # @product = @op.product
 
     @product = Product.find_by(id: params[:product_id])
     new_quantity = params[:quantity].to_i
 
     #find instance of order
     order_id = session[:cart]
+    puts "ORDER_ID in #update: #{order_id}"
     @order = Order.find_by(id: order_id)
 
     #put previous quantity back to inventory
@@ -15,7 +17,9 @@ class OrderProductsController < ApplicationController
 
     if @product.check_inventory(new_quantity)
       @op.quantity = new_quantity
+      puts "Updated quantity to #{@op.quantity}"
       if @op.save
+        puts "Saved successfully"
         flash[:status] = :success
         flash[:message] = "Successfully updated cart"
         redirect_to order_path(@order.id)

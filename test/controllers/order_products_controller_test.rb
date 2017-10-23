@@ -1,13 +1,13 @@
 require "test_helper"
 
 describe OrderProductsController do
+  before do
+    @product_params = {
+      product_id: products(:tricycle).id,
+      quantity: 1
+    }
+  end
   describe "create" do
-    before do
-      @product_params = {
-        product_id: products(:tricycle).id,
-        quantity: 1
-      }
-    end
 
     it "creates an OrderProduct with a product and an order, creates a new order if no session[:cart] exists" do
 
@@ -75,6 +75,7 @@ describe OrderProductsController do
       # order.order_products.each do |op|
       #   quantity_end += op.quantity
       # end
+      op.reload
       op.quantity.must_equal quantity_start + 1
 
     end
@@ -108,11 +109,10 @@ describe OrderProductsController do
     end
   end
 
-  #TODO: this test is failing
   describe "update" do
     it "changes the quantity of an existing OrderProduct" do
       post create_order_product_path, params: @product_params
-      order_prod = order_products(:one)
+      order_prod = OrderProduct.last
       puts "ORDER PRODUCT ID: #{order_prod.id}"
 
       update_order_prod = {
@@ -121,6 +121,11 @@ describe OrderProductsController do
       }
       patch order_product_path(order_prod.id), params: update_order_prod
 
+      puts "ORDER_ID in test: #{order_prod.order.id}"
+      must_respond_with :redirect
+      must_redirect_to order_path(order_prod.order)
+
+      order_prod.reload
       order_prod.quantity.must_equal 2
     end
 
