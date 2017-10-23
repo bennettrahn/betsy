@@ -27,6 +27,10 @@ html, body, main, header, h1, h2, h3 {
   height: 700px;*/
 }
 
+.menu {
+  background-color: white;
+}
+
 .rand {
   margin-top: 10px;
   padding-bottom: 10px;
