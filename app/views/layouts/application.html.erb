@@ -11,9 +11,36 @@
   <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
   <%= csrf_meta_tags %>
 </head>
-<body>
-  <header>
-    <%= link_to "Home", root_path %>
+
+<body class="background">
+
+  <header class="page-header row">
+    <h2 class="heading columns small-12 large-3">
+      <%= link_to "3Bae", root_path %>
+    </h2>
+
+    <div class="float-right">
+      <%= link_to root_path do %>
+        <%= image_tag "address-icon.png", size: "40x40" %>
+      <% end %>
+
+      <%= link_to session[:cart] ? order_path(session[:cart]) : products_path do %>
+        <%= image_tag 'blue_cart.png', size: "40x40" %>
+      <% end %>
+
+      <% if session[:merchant_id] %>
+        <%= link_to merchant_path(session[:merchant_id]) do %>
+          <%= image_tag "your_page.png", size: "45x45"  %>
+        <% end %>
+        <%= link_to "Log out", logout_path, class: "button-link" %>
+      <% else %>
+        <%= link_to '/auth/github' do %>
+          <%= image_tag "login.png", size: "40x40"  %>
+        <% end %>
+      <% end %>
+    </div>
+  </header>
+
     <nav class="columns small-12">
       <div class="dropdown">
         <span class="button-link"><%= link_to "All merchants", merchants_path  %></span>
@@ -25,7 +52,6 @@
       </div>
       <%= link_to "View all products", products_path, class: "button-link" %>
 
-
       <div class="dropdown">
         <span class="button-link"><%= link_to "All categories", products_path  %></span>
         <div class="dropdown-content">
@@ -35,25 +61,11 @@
         </div>
       </div>
 
-
       <% if session[:merchant_id] %>
       <%= link_to "Create new category", new_category_path, class: "button-link "%>
       <% end %>
-
-
-      <div class="float-right">
-        <%= link_to session[:cart] ? order_path(session[:cart]) : products_path do %>
-        <%= image_tag 'cart.png', size: "40x40" %>
-        <% end %>
-
-        <% if session[:merchant_id] %>
-        <%= link_to "Log out", logout_path, class: "button-link" %>
-        <% else %>
-        <%= link_to "Log in", '/auth/github', class: "button-link" %>
-        <% end %>
-      </div>
     </nav>
-  </header>
+
   <main>
     <!-- this is the flash section -->
     <% if flash[:message] %>
@@ -74,66 +86,8 @@
       </section>
     <% end %>
 
-
-    <!-- <body>
-    <main class="background">
-
-    <header>
-    <%= link_to "Home", root_path %>
-    </header>
-
-    <header class="page-header row">
-
-    <nav class="columns small-12">
-    <div class="dropdown">
-    <span class="button-link"><%= link_to "All merchants", merchants_path  %></span>
-    <div class="dropdown-content">
-    <% Merchant.all.each do |merchant| %>
-    <%= link_to "#{merchant.name}", merchant_path(merchant.id) %>
-    <% end %>
-    </div>
-    </div>
-
-    <%= link_to "View all products", products_path, class: "button-link" %>
-
-
-    <div class="dropdown">
-    <span class="button-link"><%= link_to "All categories", products_path  %></span>
-    <div class="dropdown-content">
-    <% Category.all.each do |category| %>
-    <%= link_to "#{category.name}", category_path(category.id)%>
-    <% end  %>
-    </div>
-    </div>
-
-
-    <% if session[:merchant_id] %>
-    <%= link_to "Create new category", new_category_path, class: "button-link "%>
-    <% end %>
-
-
-    <div class="float-right">
-    <%= link_to session[:cart] ? order_path(session[:cart]) : products_path do %>
-    <%= image_tag 'cart.png', size: "40x40" %>
-    <% end %>
-
-    <% if session[:merchant_id] %>
-    <%= link_to "Log out", logout_path, class: "button-link" %>
-    <% else %>
-    <%= link_to "Log in", '/auth/github', class: "button-link" %>
-    <% end %>
-    </div>
-
-    <h2 class="heading columns small-12">
-    <%= link_to "3Bae | Good Things Happen in Threes", root_path %>
-    </h2>
-    </nav>
-    </header>
-
-    </main>
-    <main class="wrap"> -->
-
     <%= yield %>
+
   </main>
 </body>
 </html>
