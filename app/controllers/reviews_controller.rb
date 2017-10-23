@@ -20,7 +20,7 @@ before_action :find_product, only: [:new]
     review_params
     )
     @product = Product.find_by(id: review_params[:product_id])
-    if save_and_flash(@review)
+    if save_and_flash(@review, name: "")
       redirect_to product_path(review_params[:product_id])
       return
     else

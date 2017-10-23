@@ -19,14 +19,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def save_and_flash(model, edit: "create", save: model.save)
+  def save_and_flash(model, edit: "create", save: model.save, name: model.name)
     result = save
     if result
       flash[:status] = :success
-      flash[:message] = "Successfully #{edit}d #{model.class} #{model.id}"
+      flash[:message] = "Successfully #{edit}d #{model.class} #{name}"
     else
       flash.now[:status] = :failure
-      flash.now[:message] = "A problem occurred: Could not #{edit} #{model.class}"
+      flash.now[:message] = "Could not #{edit} #{model.class}"
       flash.now[:details] = model.errors.messages
       return false
     end

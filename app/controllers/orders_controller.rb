@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
   def update
     @order.update_attributes(order_params)
-    if save_and_flash(@order, edit:"submitted")
+    if save_and_flash(@order, edit:"submitted", name: @order.id)
       @order.status = "paid"
       session[:cart] = nil
       redirect_to(order_path(@order))
@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    save_and_flash(@order, edit: "destroyed", save: @order.destroy)
+    save_and_flash(@order, edit: "destroyed", save: @order.destroy, name: @order.id)
     redirect_to orders_path
   end
 
