@@ -1,15 +1,14 @@
 class OrdersController < ApplicationController
   before_action :find_order_by_params_id, only: [:show, :update, :destroy, :checkout, :receipt]
   before_action :check_order_session, only: [:receipt]
-
+  
   def index
     @orders = Order.all
   end
 
   def show ; end
 
-  # def edit
-  # end
+
   def checkout ; end
 
   def receipt ; end
@@ -31,6 +30,7 @@ class OrdersController < ApplicationController
 
   def destroy
     save_and_flash(@order, edit: "destroyed", save: @order.destroy)
+
     session[:cart] = nil
     redirect_to root_path
   end

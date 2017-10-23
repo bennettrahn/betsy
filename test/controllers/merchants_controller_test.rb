@@ -27,13 +27,6 @@ describe MerchantsController do
         must_respond_with :success
       end
 
-      # commented below test out, because everyone should be able to see all merchant show pages
-      # it "only shows merchant their own page" do
-      #   get merchant_path(merchants(:lauren))
-      #   must_redirect_to merchants_path
-      #   flash[:message].must_equal "You can only see your own details"
-      # end
-
       it "renders 404 not_found for a invalid merchant ID" do
         invalid_merchant_id = Merchant.last.id + 1
         get merchant_path(invalid_merchant_id)
@@ -44,82 +37,6 @@ describe MerchantsController do
         merchant = merchants(:bennett)
         get merchant_path(merchant)
         must_respond_with :success
-      end
-    end
-
-    describe "edit" do
-      it "succeeds if the merchant is logged in" do
-        get edit_merchant_path(@merchant)
-        must_respond_with :success
-      end
-
-      it "renders 404 not_found for an invalid merchant ID" do
-        invalid_merchant_id = Merchant.last.id + 1
-        get edit_merchant_path(invalid_merchant_id)
-        must_respond_with :not_found
-      end
-
-      it "sets flash[:status] to failure and redirects to products_path when logged in merchant tries to edit a different merchant's information" do
-        merchant = merchants(:bennett)
-        get edit_merchant_path(merchant.id)
-        flash[:status].must_equal :failure
-        must_redirect_to root_path
-      end
-    end
-
-    describe "update" do
-      it "succeeds for valid data and if merchant is logged in" do
-        merchant_data = {
-          merchant: {
-            username: "new name",
-            email: @merchant.email
-          }
-        }
-
-        patch merchant_path(@merchant.id), params: merchant_data
-        must_redirect_to merchant_path(@merchant.id)
-
-        # Verify the DB was really modified
-        Merchant.find(@merchant.id).username.must_equal merchant_data[:merchant][:username]
-      end
-
-      it "renders bad_request for invalid data" do
-        merchant_data = {
-          merchant: {
-            username: "",
-            email: @merchant.email
-          }
-        }
-
-        patch merchant_path(@merchant.id), params: merchant_data
-        must_respond_with :not_found
-
-        # Verify the DB was not modified
-        Merchant.find(@merchant.id).username.must_equal @merchant.username
-      end
-
-      it "renders 404 not_found for a invalid merchant ID" do
-        invalid_merchant_id = Merchant.last.id + 1
-        get merchant_path(invalid_merchant_id)
-        must_respond_with :not_found
-      end
-
-      it "sets flash[:status] to failure, and redirects to root_path if logged in merchants tries to update information of another merchant" do
-        merchant = merchants(:bennett)
-        merchant_username = merchant.username
-        merchant_data = {
-          merchant: {
-            username: "new name",
-            email: merchant.email
-          }
-        }
-
-        patch merchant_path(merchant.id), params: merchant_data
-        flash[:status].must_equal :failure
-        must_redirect_to root_path
-
-        # Verify the DB was not changed
-        Merchant.find(merchant.id).username.must_equal merchant_username
       end
     end
 
@@ -164,32 +81,6 @@ describe MerchantsController do
       it "returns success for a non-logged in user" do
         get merchant_path(merchants(:anders))
         must_respond_with :success
-      end
-    end
-
-    #this test is failing -- how to pass session[:merchant_id] as nil?
-    describe "edit" do
-      it "edit fails for a non-logged in user" do
-        get edit_merchant_path(merchants(:bennett))
-        flash[:status].must_equal :failure
-        must_respond_with :redirect
-        must_redirect_to products_path
-      end
-    end
-
-    describe "update" do
-      it "update fails for a non-logged in user and redirects to products path" do
-        merchant = merchants(:bennett)
-        # merchant_username = merchant.username
-        merchant_data = {
-          merchant: {
-            username: "new name",
-            email: merchant.email
-          }
-        }
-        patch merchant_path(merchant.id), params: merchant_data
-        flash[:status].must_equal :failure
-        must_redirect_to products_path
       end
     end
 
@@ -275,82 +166,4 @@ describe MerchantsController do
     end
   end
 
-  describe "new" do
-    it "works" do
-      get new_merchant_path
-      must_respond_with :success
-    end
-  end
 end
-
-
-
-  # describe "create" do
-  #   it "creates a merchant with valid data" do
-  #     merchant_data = {
-  #       merchant: {
-  #         username: "test test",
-  #         email: "test@test.com"
-  #       }
-  #     }
-  #
-  #     start_count = Merchant.count
-  #
-  #     post merchants_path, params: merchant_data
-  #     must_redirect_to merchant_path(Merchant.last)
-  #
-  #     Merchant.count.must_equal start_count + 1
-  #   end
-  #
-  #   it "renders bad_request and does not update the DB for invalid merchant data" do
-  #     invalid_merchant_data = {
-  #       merchant: {
-  #         username: "",
-  #         email: ""
-  #       }
-  #     }
-  #
-  #     start_count = Merchant.count
-  #
-  #     post merchants_path, params: invalid_merchant_data
-  #     must_respond_with :bad_request
-  #
-  #     Merchant.count.must_equal start_count
-  #   end
-  #
-  #
-  #   it "renders 400 bad_request for invalid email entries" do
-  #     invalid_email = {
-  #       merchant: {
-  #         username: "namename",
-  #         email: "name"
-  #       }
-  #     }
-  #
-  #     invalid_email_2 = {
-  #       merchant: {
-  #         username: "namename",
-  #         email: "name@"
-  #       }
-  #     }
-  #
-  #     invalid_email_3 = {
-  #       merchant: {
-  #         username: "namename",
-  #         email: "name@name."
-  #       }
-  #     }
-  #
-  #     start_count = Merchant.count
-  #
-  #     post merchants_path, params: invalid_email
-  #     must_respond_with :bad_request
-  #
-  #     post merchants_path, params: invalid_email_2
-  #     must_respond_with :bad_request
-  #
-  #     post merchants_path, params: invalid_email_3
-  #     must_respond_with :bad_request
-  #
-  #     Merchant.count.must_equal start_count
-  #   end

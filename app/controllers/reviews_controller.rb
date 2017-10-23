@@ -3,7 +3,6 @@ class ReviewsController < ApplicationController
 before_action :find_product, only: [:new]
 
   def new
-    # @product = Product.find_by(id: params[:product_id])
     if session[:merchant_id] == @product.merchant_id
       flash[:status] = :failure
       flash[:message] = "You cannot review your own product!"
@@ -21,7 +20,7 @@ before_action :find_product, only: [:new]
     review_params
     )
     @product = Product.find_by(id: review_params[:product_id])
-    if save_and_flash(@review, edit: "saved", save: @review.save )
+    if save_and_flash(@review)
       redirect_to product_path(review_params[:product_id])
       return
     else
@@ -43,11 +42,11 @@ def review_params
   return params.require(:review).permit(:rating, :text, :product_id)
 end
 
-def cant_be_merchant
-  if session[:merchant_id] == @product.merchant_id
-    flash[:status] = :failure
-    flash[:message] = "You cannot review your own product!"
-    redirect_to products_path
-    return
-  end
-end
+# def cant_be_merchant
+#   if session[:merchant_id] == @product.merchant_id
+#     flash[:status] = :failure
+#     flash[:message] = "You cannot review your own product!"
+#     redirect_to products_path
+#     return
+#   end
+# end

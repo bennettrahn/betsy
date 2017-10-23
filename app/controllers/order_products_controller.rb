@@ -2,6 +2,7 @@ class OrderProductsController < ApplicationController
   # before_action :find_op_by_params_id, only: [:edit, :update]
   def update
     @op = OrderProduct.find_by(id: params[:id])
+    # @product = @op.product
 
     @product = Product.find_by(id: params[:product_id])
     new_quantity = params[:quantity].to_i
@@ -10,12 +11,11 @@ class OrderProductsController < ApplicationController
     order_id = session[:cart]
     @order = Order.find_by(id: order_id)
 
-    #put previous quantity back to inventory
-    @product.increase_inventory(@op.quantity)
-
     if @product.check_inventory(new_quantity)
       @op.quantity = new_quantity
+      puts "Updated quantity to #{@op.quantity}"
       if @op.save
+        puts "Saved successfully"
         flash[:status] = :success
         flash[:message] = "Successfully updated cart"
         redirect_to order_path(@order.id)
@@ -44,8 +44,7 @@ class OrderProductsController < ApplicationController
 
       if result.empty? #no current products with this id
         @order_product = OrderProduct.new(quantity: quantity, product_id: params[:product_id], order_id: @order)
-        #decrease inventory of product (doesn't seem to be working)
-        # @product.decrease_inventory(quantity)
+
         if save_and_flash(@order_product, edit:"created")
           redirect_to order_path(@order)
         else
@@ -53,8 +52,7 @@ class OrderProductsController < ApplicationController
         end
       else #there is an op in result(should be just one)
         @op = result[0]
-        #decrease inventory by quantity
-        # @product.decrease_inventory(quantity)
+
         new_quantity = @op.quantity + quantity
         @op.quantity = new_quantity
         if save_and_flash(@op, edit:"updated")

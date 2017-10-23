@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new]
   end
   resources :reviews, only: [:new, :create]
-  resources :merchants
+  resources :merchants, only: [:index, :create, :show, :destroy]
 
   resources :order_products, only: [:edit, :update, :destroy]
   post '/order_products', to: 'order_products#create', as: 'create_order_product'
