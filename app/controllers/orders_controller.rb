@@ -1,33 +1,15 @@
 class OrdersController < ApplicationController
-  before_action :find_order_by_params_id, only: [:show, :edit, :update, :destroy, :checkout]
+  before_action :find_order_by_params_id, only: [:show, :update, :destroy, :checkout]
 
   def index
     @orders = Order.all
   end
 
-  # def create
-  #   @order = Order.new(order_params)
-  #
-  #   if save_and_flash(@order)
-  #     redirect_to order_path(@order)
-  #   else
-  #     render :new, status: :bad_request
-  #   end
-  #
-  # end
-  #
-  # def new
-  #   @order = Order.new
-  # end
+  def show ; end
 
-  def edit
-    # edit is actually more like check_out
-    # @product.decrease_inventory(params[:quantity].to_i)
-    #when they check_out, test
-  end
-
-  def show
-  end
+  # def edit
+  # end
+  def checkout ; end
 
   def update
     @order.update_attributes(order_params)
@@ -43,11 +25,8 @@ class OrdersController < ApplicationController
 
   def destroy
     save_and_flash(@order, edit: "destroyed", save: @order.destroy)
-    redirect_to orders_path
-  end
-
-  def checkout
-
+    session[:cart] = nil
+    redirect_to root_path
   end
 
   private

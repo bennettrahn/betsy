@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :reviews, only: [:new, :create]
   resources :merchants
 
-  resources :order_products, only: [:edit, :update]
+  resources :order_products, only: [:edit, :update, :destroy]
   post '/order_products', to: 'order_products#create', as: 'create_order_product'
 
   get "/auth/:provider/callback", to: "merchants#create", as: 'auth_callback'
