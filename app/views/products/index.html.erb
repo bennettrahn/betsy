@@ -3,7 +3,26 @@
 <span class="add"><%= link_to "Add a Product", new_product_path, class: "button" %></span>
 
 
+
+
 <% Category.all.each do |category| %>
+<h3 class="spooky-home"> <%= link_to category.name, category_path(category.id) %></h3>
+
+<div class="row product-index">
+  <% category.products.each do |product| %>
+
+  <div class="randpad-home small-2 large-4 columns">
+    <p class="title"><%=link_to product.name.capitalize, product_path(product.id)%></p>
+    <p>$<%='%.2f' % product.price%>  </p>
+    <p class="product-image"><%= image_tag "#{product.photo_url}" %></p>
+  </div>
+  <% end %>
+  </div>
+  <% end %>
+
+
+
+<!-- <% Category.all.each do |category| %>
 
 <h2 class="category"><%= link_to category.name, category_path(category.id) %></h2>
 <% category.products.each do |prod| %>
@@ -14,4 +33,4 @@
 <p class="image"><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
 
 <% end %>
-<% end %>
+<% end %> -->

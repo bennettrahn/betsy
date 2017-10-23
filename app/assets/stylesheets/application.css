@@ -1,20 +1,20 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- *= require foundation_and_overrides
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+* vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*= require_tree .
+*= require_self
+*= require foundation_and_overrides
 
- */
+*/
 
 html, body, main, header, h1, h2, h3 {
   font-family: 'Quicksand', sans-serif;
@@ -38,27 +38,46 @@ html, body, main, header, h1, h2, h3 {
   height: 200px;
   width: 200px;
 }
+.randpad-home {
+  background-color: rgba(242, 222, 236, 0.82);
+  margin-left: 5px;
+  margin-bottom: 10px;
+  height: 200px;
+  width: 200px;
+}
 .columns:last-child:not(:first-child) {
-     float: left;
+  float: left;
 }
 .large-4 {
-    /*width: 30.33333%;*/
+  /*width: 30.33333%;*/
 }
 .heading:hover a {
   color:rgb(134, 230, 233);
 }
+
 /***********/
 /*  MAIN  */
 /***********/
 .button {
-  background-color: rgba(232, 174, 86, 0.66);
+  background-color: rgba(245, 193, 151, 0.92);
 }
+.button:hover {
+  background-color: rgba(245, 151, 230, 0.92);
+}
+
 .good {
   color: rgb(20, 17, 83);
 }
-p{
-    margin-bottom: 1px;
-    padding-top: 10px;
+p {
+  margin-bottom: 1px;
+  padding-top: 10px;
+  text-align: center
+}
+p a:hover{
+  color:rgb(17, 185, 190);
+}
+.title {
+
 }
 h1 {
   color: rgb(20, 17, 83);
@@ -78,43 +97,43 @@ body {
   margin: 0 auto;
   max-width: 700px;
 }
- /***********/
- /*  STARS  */
- /***********/
+/***********/
+/*  STARS  */
+/***********/
 
- .zero-stars, .zero-stars a{
-   color: lightgrey;
- }
+.zero-stars, .zero-stars a{
+  color: lightgrey;
+}
 
- .one-star, .one-star a{
-   color: #cc0000;
- }
+.one-star, .one-star a{
+  color: #cc0000;
+}
 
- .two-stars, .two-stars a{
-   color: #ff8533;
- }
+.two-stars, .two-stars a{
+  color: #ff8533;
+}
 
- .three-stars, .three-stars a{
-   color: #ffcc00;
- }
+.three-stars, .three-stars a{
+  color: #ffcc00;
+}
 
- .four-stars, .four-stars a{
-   color: #99db70;
- }
+.four-stars, .four-stars a{
+  color: #99db70;
+}
 
- .five-stars, .five-stars a{
-   color: #33AC33;
- }
+.five-stars, .five-stars a{
+  color: #33AC33;
+}
 .float-right {
   padding-top: 30px;
 }
- /***********/
- /*  DROPDOWN  */
- /***********/
+/***********/
+/*  DROPDOWN  */
+/***********/
 .button a {
   color: white;
 }
- .dropdown {
+.dropdown {
   position: relative;
   display: inline-block;
   /*width: 100px;*/
@@ -144,6 +163,12 @@ body {
 .spooky {
   margin-top: 90px;
 }
+.spooky-home {
+  margin-top: 20px;
+  font-size: 3em;
+
+}
+
 .add {
   margin-left: 40%;
 }
@@ -162,15 +187,35 @@ main {
   background-image: url(boo2.jpg);
   background-size: cover;
   /*background-repeat: no-repeat;*/
-  padding-bottom: 30px;
+  padding-bottom: 100px;
   padding-left: 30px;
+}
+.product-index {
+  font-weight: bold;
+  padding-top: 30px;
+  /*width: 800px;*/
+  border-style: solid;
+  background-image: url(banana.jpg);
+  background-size: cover;
+  /*background-repeat: no-repeat;*/
+  padding-bottom: 100px;
+  padding-left: 30px;
+}
+.product-index a {
+  color: rgb(213, 38, 148);
 }
 
 .product a {
   color: rgb(213, 117, 38);
 }
 .product-image {
-  padding-bottom: 30px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  max-width: 200px;
+  height: 100px;
+}
+.product-image img {
+  max-height: 100px;
 }
 .spotlight {
   font-weight: bold;

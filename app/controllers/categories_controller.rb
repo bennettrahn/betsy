@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.all
     @spot = Category.spot
-    # @holiday = Category.view_by_category(category)
+    # @by_cat = Category.view_by_category
   end
 
   def show
