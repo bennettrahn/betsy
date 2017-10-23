@@ -23,49 +23,10 @@ describe OrdersController do
       get orders_path
       must_respond_with :success
     end
-
-    #------- test nested routes
-    # it "returns a success status when given a valid author id" do
-    # get author_books_path(Author.first)
-    # must_respond_with :success
-    # end
-
-    # opposite:
-    # get author_books_path(Author.last.id + 1)
-    # must_respond_with :not_found
   end
 
-  describe "new" do
-    # it "returns a success status for new form" do
-    #   get new_order_path
-    #   must_respond_with :success
-    # end
-  end
 
-  describe "create" do
-    # it "redirects to order page when the order data is valid" do
-    #
-    #   Order.new(order_data[:order]).must_be :valid?
-    #   start_order_count = Order.count
-    #   post orders_path, params: order_data
-    #   must_respond_with :redirect
-    #   # must_redirect_to order_path()
-    #
-    #   Order.count.must_equal start_order_count + 1
-    # end
 
-    # it "sends bad_request when the order data is invalid" do
-    #
-    #   Order.new(invalid_order_data[:order]).wont_be :valid?
-    #   start_order_count = Order.count
-    #   post orders_path, params: invalid_order_data
-    #   must_respond_with :bad_request
-    #   # assert_template :new
-    #
-    #   Order.count.must_equal start_order_count
-    #
-    # end
-  end
 
   describe "show" do
     it "returns success when given a vaild id" do
@@ -79,16 +40,6 @@ describe OrdersController do
 
   end
 
-  describe "edit" do
-    it "returns success when given a vaild id" do
-      get edit_order_path(order_id)
-      must_respond_with :success
-    end
-    it "returns not_found when given an invaild id" do
-      get edit_order_path(order_id + 1)
-      must_respond_with :not_found
-    end
-  end
 
   describe "update" do
     it "returns not_found when given an invaild id" do
