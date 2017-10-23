@@ -9,11 +9,7 @@ class OrderProductsController < ApplicationController
 
     #find instance of order
     order_id = session[:cart]
-    puts "ORDER_ID in #update: #{order_id}"
     @order = Order.find_by(id: order_id)
-
-    #put previous quantity back to inventory
-    @product.increase_inventory(@op.quantity)
 
     if @product.check_inventory(new_quantity)
       @op.quantity = new_quantity
@@ -48,8 +44,7 @@ class OrderProductsController < ApplicationController
 
       if result.empty? #no current products with this id
         @order_product = OrderProduct.new(quantity: quantity, product_id: params[:product_id], order_id: @order)
-        #decrease inventory of product (doesn't seem to be working)
-        # @product.decrease_inventory(quantity)
+
         if save_and_flash(@order_product, edit:"created")
           redirect_to order_path(@order)
         else
@@ -57,8 +52,7 @@ class OrderProductsController < ApplicationController
         end
       else #there is an op in result(should be just one)
         @op = result[0]
-        #decrease inventory by quantity
-        # @product.decrease_inventory(quantity)
+
         new_quantity = @op.quantity + quantity
         @op.quantity = new_quantity
         if save_and_flash(@op, edit:"updated")

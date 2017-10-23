@@ -56,28 +56,17 @@ describe OrderProductsController do
       Order.count.must_equal orders_start
     end
 
-    #TODO: this test is failing
     it "changes the quantity of an existing OrderProduct if trying to add more of the same product" do
       post create_order_product_path, params: @product_params
-      # order = Order.find_by(id: session[:cart])
-      # quantity_start = 0
-      # order.order_products.each do |op|
-      #   quantity_start += op.quantity
-      # end
-      # binding.pry
-      # op = order.order_product
+
       op = OrderProduct.find_by(order_id: session[:cart])
       quantity_start = op.quantity
 
       # binding.pry
       post create_order_product_path, params: @product_params
-      # quantity_end = 0
-      # order.order_products.each do |op|
-      #   quantity_end += op.quantity
-      # end
+
       op.reload
       op.quantity.must_equal quantity_start + 1
-
     end
 
     it "wont create if input is invalid" do
@@ -121,7 +110,6 @@ describe OrderProductsController do
       }
       patch order_product_path(order_prod.id), params: update_order_prod
 
-      puts "ORDER_ID in test: #{order_prod.order.id}"
       must_respond_with :redirect
       must_redirect_to order_path(order_prod.order)
 
