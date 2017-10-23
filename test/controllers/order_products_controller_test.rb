@@ -1,16 +1,17 @@
 require "test_helper"
 
 describe OrderProductsController do
+
   before do
     @product_params = {
       product_id: products(:tricycle).id,
       quantity: 1
     }
   end
+
   describe "create" do
 
     it "creates an OrderProduct with a product and an order, creates a new order if no session[:cart] exists" do
-
       orders_start = Order.count
       start_count = OrderProduct.count
 
@@ -19,11 +20,9 @@ describe OrderProductsController do
 
       OrderProduct.count.must_equal start_count + 1
       Order.count.must_equal orders_start + 1
-
     end
 
     it "creates a new OrderProduct with a product and an order if doesn't exist already, adds to existing cart if it has already been initiated" do
-
       post create_order_product_path, params: @product_params
       #I have to do this in order to set session.
 
@@ -99,10 +98,9 @@ describe OrderProductsController do
   end
 
   describe "update" do
-    it "changes the quantity of an existing OrderProduct" do
+    it "changes the quantity of an existing OrderProduct, if enough inventory" do
       post create_order_product_path, params: @product_params
       order_prod = OrderProduct.last
-      puts "ORDER PRODUCT ID: #{order_prod.id}"
 
       update_order_prod = {
         product_id: order_prod.product_id,
@@ -112,17 +110,24 @@ describe OrderProductsController do
 
       must_respond_with :redirect
       must_redirect_to order_path(order_prod.order)
+      flash[:status].must_equal :success
 
       order_prod.reload
       order_prod.quantity.must_equal 2
     end
 
     it "sets flash[:status] to failure if there isn't enough inventory to update" do
+      post create_order_product_path, params: @product_params
+      order_prod = OrderProduct.last
 
-    end
+      update_order_prod = {
+        product_id: order_prod.product_id,
+        quantity: 10
+      }
+      patch order_product_path(order_prod.id), params: update_order_prod
 
-    it "sets flash[:status] to success if enough inventory" do
-
+      must_respond_with :bad_request
+      flash[:status].must_equal :failure
     end
   end
 end
