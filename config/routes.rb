@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'products#root'
 
-  resources :orders, only: [:index, :show, :edit, :update, :destroy]
+  resources :orders, only: [:index, :show, :edit, :update, :destroy] do
+    get 'receipt'
+  end
 
-  get 'order/:id/checkout', to: 'order#checkout', as: 'checkout'
+  get 'orders/:id/checkout', to: 'orders#checkout', as: 'checkout'
 
   resources :products do
     resources :reviews, only: [:new]

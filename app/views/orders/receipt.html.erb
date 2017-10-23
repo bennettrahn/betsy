@@ -1,0 +1,17 @@
+<h1> Your Receipt!</h1>
+
+<h3> <%=  "#{@order.buyer_name}'s Purchase Summary:" %> </h3>
+
+
+<% @order.products.each do |product| %>
+<p><%= product.name %></p>
+<% end %>
+
+<p>Order Status: <%= @order.status %></p>
+
+<p><%= "Check #{@order.email} to track your shipping!" %></p>
+
+
+<p><%= link_to "Buy it again!", products_path, class: "button" %></p>
+
+<p><%=  link_to "Get back to shopping!", root_path, class: "button" %></p>
