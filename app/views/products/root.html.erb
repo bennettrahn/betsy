@@ -4,7 +4,7 @@
   <section class="spotlight">
   <div class="row">
     <!-- <% @spot = Product.all.sample%> -->
-    <div class="small-3 small-centered columns">
+    <div class="rand small-3 small-centered columns">
       <p class="first-item"><%=link_to Category.spot.name.capitalize, product_path(@spot.id)%></p>
       <p>$<%='%.2f' %  @spot.price %></p>
       <p class="image"><%= image_tag "#{@spot.photo_url}" %></p>
@@ -18,12 +18,14 @@
   <%cat = Category.all.where(name:"Halloween").each do |halloween| %>
   <%  halloween.products.each do |product| %>
 
-  <div class="small-2 large-4 columns">
+  <div class="randpad small-2 large-4 columns">
     <p><%=link_to product.name.capitalize, product_path(product.id)%></p>
     <p>$<%='%.2f' % product.price%>  </p>
     <p class="product-image"><%= image_tag "#{product.photo_url}" %></p>
   </div>
 
+
   <% end %>
+
   <% end %>
 </div>

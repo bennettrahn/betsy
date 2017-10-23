@@ -20,10 +20,32 @@ html, body, main, header, h1, h2, h3 {
   font-family: 'Quicksand', sans-serif;
 }
 .page-header {
-  background-image: url(pineapple1.jpg);
+  background-image: url(pine.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   height: 300px;
+}
+.rand {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(241, 219, 228, 0.85);
+  padding-left: 10px;
+}
+.randpad {
+  background-color: rgba(247, 223, 197, 0.85);
+  margin-left: 5px;
+  margin-bottom: 10px;
+  height: 200px;
+  width: 200px;
+}
+.columns:last-child:not(:first-child) {
+     float: left;
+}
+.large-4 {
+    /*width: 30.33333%;*/
+}
+.heading:hover a {
+  color:rgb(134, 230, 233);
 }
 /***********/
 /*  MAIN  */
@@ -33,6 +55,10 @@ html, body, main, header, h1, h2, h3 {
 }
 .good {
   color: rgb(20, 17, 83);
+}
+p{
+    margin-bottom: 1px;
+    padding-top: 10px;
 }
 h1 {
   color: rgb(20, 17, 83);
@@ -131,9 +157,15 @@ main {
 .product {
   font-weight: bold;
   padding-top: 30px;
+  /*width: 800px;*/
   border-style: solid;
+  background-image: url(boo2.jpg);
+  background-size: cover;
+  /*background-repeat: no-repeat;*/
   padding-bottom: 30px;
+  padding-left: 30px;
 }
+
 .product a {
   color: rgb(213, 117, 38);
 }
@@ -145,8 +177,7 @@ main {
   text-align: center;
   border-style: solid;
   padding-bottom: 30px;
-  /*background-image: @spot.photo_url;*/
-  background-color: rgba(180, 202, 241, 0.48);
+  background-image: url(icecream.jpeg);
 }
 .first-item a{
   font-size: 1.5em;
