@@ -1,3 +1,4 @@
+<main class="wrap">
 <section>
   <h3>
     <%= @product.name.capitalize %>
@@ -17,7 +18,7 @@
 </section>
 
 <section>
-  <strong>Categories:</strong>
+  <h3>Categories:</h3>
   <% @product.categories.each do |cat| %>
     <p><%= cat.name%></p>
   <% end  %>
@@ -51,3 +52,4 @@
 <p><%= link_to "Write a Review", new_product_review_path(@product), class: "button" %></p>
 <p><%= link_to "Edit", edit_product_path(@product), class: "button" %></p>
 <p><%= link_to "Delete", product_path(@product), class: "alert button", method: "delete", data: { confirm: "Are you sure?" } %></p>
+</main>

@@ -56,7 +56,7 @@ class MerchantsController < ApplicationController
   def edit
     if @merchant.id != session[:merchant_id]
       flash[:status] = :failure
-      flash[:result_text] = "Only the merchant has permission to do this"
+      flash[:message] = "Only the merchant has permission to do this"
       redirect_to root_path
     end
   end
@@ -64,7 +64,7 @@ class MerchantsController < ApplicationController
   def update
     if @merchant.id != session[:merchant_id]
       flash[:status] = :failure
-      flash[:result_text] = "Only the merchant has permission to do this"
+      flash[:message] = "Only the merchant has permission to do this"
       redirect_to root_path
     else
       @merchant.update_attributes(merchant_params)
@@ -84,7 +84,7 @@ class MerchantsController < ApplicationController
   def destroy
     if @merchant.id != session[:merchant_id]
       flash[:status] = :failure
-      flash[:result_text] = "Only the merchant has permission to delete"
+      flash[:message] = "Only the merchant has permission to delete"
       redirect_to root_path
     else
       @merchant.destroy

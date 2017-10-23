@@ -15,7 +15,7 @@ tricycle:
   name: tricycle
   description: "A fun toy!"
   merchant: anders
-  inventory: 3
+  inventory: 4
   photo_url: https://i-d-images.vice.com/images/2016/09/16/bill-murray-has-a-couple-of-shifts-at-a-brooklyn-bar-this-weekend-body-image-1473999364.jpg
   price: 2.40
   # category_ids

@@ -5,15 +5,18 @@ anders:
   uid: 12345
   username: anders
   email: anders@tricycle.com
+  name: "Anders"
 
 lauren:
   provider: github
   uid: 67896789
   username: lauren
   email: lauren@tricycle.com
+  name: "Lauren"
 
 bennett:
   provider: github
   uid: 123123123
   username: bennett
   email: bennett@tricycle.com
+  name: "Bennett"
