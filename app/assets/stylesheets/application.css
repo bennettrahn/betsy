@@ -40,7 +40,6 @@ h1 {
 }
 h3 {
   text-align: center;
-
 }
 a {
   color: rgb(66, 83, 92);
@@ -146,6 +145,7 @@ main {
   text-align: center;
   border-style: solid;
   padding-bottom: 30px;
+  /*background-image: @spot.photo_url;*/
   background-color: rgba(180, 202, 241, 0.48);
 }
 .first-item a{
