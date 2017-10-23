@@ -1,9 +1,12 @@
+<main class="wrap">
+
 <h1>All Merchants</h1>
 
 
 
 <div class="">
   <% @merchants.each do |m| %>
-    <%= link_to m.username, merchant_path(m.id) %>
+    <p><%= link_to m.username, merchant_path(m.id) %></p>
   <% end %>
 </div>
+</main>
