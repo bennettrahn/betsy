@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
 
-    if save_and_flash(@category, edit: "created", save: @category.save )
+    if save_and_flash(@category)
       redirect_to products_path
       return
     else

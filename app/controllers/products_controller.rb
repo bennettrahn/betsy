@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
     product_params
     )
     @product.merchant_id = session[:merchant_id]
-      if save_and_flash(@product, edit: "created", save: @product.save )
+      if save_and_flash(@product)
         redirect_to products_path
         return
       else
@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
   def update
     @product.merchant_id = session[:merchant_id]
     @product.update_attributes(product_params)
-    if save_and_flash(@product, edit: "updated", save: @product.save )
+    if save_and_flash(@product, edit: "update")
       redirect_to product_path(@product)
       return
     else
@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
   end
 
 
-  private
+private
 
   def product_params
     return params.require(:product).permit(:name, :description, :price, :inventory, :photo_url, :category_ids => [])
