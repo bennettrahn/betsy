@@ -9,7 +9,7 @@ class MerchantsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-
+    session[:cart] = nil
     if auth_hash['uid']
       merchant = Merchant.find_by(provider: params[:provider], uid: auth_hash[:uid])
       if merchant.nil? #merchant hasn't logged in before
