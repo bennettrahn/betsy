@@ -21,9 +21,10 @@ html, body, main, header, h1, h2, h3 {
 }
 .background {
   background-image: url(33.jpeg);
-  background-position: top;
+  height: 100vh;
+  /*background-position: top;
   background-repeat: repeat;
-  height: 700px;
+  height: 700px;*/
 }
 
 .rand {
@@ -79,7 +80,6 @@ html, body, main, header, h1, h2, h3 {
 .button-link a{
   color: white;
   font-size: 20px;
-
 }
 .button-link a:hover{
   color:rgb(17, 185, 190);
