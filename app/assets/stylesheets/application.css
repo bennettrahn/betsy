@@ -70,19 +70,19 @@ html, body, main, header, h1, h2, h3 {
 }
 
 .button-link{
-  color: white;
+  color: rgb(17, 185, 190);
   font-size: 20px;
 }
 .button-link:hover{
-  color:rgb(17, 185, 190);
+  color:rgb(43, 80, 82);
 }
 
 .button-link a{
-  color: white;
+  color: rgb(17, 185, 190);
   font-size: 20px;
 }
 .button-link a:hover{
-  color:rgb(17, 185, 190);
+  color:rgb(43, 80, 82);
 }
 .good {
   color: rgb(20, 17, 83);
