@@ -45,6 +45,7 @@ describe OrderProductsController do
 
     it "if an OrderProduct with the same product already exists, it will not create a new OrderProduct object" do
       post create_order_product_path, params: @product_params
+
       orders_start = Order.count
       start_count = OrderProduct.count
 
@@ -57,15 +58,25 @@ describe OrderProductsController do
 
     #TODO: this test is failing
     it "changes the quantity of an existing OrderProduct if trying to add more of the same product" do
-      order_prod = order_products(:one)
-      order_prod_prod_id = order_prod.product_id
-      product = {
-        product_id: order_prod_prod_id,
-        quantity: 1
-      }
+      post create_order_product_path, params: @product_params
+      # order = Order.find_by(id: session[:cart])
+      # quantity_start = 0
+      # order.order_products.each do |op|
+      #   quantity_start += op.quantity
+      # end
+      # binding.pry
+      # op = order.order_product
+      op = OrderProduct.find_by(order_id: session[:cart])
+      quantity_start = op.quantity
 
-      post create_order_product_path, params: product
-      order_prod.quantity.must_equal 2
+      # binding.pry
+      post create_order_product_path, params: @product_params
+      # quantity_end = 0
+      # order.order_products.each do |op|
+      #   quantity_end += op.quantity
+      # end
+      op.quantity.must_equal quantity_start + 1
+
     end
 
     it "wont create if input is invalid" do

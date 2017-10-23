@@ -258,6 +258,10 @@ describe MerchantsController do
       must_redirect_to products_path
       flash[:status].must_equal :failure
     end
+
+    it "tells you you're already logged in if you're logged in." do
+      # TODO: make this test
+    end
   end
 
   describe "logout" do
