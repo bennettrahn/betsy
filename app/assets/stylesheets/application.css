@@ -1,38 +1,102 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- *= require foundation_and_overrides
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+* vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*= require_tree .
+*= require_self
+*= require foundation_and_overrides
 
- */
+*/
 
 html, body, main, header, h1, h2, h3 {
   font-family: 'Quicksand', sans-serif;
 }
-.page-header {
-  background-image: url(pineapple1.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 300px;
+.background {
+  background-image: url(33.jpeg);
+  height: 100vh;
+  /*background-position: top;
+  background-repeat: repeat;
+  height: 700px;*/
 }
+
+.rand {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(219, 238, 241, 0.85);
+  padding-left: 10px;
+}
+.randpad {
+  background-color: rgba(219, 238, 241, 0.85);
+  margin-left: 5px;
+  margin-bottom: 10px;
+  height: 200px;
+  width: 200px;
+}
+.randpad-home {
+  background-color: rgba(219, 238, 241, 0.85);
+  margin-left: 5px;
+  margin-bottom: 10px;
+  height: 200px;
+  width: 200px;
+}
+.columns:last-child:not(:first-child) {
+  float: left;
+}
+.heading:hover a {
+  color:rgb(53, 163, 187);
+}
+.heading a {
+  font-size: 1.6em;
+  color: white;
+}
+
+
 /***********/
 /*  MAIN  */
 /***********/
 .button {
-  background-color: rgba(232, 174, 86, 0.66);
+  background-color: rgba(245, 193, 151, 0.92);
+}
+.button:hover {
+  background-color: rgba(245, 151, 230, 0.92);
+}
+
+.button-link{
+  color: white;
+  font-size: 20px;
+}
+.button-link:hover{
+  color:rgb(17, 185, 190);
+}
+
+.button-link a{
+  color: white;
+  font-size: 20px;
+}
+.button-link a:hover{
+  color:rgb(17, 185, 190);
 }
 .good {
   color: rgb(20, 17, 83);
+}
+p {
+  margin-bottom: 1px;
+  padding-top: 10px;
+  text-align: center
+}
+p a:hover{
+  color:rgb(17, 185, 190);
+}
+.title {
+
 }
 h1 {
   color: rgb(20, 17, 83);
@@ -40,7 +104,6 @@ h1 {
 }
 h3 {
   text-align: center;
-
 }
 a {
   color: rgb(66, 83, 92);
@@ -53,43 +116,43 @@ body {
   margin: 0 auto;
   max-width: 700px;
 }
- /***********/
- /*  STARS  */
- /***********/
+/***********/
+/*  STARS  */
+/***********/
 
- .zero-stars, .zero-stars a{
-   color: lightgrey;
- }
+.zero-stars, .zero-stars a{
+  color: lightgrey;
+}
 
- .one-star, .one-star a{
-   color: #cc0000;
- }
+.one-star, .one-star a{
+  color: #cc0000;
+}
 
- .two-stars, .two-stars a{
-   color: #ff8533;
- }
+.two-stars, .two-stars a{
+  color: #ff8533;
+}
 
- .three-stars, .three-stars a{
-   color: #ffcc00;
- }
+.three-stars, .three-stars a{
+  color: #ffcc00;
+}
 
- .four-stars, .four-stars a{
-   color: #99db70;
- }
+.four-stars, .four-stars a{
+  color: #99db70;
+}
 
- .five-stars, .five-stars a{
-   color: #33AC33;
- }
+.five-stars, .five-stars a{
+  color: #33AC33;
+}
 .float-right {
   padding-top: 30px;
 }
- /***********/
- /*  DROPDOWN  */
- /***********/
+/***********/
+/*  DROPDOWN  */
+/***********/
 .button a {
   color: white;
 }
- .dropdown {
+.dropdown {
   position: relative;
   display: inline-block;
   /*width: 100px;*/
@@ -119,6 +182,12 @@ body {
 .spooky {
   margin-top: 90px;
 }
+.spooky-home {
+  margin-top: 20px;
+  font-size: 3em;
+
+}
+
 .add {
   margin-left: 40%;
 }
@@ -127,26 +196,53 @@ body {
   background-color: rgb(141, 114, 215);
 }
 main {
+
   padding-bottom: 50px;
 }
 .product {
   font-weight: bold;
   padding-top: 30px;
+  /*width: 800px;*/
   border-style: solid;
-  padding-bottom: 30px;
+  background-image: url(33.jpeg);
+  background-size: cover;
+  /*background-repeat: no-repeat;*/
+  padding-bottom: 100px;
+  padding-left: 30px;
 }
-.product a {
+.product-index {
+  font-weight: bold;
+  padding-top: 30px;
+  /*width: 800px;*/
+  border-style: solid;
+  background-image: url(33.jpeg);
+  background-size: cover;
+  /*background-repeat: no-repeat;*/
+  padding-bottom: 100px;
+  padding-left: 30px;
+}
+.product-index a {
+  color: rgb(213, 38, 148);
+}
+
+/*.product a {
   color: rgb(213, 117, 38);
-}
+}*/
 .product-image {
-  padding-bottom: 30px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  max-width: 200px;
+  height: 100px;
+}
+.product-image img {
+  max-height: 100px;
 }
 .spotlight {
   font-weight: bold;
   text-align: center;
   border-style: solid;
   padding-bottom: 30px;
-  background-color: rgba(180, 202, 241, 0.48);
+  background-image: url(33.jpeg);
 }
 .first-item a{
   font-size: 1.5em;

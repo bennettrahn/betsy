@@ -7,10 +7,10 @@ class Category < ApplicationRecord
     spot = Product.all.sample
     return spot
   end
-
-  # def self.view_by_category(category)
-  #   Category.all.where(name:category).each do |holiday|
-  #     holiday.products.each do |product|
+  #
+  # def self.view_by_category
+  #   Category.all.each do |category|
+  #     category.products.each do |product|
   #       return product
   #     end
   #   end
