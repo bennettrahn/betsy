@@ -7,9 +7,38 @@
   <%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
 <% end %>
 
-<% @merchant.products.each do |product| %>
-<p><%= link_to product.name, product_path(product.id) %></p>
-<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Inventory</th>
+      <th>Update Inventory</th>
+      <th>Edit Product</th>
+      <th>Retire Product</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @merchant.products.each do |product| %>
+    <tr>
+      <td><p><%= link_to product.name, product_path(product.id) %></p></td>
+      <td><%= product.price %></td>
+      <td><%= product.inventory %></td>
+      <td>
+        <%= form_for product do |f| %>
+
+        <%= f.text_field :inventory%>
+
+        <%= submit_tag "Update inventory", class: "button" %>
+        <% end %>
+      </td>
+      <td><%= link_to "Edit Info", edit_product_path(product), class: "button" %></td>
+      <td><%= link_to "Retire Product", edit_product_path(product), class: "button" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <% if @merchant.id == session[:merchant_id] %>
   <h4>Orders waiting to be fulfilled:</h4>
