@@ -10,4 +10,9 @@ class PaymentInfo < ApplicationRecord
   validates :mailing_address, presence: true
   validates :cvv, presence: true #numericality
   validates :zipcode, presence: true #numericality
+
+  def last_four_cc
+    last_four_cc = self.card_number.slice(-4..-1)
+    return last_four_cc
+  end
 end

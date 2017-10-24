@@ -3,6 +3,16 @@
 
   <h3> <%= @payment_info.buyer_name %>'s Purchase Summary: </h3>
 
+  <ul>
+    <li>Name: </li>
+    <li>Email: </li>
+    <li>Card number: ####-####-####- <%= @last_four_cc %></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+
   <% @order.products.each do |product| %>
   <p><%= product.name %></p>
   <p>$<%= '%.2f' % product.price %></p>

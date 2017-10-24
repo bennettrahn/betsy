@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
 
   def receipt
     @payment_info = @order.payment_info
+    @last_four_cc = @payment_info.last_four_cc
   end
 
   def update
