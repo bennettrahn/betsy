@@ -18,13 +18,47 @@
 
 html, body, main, header, h1, h2, h3 {
   font-family: 'Quicksand', sans-serif;
+  color: white;
 }
+
 .background {
   background-image: url(33.jpeg);
   height: 100vh;
   /*background-position: top;
   background-repeat: repeat;
   height: 700px;*/
+}
+
+.menu {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+.top-nav {
+  text-align: right;
+  padding-right: 30px;
+}
+
+.dropdown .dropdown-content {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+div .dropdown {
+  padding: 2% 0;
+}
+
+.dropdown span {
+  color: white;
+  font-size: 20px;
+}
+
+h2 a:hover {
+  color: white;
+}
+
+nav div span {
+  text-align: center;
 }
 
 .rand {
@@ -69,21 +103,38 @@ html, body, main, header, h1, h2, h3 {
   background-color: rgba(245, 151, 230, 0.92);
 }
 
-.button-link{
+/*.button-link{
   color: rgb(17, 185, 190);
   font-size: 20px;
-}
+}*/
+
+/*
 .button-link:hover{
   color:rgb(43, 80, 82);
+}*/
+
+.button-link {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.button-link:hover{
+  color: rgb(237, 69, 246);
 }
 
 .button-link a{
-  color: rgb(17, 185, 190);
+  color: rgb(237, 69, 246);
   font-size: 20px;
 }
-.button-link a:hover{
+
+/*.button-link a{
+  color: rgb(17, 185, 190);
+  font-size: 20px;
+}*/
+/*.button-link a:hover{
   color:rgb(43, 80, 82);
-}
+}*/
 .good {
   color: rgb(20, 17, 83);
 }
@@ -98,19 +149,31 @@ p a:hover{
 .title {
 
 }
-h1 {
-  color: rgb(20, 17, 83);
+
+.welcome h1 {
+  font-family: Brush Script MT, Brush Script Std, cursive;
+  color: white;
+  font-style: italic;
   text-align: center;
+  padding-top: 20px;
 }
+
 h3 {
   text-align: center;
 }
-a {
+/*a {
   color: rgb(66, 83, 92);
+}*/
+
+a {
+  font-size: 20px;
+  color: white;
 }
+
 body {
   color: rgb(84, 87, 107);
 }
+
 .wrap {
   width: 90%;
   margin: 0 auto;
@@ -144,7 +207,7 @@ body {
   color: #33AC33;
 }
 .float-right {
-  padding-top: 30px;
+  padding-top: 10px;
 }
 /***********/
 /*  DROPDOWN  */
@@ -179,14 +242,14 @@ body {
 .category {
   border-bottom: solid;
 }
-.spooky {
+/*.spooky {
   margin-top: 90px;
 }
 .spooky-home {
   margin-top: 20px;
   font-size: 3em;
 
-}
+}*/
 
 .add {
   margin-left: 40%;
@@ -195,9 +258,9 @@ body {
 .buy {
   background-color: rgb(231, 178, 220);
 }
-main {
+/*main {
   padding-bottom: 50px;
-}
+}*/
 .product {
   font-weight: bold;
   padding-top: 30px;
@@ -227,7 +290,7 @@ main {
 /*.product a {
   color: rgb(213, 117, 38);
 }*/
-.product-image {
+/*.product-image {
   padding-bottom: 10px;
   padding-left: 10px;
   max-width: 200px;
@@ -235,14 +298,13 @@ main {
 }
 .product-image img {
   max-height: 100px;
-}
-.spotlight {
+}*/
+/*.spotlight {
   font-weight: bold;
   text-align: center;
   border-style: solid;
   padding-bottom: 30px;
-  background-image: url(33.jpeg);
-}
+}*/
 .first-item a{
   font-size: 1.5em;
 }
