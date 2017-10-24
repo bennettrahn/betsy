@@ -20,6 +20,7 @@ status
               <th>Quantity</th>
               <th>Subtotal</th>
               <th>Order Placed</th>
+              <th>Status</th>
               <th>Mark as Complete</th>
             </tr>
           </thead>
@@ -30,6 +31,7 @@ status
               <td><%= op.quantity %></td>
               <td><%= op.subtotal %></td>
               <td><%= op.updated_at %></td>
+              <td><%= op.status %></td>
               <td><%= link_to "Complete Order", products_path, class:'button'%></td>
             </tr>
             <% end %>
