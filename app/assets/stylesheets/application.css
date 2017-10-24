@@ -15,6 +15,12 @@
 *= require foundation_and_overrides
 
 */
+table tbody tr td {
+  color: black
+}
+table tbody tr td a {
+  color: black
+}
 
 /*html, body, main, header, h2, h3 {
   font-family: 'Quicksand', sans-serif;

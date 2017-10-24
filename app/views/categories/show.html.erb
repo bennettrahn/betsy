@@ -1,7 +1,7 @@
 <main class="wrap">
 <h2 class="category"> <%= @category.name %></h2>
 <section>
-<% @category.products.each do |prod| %>
+<% @category.products.not_retired.each do |prod| %>
 
 <p><%= link_to prod.name.capitalize, product_path(prod.id) %></p>
 <p>$<%= '%.2f' % prod.price %></p>

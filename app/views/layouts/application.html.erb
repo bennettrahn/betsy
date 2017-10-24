@@ -68,7 +68,7 @@
       <div class="dropdown columns large-3">
         <span><%= link_to "All Products", products_path, class: "button-link" %></span>
         <div class="dropdown-content">
-          <% Product.all.each do |product| %>
+          <% Product.not_retired.each do |product| %>
           <%= link_to product.name, product_path(product.id)%>
           <% end  %>
         </div>
