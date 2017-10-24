@@ -4,8 +4,7 @@ describe OrdersController do
   let :order_data {
     order_data = {
       order: {
-        status: "pending",
-        buyer_name: "Zachary"
+        status: "pending"
       }
     }
   }
@@ -61,7 +60,7 @@ describe OrdersController do
       total = Order.count
       delete order_path(orders(:order1))
       must_respond_with :redirect
-      must_redirect_to orders_path
+      must_redirect_to root_path
       total.must_equal Order.count + 1
     end
 

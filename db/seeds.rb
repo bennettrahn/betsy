@@ -51,23 +51,23 @@ puts "#{category_failures.length} categories failed to save"
 
 # PRODUCT CATEGORIES #
 
-PC_FILE = Rails.root.join('db','seed_data','product_category.csv')
-puts "Loading raw media data from #{PC_FILE}"
-
-product_category_failures = []
-CSV.foreach(PC_FILE, :headers => true) do |row|
-  product_category = ProductCategory.new
-  product_category.product_id = row['product_id']
-  product_category.category_id = row['category_id']
-  puts "Created merchant: #{product_category.inspect}"
-  successful = product_category.save
-  if !successful
-    product_category_failures << product_category
-  end
-end
-
-puts "Added #{ProductCategory.count} product_category records"
-puts "#{product_category_failures.length} product_category failed to save"
+# PC_FILE = Rails.root.join('db','seed_data','product_category.csv')
+# puts "Loading raw media data from #{PC_FILE}"
+#
+# product_category_failures = []
+# CSV.foreach(PC_FILE, :headers => true) do |row|
+#   product_category = ProductCategory.new
+#   product_category.product_id = row['product_id']
+#   product_category.category_id = row['category_id']
+#   puts "Created merchant: #{product_category.inspect}"
+#   successful = product_category.save
+#   if !successful
+#     product_category_failures << product_category
+#   end
+# end
+#
+# puts "Added #{ProductCategory.count} product_category records"
+# puts "#{product_category_failures.length} product_category failed to save"
 
 # PRODUCTS #
 
@@ -83,6 +83,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.photo_url = row['photo_url']
   product.description = row['description']
   product.merchant_id = row['merchant_id']
+  product.category_ids = [Category.find_by(name: row['category'])]
   puts "Created product: #{product.inspect}"
   successful = product.save
   if !successful
