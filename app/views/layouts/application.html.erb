@@ -60,7 +60,7 @@
         <span><%= link_to "All Merchants", merchants_path, class: "button-link" %></span>
         <div class="dropdown-content">
           <% Merchant.all.each do |merchant| %>
-          <%= link_to "#{merchant.name}", merchant_path(merchant.id) %>
+          <%= link_to "#{merchant.username}", merchant_path(merchant.id) %>
           <% end %>
         </div>
       </div>
