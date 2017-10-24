@@ -45,8 +45,19 @@ describe OrdersController do
     end
 
     it "returns succes if the order exists and the change is valid" do
+      payment_data = {
+        email: "example@example.com",
+        buyer_name: "name",
+        cvv: "123",
+        card_number: "123456",
+        zipcode: "12345",
+        mailing_address: "12 34th st",
+        expiration: "12/34"
+      }
+
       orders(:order1).must_be :valid?
-      put order_path(orders(:order1)), params: order_data
+      get checkout_path(orders(:order1))
+      put order_path(orders(:order1)), params: payment_data
       session[:cart].must_be_nil
       must_respond_with :redirect
       must_redirect_to order_receipt_path(orders(:order1))

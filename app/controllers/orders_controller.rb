@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
     end
     flash[:receipt] = payment_params[:buyer_name]
     @order.status = "paid"
+    update_order_items_status
     session[:cart] = nil
 
     if save_and_flash(@order, edit:"submitted", name: @order.id)
@@ -47,7 +48,7 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-  private
+private
   def payment_params
     return params.require(:payment_info).permit(:email, :mailing_address, :buyer_name, :card_number, :expiration, :cvv, :zipcode)
   end
@@ -62,6 +63,13 @@ class OrdersController < ApplicationController
       flash[:status] = :failure
       flash[:message] = "Sorry, you cannot view that receipt."
       redirect_to root_path
+    end
+  end
+
+  def update_order_items_status
+    @order.order_products.each do |op|
+      op.status = "paid"
+      op.save
     end
   end
 end
