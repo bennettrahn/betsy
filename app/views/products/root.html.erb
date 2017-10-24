@@ -10,8 +10,10 @@
     <h5>Spotlight | <small> Something, just for you</small></h5>
     <% @spot = Product.all.sample %>
     <div class="">
-      <%= link_to Category.spot.name.capitalize, product_path(@spot.id)%>
+      <%= link_to product_path(@spot.id) do %>
         <%= image_tag @spot.photo_url %>
+        <% end %>
+        <%= link_to Category.spot.name.capitalize, product_path(@spot.id) %>
     </div>
 
     <!-- <div class="">
