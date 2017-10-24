@@ -25,9 +25,6 @@ describe OrdersController do
     end
   end
 
-
-
-
   describe "show" do
     it "returns success when given a vaild id" do
       get order_path(order_id)
@@ -48,11 +45,11 @@ describe OrdersController do
     end
 
     it "returns succes if the order exists and the change is valid" do
-
       orders(:order1).must_be :valid?
       put order_path(orders(:order1)), params: order_data
+      session[:cart].must_be_nil
       must_respond_with :redirect
-      must_redirect_to order_path(orders(:order1))
+      must_redirect_to order_receipt_path(orders(:order1))
     end
 
 
@@ -63,12 +60,35 @@ describe OrdersController do
     # end
   end
 
+  describe "checkout" do
+    it "sends the user to the checkout form" do
+      get checkout_path(order_id)
+      must_respond_with :success
+    end
+    it "not valid when order doesn't exist" do
+      get checkout_path(order_id + 1)
+      must_respond_with :not_found
+    end
+  end
+
+  describe "receipt" do
+    it "shows the receipt after a successful update/checkout" do
+      # need to run update checkout methods before this works??
+      # this updates the order
+      put order_path(orders(:order1)), params: order_data
+      # get checkout_path(order_id)
+
+      get order_receipt_path(:order1)
+      must_respond_with :success
+    end
+  end
+
   describe "destroy" do
     it "returns success if the order was destroyed" do
       total = Order.count
       delete order_path(orders(:order1))
       must_respond_with :redirect
-      must_redirect_to orders_path
+      must_redirect_to root_path
       total.must_equal Order.count + 1
     end
 
