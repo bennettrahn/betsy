@@ -1,0 +1,42 @@
+<!-- Each order has:
+ quantity
+ line-item subtotal
+link to description
+datetime order was placed
+link to transition order to complete
+status
+-->
+<ul>
+  <% input_orders.each do |order| %>
+  <li>
+    <h4><strong><%= link_to "#{order[:order].id}", order_path(order[:order]) %></strong> - status: <%= order[:order].status %></h4>
+
+    <ul>
+      <li>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+              <th>Order Placed</th>
+              <th>Mark as Complete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% order[:order_products].each do |op| %>
+            <tr>
+              <td><%= link_to op.product.name, product_path(op.product) %></td>
+              <td><%= op.quantity %></td>
+              <td><%= op.subtotal %></td>
+              <td><%= op.updated_at %></td>
+              <td><%= link_to "Complete Order", products_path, class:'button'%></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  </li>
+  <% end %>
+</ul>

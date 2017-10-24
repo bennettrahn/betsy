@@ -40,7 +40,8 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    @orders = @merchant.relevant_orders
+    @paid_orders = @merchant.sort_orders_by_status("paid")
+    @complete_orders = @merchant.sort_orders_by_status("complete")
 
   end
 

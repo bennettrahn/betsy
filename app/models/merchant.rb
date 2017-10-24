@@ -22,16 +22,21 @@ class Merchant < ApplicationRecord
   def relevant_orders
     relevant_orders = []
     Order.all.each do |order|
-      relevant_products = order.products.select { |product|
-        product.merchant == self
+      relevant_order_products = order.order_products.select { |op|
+        op.product.merchant == self
       }
-      if relevant_products.length > 0
+      if relevant_order_products.length > 0
         relevant_orders << {
           order: order,
-          products: relevant_products
+          order_products: relevant_order_products
         }
       end
     end
     return relevant_orders
+  end
+
+  def sort_orders_by_status(status)
+    merchants_orders = self.relevant_orders
+    return merchants_orders.select { |order| order[:order].status == status}
   end
 end
