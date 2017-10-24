@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :order_products, only: [:edit, :update, :destroy]
   post '/order_products', to: 'order_products#create', as: 'create_order_product'
-  patch '/order_products/:id/update_status'
+  patch '/order_products/:id/update_status', to: 'order_products#update_status', as: 'update_status'
 
   get "/auth/:provider/callback", to: "merchants#create", as: 'auth_callback'
   get '/logout', to: 'merchants#logout', as: 'logout'

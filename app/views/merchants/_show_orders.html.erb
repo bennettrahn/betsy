@@ -32,7 +32,7 @@ status
               <td><%= op.subtotal %></td>
               <td><%= op.updated_at %></td>
               <td><%= op.status %></td>
-              <td><%= link_to "Complete Order", products_path, class:'button'%></td>
+              <td><%= link_to "Complete Order", update_status_path(op), method: :patch, class:'button'%></td>
             </tr>
             <% end %>
           </tbody>
