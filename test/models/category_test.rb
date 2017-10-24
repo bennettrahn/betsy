@@ -50,9 +50,12 @@ describe Category do
     end
 
     it "returns an array of Product objects" do
-      halloween_category = Category.new(name: "Halloween")
+      halloween_category = Category.create!(name: "Halloween")
       product = products(:tricycle)
-      product.category_ids << halloween_category.id
+      product.category_ids << halloween_category
+      product.save
+
+      product.reload
 
       array_products = Category.root_page_seasonal_pick
       array_products.must_be_instance_of Array
