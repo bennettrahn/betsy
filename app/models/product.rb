@@ -23,6 +23,7 @@ class Product < ApplicationRecord
 
   def decrease_inventory(quantity)
     self.inventory -= quantity
+    self.save
   end
 
 

@@ -8,7 +8,6 @@ class OrdersController < ApplicationController
 
   def show ; end
 
-
   def checkout ; end
 
   def receipt ; end
@@ -18,7 +17,11 @@ class OrdersController < ApplicationController
     flash[:receipt] = order_params[:buyer_name]
     @order.status = "paid"
     session[:cart] = nil
+
     if save_and_flash(@order, edit:"submitted", name: @order.id)
+      @order.order_products.each do |op|
+        op.product.decrease_inventory(op.quantity)
+      end
       redirect_to order_receipt_path(@order.id)
     else
       render :checkout, status: :bad_request
