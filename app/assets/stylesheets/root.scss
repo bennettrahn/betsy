@@ -20,7 +20,7 @@ section .space{
 }
 
 .spotlight h5 {
-  color: white;
+  color: black;
   font-weight: bold;
   text-align: center;
   padding: 5px;
@@ -29,20 +29,25 @@ section .space{
 }
 
 .spotlight-image {
-
+width: 300px;
+padding-left: 50px;
 
 }
 
 .seasonal {
-  width: 750px;
-  height: 750px;
+  // width: 750px;
+  height: 100%;
   overflow: hidden;
   // border-style: solid;
   // background-color: rgb(132, 131, 159);
 }
+.seasonal img {
+  height: 100px;
+  padding-left: 40px;
+}
 
 section h5 {
-  color: white;
+  color: grey;
   font-weight: bold;
   text-align: center;
   padding: 5px;
