@@ -51,7 +51,7 @@
         <%= link_to session[:cart] ? order_path(session[:cart]) : order_empty_cart_path(:cart) do %>
           <%= image_tag 'blue_cart.png', size: "40x40" %>
         <% end %>
-      
+
   </header>
 
     <nav class="menu row">
@@ -67,7 +67,7 @@
       <div class="dropdown columns large-3">
         <span><%= link_to "All Products", products_path, class: "button-link" %></span>
         <div class="dropdown-content">
-          <% Product.all.each do |product| %>
+          <% Product.not_retired.each do |product| %>
           <%= link_to product.name, product_path(product.id)%>
           <% end  %>
         </div>

@@ -26,6 +26,7 @@
 
 <p class="image"><%= image_tag "#{@product.photo_url}", alt:"image"%></p>
 
+<% if @product.retired != true %>
 <section>
   <em>Currently in stock:</em> <%= @product.inventory %>
 </section>
@@ -35,9 +36,19 @@
 
   <%= text_field_tag "quantity", 1 %>
 
-  <%= submit_tag "Add to Order", class: "buy button" %>
+  <%= submit_tag "Add to Cart", class: "buy button" %>
   <% end %>
 </section>
+<% else %>
+<section>
+  This product is retired.
+  <% if session[:merchant_id] == @product.merchant_id %>
+    <p>
+      this is a button
+    </p>
+  <% end %>
+</section>
+<% end %>
 
   <p>Reviews:
     <% @product.reviews.each do |review| %>
@@ -50,6 +61,9 @@
 
 <p><%= link_to "Back to All Products", products_path, class: "button" %></p>
 <p><%= link_to "Write a Review", new_product_review_path(@product), class: "button" %></p>
+<% if session[:merchant_id] == @product.merchant_id %>
 <p><%= link_to "Edit", edit_product_path(@product), class: "button" %></p>
-<p><%= link_to "Delete", product_path(@product), class: "alert button", method: "delete", data: { confirm: "Are you sure?" } %></p>
+<!-- maybe include retire button -->
+<% end %>
+<%# link_to "Delete", product_path(@product), class: "alert button", method: "delete", data: { confirm: "Are you sure?" } %>
 </main>

@@ -8,7 +8,7 @@
 
   <section class="spotlight">
     <h5>Spotlight | <small> Something, just for you</small></h5>
-    <% @spot = Product.all.sample %>
+    <% @spot = Product.not_retired.sample %>
     <div class="">
       <p><%= link_to @spot.name.capitalize, product_path(@spot.id) %></p>
       <%= link_to product_path(@spot.id) do %>

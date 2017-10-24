@@ -4,7 +4,7 @@
   <% @categories.each do |cat| %>
   <div class="">
     <h4><%= cat.name.capitalize %></h4>
-    <% cat.products.each do |prod| %>
+    <% cat.products.not_retired.each do |prod| %>
     <p><%= link_to prod.name, product_path(prod.id) %></p>
     <p>$<%= prod.price %></p>
     <p><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
