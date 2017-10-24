@@ -28,4 +28,23 @@ describe Category do
       new_cat_2.wont_be :valid?
     end
   end
+
+  describe "#self.spot" do
+    it "can be called" do
+      Category.must_respond_to :spot
+    end
+
+    it "returns a Product object" do
+
+    end
+
+    it "returns nil if no products" do
+
+    end
+  end
+
+  describe "#self.root_page_seasonal_pick" do
+
+  end
+
 end

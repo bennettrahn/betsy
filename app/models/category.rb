@@ -10,25 +10,25 @@ class Category < ApplicationRecord
 
   def self.root_page_seasonal_pick
     category = "Halloween"
-    @all_products_for_season_cat = []
+    all_products_for_season_cat = []
 
     Category.all.where(name: category.downcase).each do |c|
 
       c.products.each do |prod|
-        @all_products_for_season_cat << prod
+        all_products_for_season_cat << prod
       end
     end
 
-    return @all_products_for_season_cat
+    return all_products_for_season_cat
 
   end
 
-  def self.view_by_category
-    Category.all.each do |category|
-      category.products.each do |product|
-        return product
-      end
-    end
-  end
+  # def self.view_by_category
+  #   Category.all.each do |category|
+  #     category.products.each do |product|
+  #       return product
+  #     end
+  #   end
+  # end
 
 end
