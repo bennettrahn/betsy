@@ -15,11 +15,11 @@
 <body class="background">
 
   <header class="page-header row">
-    <h2 class="heading columns small-12 large-2">
+    <h2 class="heading columns small-12 large-6">
       <%= link_to "3Bae", root_path %>
     </h2>
 
-    <div class="float-right small-12 large-3">
+    <div class="top-nav float-right small-12 large-6">
 
       <% if session[:merchant_id] %>
         <div class="dropdown">
@@ -55,24 +55,9 @@
     </div>
   </header>
 
-  <!-- Foundation JS test -->
-
-  <ul class="dropdown menu" data-dropdown-menu>
-    <li>
-      <a href="#">Item 1</a>
-      <ul class="menu">
-        <li><a href="#">Item 1A</a></li>
-        <!-- ... -->
-      </ul>
-    </li>
-    <li><a href="#">Item 2</a></li>
-    <li><a href="#">Item 3</a></li>
-    <li><a href="#">Item 4</a></li>
-  </ul>
-
     <nav class="menu row">
-      <div class="dropdown columns small-12">
-        <span>Search by merchant</span>
+      <div class="dropdown columns large-3">
+        <span><%= link_to "All Merchants", merchants_path, class: "button-link" %></span>
         <div class="dropdown-content">
           <% Merchant.all.each do |merchant| %>
           <%= link_to "#{merchant.name}", merchant_path(merchant.id) %>
@@ -80,35 +65,26 @@
         </div>
       </div>
 
-      <div class="dropdown columns small-12">
-        <span>Search by products</span>
+      <div class="dropdown columns large-3">
+        <span><%= link_to "All Products", products_path, class: "button-link" %></span>
         <div class="dropdown-content">
           <% Product.all.each do |product| %>
-          <%= link_to "#{product.name}", product_path(product.id)%>
+          <%= link_to product.name, product_path(product.id)%>
           <% end  %>
         </div>
       </div>
 
-      <div class="dropdown columns small-12">
-        <span>Search by category</span>
+      <div class="dropdown columns large-3">
+        <span><%= link_to "All Categories", categories_path, class: "button-link" %></span>
         <div class="dropdown-content">
           <% Category.all.each do |category| %>
           <%= link_to "#{category.name}", category_path(category.id)%>
           <% end  %>
         </div>
       </div>
-
-      <div class="dropdown columns small-12">
-        <%= link_to "View all products", products_path, class: "button-link" %>
-      </div>
-
-      <div class="dropdown columns small-12">
-          <%= link_to "View all merchants", merchants_path, class: "button-link" %>
-      </div>
-
     </nav>
 
-  <main>
+  <main class="wrap">
     <!-- this is the flash section -->
     <% if flash[:message] %>
       <section class="row status <%= flash[:status] %>">
@@ -131,5 +107,10 @@
     <%= yield %>
 
   </main>
+  <footer>
+    <nav>
+      FOOTER STUFF
+    </nav>
+  </footer>
 </body>
 </html>

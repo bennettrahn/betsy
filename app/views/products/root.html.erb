@@ -1,32 +1,49 @@
-<body>
-  
-<main class="wrap">
-<h1> Welcome, Bae</h1>
-
-<h3>Spotlight | <small> Something, just for you</small></h3>
-<section class="spotlight">
-  <div class="row">
-    <!-- <% @spot = Product.all.sample%> -->
-    <div class="rand small-3 small-centered columns">
-      <p class="first-item"><%=link_to Category.spot.name.capitalize, product_path(@spot.id)%></p>
-      <p>$<%='%.2f' %  @spot.price %></p>
-      <p class="product-image"><%= image_tag "#{@spot.photo_url}" %></p>
-    </div>
-  </div>
+<section class="welcome">
+  <% if session[:merchant_id] %>
+    <h1> Welcome Back, Bae</h1>
+  <% else %>
+    <h1> Welcome, Bae</h1>
+  <% end %>
 </section>
 
+  <section class="spotlight">
+    <h5>Spotlight | <small> Something, just for you</small></h5>
+    <% @spot = Product.all.sample %>
+    <div class="">
+      <%= link_to Category.spot.name.capitalize, product_path(@spot.id)%>
+        <%= image_tag @spot.photo_url %>
+    </div>
 
-<h3 class="spooky">Spooky Seasonal Hits | <small> Boo!</small> </h3>
-<div class="row product">
-  <%cat = Category.all.where(name:"Halloween").each do |halloween| %>
-  <%  halloween.products.each do |product| %>
+    <!-- <div class="">
+      <% @spot = Product.all.sample%>
+      <%=link_to Category.spot.name.capitalize, product_path(@spot.id)%></p>
+      <p>$<%='%.2f' %  @spot.price %></p>
+      <p class="product-image"><%= image_tag "#{@spot.photo_url}" %>
+    </div> -->
 
-  <div class="randpad small-2 large-4 columns">
-    <p><%=link_to product.name.capitalize, product_path(product.id)%></p>
-    <p>$<%='%.2f' % product.price%>  </p>
-    <p class="product-image"><%= image_tag "#{product.photo_url}" %></p>
-  </div>
-  <% end %>
-  <% end %>
-</div>
-</main>
+    <!-- <div class="spotlight-image row"> -->
+      <!-- <% @spot = Product.all.sample%> -->
+      <!-- <div class="rand small-3 small-centered columns">
+        <p class="first-item"><%=link_to Category.spot.name.capitalize, product_path(@spot.id)%></p>
+        <p>$<%='%.2f' %  @spot.price %></p>
+        <p class="product-image"><%= image_tag "#{@spot.photo_url}" %></p>
+      </div>
+    </div> -->
+  </section>
+</section>
+
+<section>
+  <h5>Spooky Seasonal Hits | <small> Boo!</small> </h5>
+  <section class="seasonal row">
+    <!-- <div class="row product"> -->
+      <% cat = Category.all.where(name:"Halloween").each do |halloween| %>
+        <% halloween.products.each do |product| %>
+
+          <div class="small-2 large-4 columns">
+            <%=link_to product.name.capitalize, product_path(product.id) do%>
+              <%= image_tag product.photo_url %>
+            <% end %>
+          <% end %>
+        <% end %>
+  </section>
+</section>
