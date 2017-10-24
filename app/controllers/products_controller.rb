@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   before_action :must_be_merchant_of_product, only: [:destroy, :edit]
 
   def root
-    
+    @all_products_for_season_cat = Category.root_page_seasonal_pick  
   end
 
   def index

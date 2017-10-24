@@ -15,38 +15,24 @@
         <% end %>
         <%= link_to Category.spot.name.capitalize, product_path(@spot.id) %>
     </div>
-
-    <!-- <div class="">
-      <% @spot = Product.all.sample%>
-      <%=link_to Category.spot.name.capitalize, product_path(@spot.id)%></p>
-      <p>$<%='%.2f' %  @spot.price %></p>
-      <p class="product-image"><%= image_tag "#{@spot.photo_url}" %>
-    </div> -->
-
-    <!-- <div class="spotlight-image row"> -->
-      <!-- <% @spot = Product.all.sample%> -->
-      <!-- <div class="rand small-3 small-centered columns">
-        <p class="first-item"><%=link_to Category.spot.name.capitalize, product_path(@spot.id)%></p>
-        <p>$<%='%.2f' %  @spot.price %></p>
-        <p class="product-image"><%= image_tag "#{@spot.photo_url}" %></p>
-      </div>
-    </div> -->
   </section>
 </section>
 
 <section>
-  <h5>Spooky Seasonal Hits | <small> Boo!</small> </h5>
+  <h5>Spooky Seasonal Hits | <small> Boo! </small> </h5>
   <section class="seasonal row">
     <!-- <div class="row product"> -->
-      <% cat = Category.all.where(name:"Halloween").each do |halloween| %>
-        <% halloween.products.each do |product| %>
+      <%# cat = Category.all.where(name:"Halloween").each do |halloween| %>
+        <%# halloween.products.each do |product| %>
 
-          <div class="small-2 large-4 columns">
-            <%=link_to product_path(product.id) do%>
-              <%= image_tag product.photo_url %>
-            <% end %>
-            <%= link_to product.name.capitalize, product_path(product.id) %>
-          <% end %>
-        <% end %>
+    <% @all_products_for_season_cat.each do |product|%>
+      <div class="small-2 large-4 columns">
+      <%= link_to product_path(product.id) do %>
+        <%= image_tag product.photo_url %>
+
+        <%= link_to product.name.capitalize, product_path(product.id) %>
+
+      <% end %>
+    <% end %>
   </section>
 </section>

@@ -6,12 +6,18 @@
     <h5 class="category-name">
       <%= link_to category.name.capitalize, category_path(category.id) %>
     </h5>
+
     <section class="row">
     <% category.products.each do |product| %>
       <section class="category-products small-2 large-4 columns">
-      <%=link_to product.name.capitalize, product_path(product.id)%>
+        <div class="crop-image">
+          <%=link_to product_path(product.id) do %>
+            <%= image_tag product.photo_url %>
+          <% end %>
+        </div>
+
+      <%= link_to product.name.capitalize, product_path(product.id) %> |
       $<%='%.2f' % product.price%>
-      <%= image_tag product.photo_url %>
       </section>
     <% end %>
     </section>
