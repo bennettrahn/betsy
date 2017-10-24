@@ -55,9 +55,24 @@
     </div>
   </header>
 
-    <nav class="menu columns small-12">
-      <div class="dropdown">
-        <span class="button-link"><%= link_to "Search by merchant", merchants_path %></span>
+  <!-- Foundation JS test -->
+
+  <ul class="dropdown menu" data-dropdown-menu>
+    <li>
+      <a href="#">Item 1</a>
+      <ul class="menu">
+        <li><a href="#">Item 1A</a></li>
+        <!-- ... -->
+      </ul>
+    </li>
+    <li><a href="#">Item 2</a></li>
+    <li><a href="#">Item 3</a></li>
+    <li><a href="#">Item 4</a></li>
+  </ul>
+
+    <nav class="menu row">
+      <div class="dropdown columns small-12">
+        <span>Search by merchant</span>
         <div class="dropdown-content">
           <% Merchant.all.each do |merchant| %>
           <%= link_to "#{merchant.name}", merchant_path(merchant.id) %>
@@ -65,8 +80,8 @@
         </div>
       </div>
 
-      <div class="dropdown">
-        <span class="button-link"><%= link_to "Search by products", products_path  %></span>
+      <div class="dropdown columns small-12">
+        <span>Search by products</span>
         <div class="dropdown-content">
           <% Product.all.each do |product| %>
           <%= link_to "#{product.name}", product_path(product.id)%>
@@ -74,8 +89,8 @@
         </div>
       </div>
 
-      <div class="dropdown">
-        <span class="button-link"><%= link_to "Search by category", products_path  %></span>
+      <div class="dropdown columns small-12">
+        <span>Search by category</span>
         <div class="dropdown-content">
           <% Category.all.each do |category| %>
           <%= link_to "#{category.name}", category_path(category.id)%>
@@ -83,7 +98,13 @@
         </div>
       </div>
 
-      <%= link_to "View all products", products_path, class: "button-link" %>
+      <div class="dropdown columns small-12">
+        <%= link_to "View all products", products_path, class: "button-link" %>
+      </div>
+
+      <div class="dropdown columns small-12">
+          <%= link_to "View all merchants", merchants_path, class: "button-link" %>
+      </div>
 
     </nav>
 
