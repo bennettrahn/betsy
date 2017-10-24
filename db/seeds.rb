@@ -83,7 +83,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.photo_url = row['photo_url']
   product.description = row['description']
   product.merchant_id = row['merchant_id']
-  product.category_ids = [Category.find_by(name: row['category'])]
+  product.category_ids = [row['category']]
   puts "Created product: #{product.inspect}"
   successful = product.save
   if !successful
