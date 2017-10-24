@@ -35,16 +35,39 @@ describe Category do
     end
 
     it "returns a Product object" do
-
+      Category.spot.must_be_instance_of Product
     end
 
     it "returns nil if no products" do
-
+      Product.destroy_all
+      Category.spot.must_equal nil
     end
   end
 
   describe "#self.root_page_seasonal_pick" do
+    it "can be called" do
+      Category.must_respond_to :root_page_seasonal_pick
+    end
 
+    it "returns an array of Product objects" do
+      halloween_category = Category.new(name: "Halloween")
+      product = products(:tricycle)
+      product.category_ids << halloween_category.id
+
+      array_products = Category.root_page_seasonal_pick
+      array_products.must_be_instance_of Array
+      array_products[0].must_be_instance_of Product
+    end
+
+    it "returns an empty array of if no products" do
+      Product.destroy_all
+      Category.root_page_seasonal_pick.must_be :empty?
+    end
+
+    it "returns an empty array if no categories" do
+      Category.destroy_all
+      Category.root_page_seasonal_pick.must_be :empty?
+    end
   end
 
 end
