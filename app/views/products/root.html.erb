@@ -1,39 +1,36 @@
 <section class="welcome">
   <% if session[:merchant_id] %>
-    <h1> Welcome Back, Bae</h1>
+  <h1> Welcome Back, Bae</h1>
   <% else %>
-    <h1> Welcome, Bae</h1>
+  <h1> Welcome, Bae</h1>
   <% end %>
 </section>
 
-  <section class="spotlight">
-    <h5>Spotlight | <small> Something, just for you</small></h5>
-    <% @spot = Product.not_retired.sample %>
-    <div class="">
-      <p><%= link_to @spot.name.capitalize, product_path(@spot.id) %></p>
-      <%= link_to product_path(@spot.id) do %>
-        <%= image_tag @spot.photo_url %>
-        <% end %>
+<section class="spotlight">
+  <h5>Spotlight | <small> Something, just for you</small></h5>
+  <% @spot = Product.not_retired.sample %>
+  <div class="">
+    <p><%= link_to @spot.name.capitalize, product_path(@spot.id) %>|
+    $<%='%.2f' % @spot.price%></p>
+    <%= link_to product_path(@spot.id) do %>
+    <p class="spotlight-image"><%= image_tag @spot.photo_url %></p>
+    <% end %>
 
-    </div>
-  </section>
+  </div>
 </section>
 
-<section>
-  <h5>Spooky Seasonal Hits | <small> Boo! </small> </h5>
-  <section class="seasonal row">
-    <!-- <div class="row product"> -->
-      <%# cat = Category.all.where(name:"Halloween").each do |halloween| %>
-        <%# halloween.products.each do |product| %>
-
-    <% @all_products_for_season_cat.each do |product|%>
-      <div class="small-2 large-4 columns">
+<h2 class="spooky">Spooky Seasonal Hits | <small> Boo! </small> </h2>
+<section class="row">
+  <%@all_products_for_season_cat.each do |product|%>
+  <section class="small-2 large-4 columns">
+    <div class="crop-image">
       <%= link_to product_path(product.id) do %>
-        <%= image_tag product.photo_url %>
-
-        <%= link_to product.name.capitalize, product_path(product.id) %>
-
+      <%= image_tag product.photo_url %>
       <% end %>
-    <% end %>
+    </div>
+    <%= link_to product.name.capitalize, product_path(product.id) %> |
+    $<%='%.2f' % product.price%>
+
   </section>
+  <% end %>
 </section>

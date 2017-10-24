@@ -50,6 +50,11 @@ describe PaymentInfo do
       @invaild_payment.errors.messages.must_include :card_number
     end
 
+    it "requires a card_number that is equal to or greater than 4 characters" do
+      payment_info.card_number = "12"
+      payment_info.wont_be :valid?
+    end
+
     it "requires an expiration" do
       @invaild_payment.valid?.must_equal false
       @invaild_payment.errors.messages.must_include :expiration
@@ -68,6 +73,12 @@ describe PaymentInfo do
     it "requires an zipcode" do
       @invaild_payment.valid?.must_equal false
       @invaild_payment.errors.messages.must_include :zipcode
+    end
+  end
+
+  describe "last_four_cc" do
+    it "returns a string of the last four characters of card_number" do
+
     end
   end
 

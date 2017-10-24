@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_order_by_params_id, only: [:show, :update, :destroy, :checkout, :receipt]
+  before_action :find_order_by_params_id, only: [:show, :update, :destroy, :checkout, :receipt, :check_merchant_is_prod_owner]
   before_action :check_order_session, only: [:receipt]
 
   def index
@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
 
   def receipt
     @payment_info = @order.payment_info
+    @last_four_cc = @payment_info.last_four_cc
   end
 
   def update
@@ -59,9 +60,9 @@ private
   end
 
   def check_order_session
-    if flash[:receipt] != @order.payment_info.buyer_name
+    if (flash[:receipt] != @order.payment_info.buyer_name) && check_merchant_is_prod_owner != true
       flash[:status] = :failure
-      flash[:message] = "Sorry, you cannot view that receipt."
+      flash[:message] = "Sorry, you cannot view that receipt."  + flash.inspect
       redirect_to root_path
     end
   end
@@ -72,4 +73,14 @@ private
       op.save
     end
   end
+
+  def check_merchant_is_prod_owner
+    @order.products.each do |prod|
+      if prod.merchant_id == session[:merchant_id]
+        return true
+      end
+    end
+    return false
+  end
+
 end
