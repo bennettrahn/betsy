@@ -58,6 +58,15 @@ class OrderProductsController < ApplicationController
     end
   end
 
+  def destroy
+    @op = OrderProduct.find_by(id: params[:id])
+    @order = Order.find_by(id: @op.order.id)
+
+    save_and_flash(@op, edit: "deleted", save: @op.destroy)
+    redirect_to(order_path(@order))
+
+  end
+
 private
   def assign_order
     if session[:cart]

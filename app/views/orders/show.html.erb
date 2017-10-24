@@ -9,6 +9,7 @@
       <th>Quantity</th>
       <th>Cost</th>
       <th>Edit</th>
+      <th>Remove</th>
     </tr>
   </thead>
   <tbody>
@@ -25,19 +26,20 @@
           <%= submit_tag "Update Quantity", class: "button" %>
           <% end %>
         </td>
+        <td><%= link_to "Delete from cart", order_product_path(op.id), method: :delete,
+        data: { confirm: 'Are you sure?' }%></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<p><%= link_to "Proceed to Checkout", checkout_path(@order.id), class: "button buy" %></p>
 
-<p>
-  Order <%= @order.id %>
-</p>
-<p>
-  Status: <%= @order.status %>
-</p>
+<p>Order <%= @order.id %></p>
+<p>Status: <%= @order.status %></p>
 
+<p><%= link_to "Delete Order and start over!", order_path(@order.id), method: :delete,
+data: { confirm: 'Are you sure?' }, class: "button" %></p>
 
-<%= link_to "Back to All Orders", orders_path, class:'button'%>
+<!-- <p><%= link_to "Back to All Orders", orders_path, class:'button'%></p> -->
 </main>
