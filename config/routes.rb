@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:index, :show, :edit, :update, :destroy] do
     get 'receipt'
+    get 'empty_cart'
   end
 
   get 'orders/:id/checkout', to: 'orders#checkout', as: 'checkout'
+
 
   resources :products do
     resources :reviews, only: [:new]

@@ -4,7 +4,8 @@ describe OrdersController do
   let :order_data {
     order_data = {
       order: {
-        status: "pending"
+        status: "pending",
+        payment_info: payment_infos(:payment1)
       }
     }
   }
@@ -68,7 +69,7 @@ describe OrdersController do
       # need to run update checkout methods before this works??
       # this updates the order
       patch order_path(orders(:order1)), params: order_data
-      ###### need buyer_name 
+      ###### need buyer_name
 
       # get checkout_path(order_id)
 

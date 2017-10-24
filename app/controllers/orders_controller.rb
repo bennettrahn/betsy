@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
 
   def show ; end
 
+
   def checkout
     @payment_info = PaymentInfo.new
   end
@@ -41,7 +42,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    save_and_flash(@order, edit: "destroyed", save: @order.destroy, name: @order.id)
+    save_and_flash(@order, edit: "destroye", save: @order.destroy, name: @order.id)
     session[:cart] = nil
     redirect_to root_path
   end

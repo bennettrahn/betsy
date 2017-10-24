@@ -48,7 +48,7 @@
           <%= image_tag "address-icon.png", size: "40x40" %>
         <% end %>
 
-        <%= link_to session[:cart] ? order_path(session[:cart]) : products_path do %>
+        <%= link_to session[:cart] ? order_path(session[:cart]) : order_empty_cart_path(:cart) do %>
           <%= image_tag 'blue_cart.png', size: "40x40" %>
         <% end %>
 
