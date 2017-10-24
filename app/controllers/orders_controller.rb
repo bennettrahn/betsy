@@ -8,13 +8,24 @@ class OrdersController < ApplicationController
 
   def show ; end
 
-  def checkout ; end
+  def checkout
+    @payment_info = PaymentInfo.new
+  end
 
-  def receipt ; end
+  def receipt
+    @payment_info = @order.payment_info
+  end
 
   def update
-    @order.update_attributes(order_params)
-    flash[:receipt] = order_params[:buyer_name]
+    @payment_info = PaymentInfo.new
+    @payment_info.update_attributes(payment_params)
+    @payment_info.order = @order
+    if save_and_flash(@payment_info, name: @payment_info.buyer_name)
+    else
+      render :checkout, status: :bad_request
+      return
+    end
+    flash[:receipt] = payment_params[:buyer_name]
     @order.status = "paid"
     session[:cart] = nil
 
@@ -36,8 +47,8 @@ class OrdersController < ApplicationController
   end
 
   private
-  def order_params
-    return params.require(:order).permit(:status, :email, :mailing_address, :buyer_name, :card_number, :expiration, :cvv, :zipcode)
+  def payment_params
+    return params.require(:payment_info).permit(:email, :mailing_address, :buyer_name, :card_number, :expiration, :cvv, :zipcode)
   end
 
   def find_order_by_params_id
@@ -46,7 +57,7 @@ class OrdersController < ApplicationController
   end
 
   def check_order_session
-    if flash[:receipt] != @order.buyer_name
+    if flash[:receipt] != @order.payment_info.buyer_name
       flash[:status] = :failure
       flash[:message] = "Sorry, you cannot view that receipt."
       redirect_to root_path
