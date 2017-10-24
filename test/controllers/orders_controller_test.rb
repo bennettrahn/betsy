@@ -67,7 +67,9 @@ describe OrdersController do
     it "shows the receipt after a successful update/checkout" do
       # need to run update checkout methods before this works??
       # this updates the order
-      put order_path(orders(:order1)), params: order_data
+      patch order_path(orders(:order1)), params: order_data
+      ###### need buyer_name 
+
       # get checkout_path(order_id)
 
       get order_receipt_path(:order1)
