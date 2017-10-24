@@ -2,7 +2,7 @@
 <h2>Enter Billing Information</h2>
 
 <ul>
-  <%= form_for @order do |f| %>
+  <%= form_for(@payment_info, url: order_path(@order), html: { method: "patch" }) do |f| %>
     <li>
       <%= f.label :email%>
       <%= f.text_field :email%>

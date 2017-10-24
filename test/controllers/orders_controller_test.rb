@@ -4,8 +4,7 @@ describe OrdersController do
   let :order_data {
     order_data = {
       order: {
-        status: "pending",
-        buyer_name: "Zachary"
+        status: "pending"
       }
     }
   }
@@ -51,13 +50,6 @@ describe OrdersController do
       must_respond_with :redirect
       must_redirect_to order_receipt_path(orders(:order1))
     end
-
-
-    # it "returns bad_request if the change is invalid" do
-    #   #  don't quite know how to check invalidity here....
-    #   put order_path(orders(:order1)), params: invalid_order_data
-    #   must_respond_with :bad_request
-    # end
   end
 
   describe "checkout" do

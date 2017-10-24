@@ -77,7 +77,7 @@ describe OrderProductsController do
 
       post create_order_product_path, params: bad_product_params
       must_respond_with :bad_request
-      flash[:message].must_equal "A problem occurred: Could not created OrderProduct"
+      flash[:message].must_equal "Could not update cart."
 
       OrderProduct.count.must_equal start_count
     end
