@@ -7,11 +7,13 @@
   <%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
 <% end %>
 
+<h4>Your Products</h4>
 <% @merchant.products.each do |product| %>
 <p><%= link_to product.name, product_path(product.id) %></p>
 <% end %>
 
 <% if @merchant.id == session[:merchant_id] %>
+
   <h4>Orders waiting to be fulfilled:</h4>
   <%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
 

@@ -1,15 +1,18 @@
-<h1> Your Receipt</h1>
+<section>
+  <h1> Receipt </h1>
 
-<h3> <%=  "#{@payment_info.buyer_name}'s Purchase Summary:" %> </h3>
+  <h3> <%= @payment_info.buyer_name %>'s Purchase Summary: </h3>
 
-<% @order.products.each do |product| %>
-<p><%= product.name %></p>
-<p>$<%= '%.2f' % product.price %></p>
-<p><%= link_to "Buy it again!", product_path(product.id), class: "button" %></p>
-<% end %>
+  <% @order.products.each do |product| %>
+  <p><%= product.name %></p>
+  <p>$<%= '%.2f' % product.price %></p>
+  <p><%= link_to "Buy it again!", product_path(product.id), class: "button" %></p>
+  <% end %>
 
-<p>Order Status: <%= @order.status %></p>
-<!-- maybe add the address that it will be shipped to? -->
-<p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
+  <p>Order Status: <%= @order.status %></p>
+  <!-- maybe add the address that it will be shipped to? -->
+  <p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
 
-<p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
+  <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
+
+</section>

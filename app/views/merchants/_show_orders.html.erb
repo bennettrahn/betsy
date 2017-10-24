@@ -9,7 +9,7 @@ status
 <ul>
   <% input_orders.each do |order| %>
   <li>
-    <h4><strong><%= link_to "#{order[:order].id}", order_path(order[:order]) %></strong> - status: <%= order[:order].status %></h4>
+    <h4><strong>Order ID: <%= link_to order[:order].id, order_receipt_path(order[:order].id) %></strong> - status: <%= order[:order].status %></h4>
 
     <ul>
       <li>
