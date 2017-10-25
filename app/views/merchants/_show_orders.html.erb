@@ -10,13 +10,13 @@ status
   <% input_orders.each do |order| %>
 
   <li>
-    <table>
+    <table class='order_info_table'>
       <thead>
         <tr>
           <th>ID</th>
           <th>Date</th>
           <th>Status</th>
-          <th>Total</th>
+          <th class='align_right'>Total</th>
         </tr>
       </thead>
       <tbody>
@@ -24,19 +24,19 @@ status
           <td><%= link_to order[:order].id, order_receipt_path(order[:order].id) %></td>
           <td><%= order[:order].updated_at %></td>
           <td><%= order[:order].status %></td>
-          <td>order total</td>
+          <td class='align_right'>order total</td>
         </tr>
       </tbody>
     </table>
-    <table>
+    <table class='products_info_table'>
           <thead>
             <tr>
               <th>Product</th>
               <th>Quantity</th>
-              <th>Subtotal</th>
               <% if order[:order].status != "complete" %>
                 <th>Mark as Complete</th>
               <% end %>
+              <th class='align_right'>Subtotal</th>
             </tr>
           </thead>
           <tbody>
@@ -44,10 +44,10 @@ status
             <tr>
               <td><%= link_to op.product.name, product_path(op.product) %></td>
               <td><%= op.quantity %></td>
-              <td>$<%= '%.2f' % op.subtotal %></td>
               <% if order[:order].status != "complete" %>
-              <td><%= op.status == 'complete' ? "Already completed!" : (link_to "Complete Prodect", update_status_path(op), method: :patch, class:'button') %></td>
+              <td><%= op.status == 'complete' ? "Already completed!" : (link_to "Complete Product", update_status_path(op), method: :patch, class:'button') %></td>
               <% end %>
+              <td class='align_right'>$<%= '%.2f' % op.subtotal %></td>
             </tr>
             <% end %>
           </tbody>

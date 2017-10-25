@@ -1,3 +1,76 @@
 // Place all the styles related to the Merchants controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+h3.merchant-heading {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 5% 0%;
+}
+
+.order_list {
+  
+}
+
+table tbody tr td {
+  color: black
+}
+table tbody tr td a {
+  color: black
+}
+
+
+.order_info_table {
+  margin-bottom: 0rem;
+}
+
+.order_info_table thead, .products_info_table thead{
+  background: transparent;
+  border: 0px;
+  border-bottom: black 2px solid;
+
+}
+.order_info_table tbody, .products_info_table tbody {
+  background: rgba(255, 255, 255, 0.25);
+  border: 0px;
+}
+
+.products_info_table {
+  margin-left: 5%;
+  width: 95%;
+}
+
+.align_right {
+  text-align: right;
+  background: rgba(255, 255, 255, 0.25);
+}
+.order_info_table .align_right {
+  width: 23.75%;
+}
+.products_info_table .align_right {
+  width: 25%;
+}
+#total_boxes {
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+.total_box {
+  background-color: rgb(114, 103, 94);
+  color: white;
+  text-align: center;
+  padding: 0;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.total_box h6 {
+  padding-top: 1rem;
+}
+.total_box p {
+  padding-bottom: 1rem;
+}

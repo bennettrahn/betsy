@@ -13,7 +13,7 @@
 
 <!-- line -->
 
-<h3>Products</h3>
+<h3 class='merchant-heading'>Products</h3>
 
 <table class='products-table'>
   <thead>
@@ -61,7 +61,7 @@
 
 <% if @merchant.id == session[:merchant_id] %>
 
-<h3>Orders</h3>
+<h3 class='merchant-heading'>Orders</h3>
 
 <ul id='total_boxes'>
   <li class='total_box'>
@@ -102,11 +102,15 @@
   </li>
 </ul>
 
-<h4>Waiting to be fulfilled:</h4>
-<%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
+<div class="order_list">
+  <h4>Waiting to be fulfilled:</h4>
+  <%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
+</div>
 
-<h4>Completed orders:</h4>
-<%= render partial: "show_orders", locals: {input_orders: @complete_orders} %>
+<div class="order_list">  
+  <h4>Completed orders:</h4>
+  <%= render partial: "show_orders", locals: {input_orders: @complete_orders} %>
+</div>
 
 
 
