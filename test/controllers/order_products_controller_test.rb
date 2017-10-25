@@ -9,6 +9,18 @@ describe OrderProductsController do
     }
   end
 
+  describe "update_status" do
+    it "sets flash[:status] to success when order is saved " do
+
+    end
+
+  end
+
+  describe "destroy" do
+
+
+  end
+
   describe "create" do
 
     it "creates an OrderProduct with a product and an order, creates a new order if no session[:cart] exists" do
