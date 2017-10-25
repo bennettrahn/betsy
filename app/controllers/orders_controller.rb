@@ -56,13 +56,15 @@ private
 
   def find_order_by_params_id
     @order = Order.find_by(id: params[:id] || params[:order_id])
+    puts "IN FIND ORDER BY PARAMS"
     head :not_found unless @order
   end
 
   def check_order_session
+    puts "IN CHECK ORDER SESSION"
     if (flash[:receipt] != @order.payment_info.buyer_name) && check_merchant_is_prod_owner != true
       flash[:status] = :failure
-      flash[:message] = "Sorry, you cannot view that receipt."  + flash.inspect
+      flash[:message] = "Sorry, you cannot view that receipt."
       redirect_to root_path
     end
   end

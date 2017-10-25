@@ -31,7 +31,6 @@
 
   <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
 
-
   <% else %>
     <% @order.products.each do |prod| %>
       <% if prod.merchant_id == session[:merchant_id] %>
