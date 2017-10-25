@@ -11,8 +11,28 @@
     <li>Expiration date: <%= @payment_info.expiration %></li>
   </ul>
 
+  <% if flash[:receipt] == @order.payment_info.buyer_name %>
 
-  <% if session[:merchant_id] %>
+  <% @order.products.each do |product| %>
+    <p><%= link_to product.name, product_path(product.id) %></p>
+    <p>$<%= '%.2f' % product.price %></p>
+    <p>Order placed on: <%= product.created_at %></p>
+
+    <p>
+      <%= link_to "Buy it again!", product_path(product.id), class: "button" %>
+    </p>
+  <% end %>
+
+  <p>Order Status: <%= @order.status %></p>
+
+  <!-- ADD TOTAL PRICE -->
+
+  <p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
+
+  <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
+
+
+  <% else %>
     <% @order.products.each do |prod| %>
       <% if prod.merchant_id == session[:merchant_id] %>
         <%= link_to prod.name, product_path(prod.id) %>
@@ -21,23 +41,6 @@
         Order Status: <%= @order.status %>
       <% end %>
     <% end %>
+<% end %>
 
-  <% else %>
-    <% @order.products.each do |product| %>
-      <p><%= link_to product.name, product_path(product.id) %></p>
-      <p>$<%= '%.2f' % product.price %></p>
-      <p>Order placed on: <%= product.created_at %></p>
-
-      <p><%= link_to "Buy it again!", product_path(product.id), class: "button" %></p>
-    <% end %>
-
-    <p>Order Status: <%= @order.status %></p>
-
-    <!-- ADD TOTAL PRICE -->
-
-    <p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
-
-    <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
-
-  <% end %>
 </section>
