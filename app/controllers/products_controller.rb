@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_product, only: [:show, :edit, :update, :destroy, :retire]
   before_action :must_be_logged_in, only: [:new, :destroy, :edit]
   before_action :must_be_merchant_of_product, only: [:destroy, :edit]
 
@@ -37,7 +37,7 @@ class ProductsController < ApplicationController
     @product.merchant_id = session[:merchant_id]
     @product.update_attributes(product_params)
     if save_and_flash(@product, edit: "update")
-      redirect_to product_path(@product)
+      redirect_back(fallback_location: product_path(@product))
       return
     else
       render :edit, status: :bad_request
@@ -49,6 +49,13 @@ class ProductsController < ApplicationController
     flash[:status] = :success
     flash[:message] = "Successfully deleted!"
     redirect_to products_path
+  end
+
+  def retire
+    @product.retired = !@product.retired
+    save_and_flash(@product, edit: 'retire')
+    # flash unretire?
+    redirect_back(fallback_location: product_path(@product))
   end
 
 
