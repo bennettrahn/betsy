@@ -9,7 +9,7 @@
     <p class="image"><%= image_tag "#{spot.photo_url}", alt:"image"%></p>
     <p><%= link_to "More Info", product_path(spot.id), class: "button"%></p>
     <p><%= form_tag create_order_product_path(product_id: spot.id), method: :post do %></p>
-    
+    <%= hidden_field_tag "quantity", 1 %>
     <p><%= submit_tag "Add to Order", class: "buy button" %></p>
     <% end %>
   </div>

@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
     update_order_items_status
     session[:cart] = nil
 
-    if save_and_flash(@order, edit:"submitted", name: @order.id)
+    if save_and_flash(@order, edit:"submitte", name: @order.id)
       @order.order_products.each do |op|
         op.product.decrease_inventory(op.quantity)
       end

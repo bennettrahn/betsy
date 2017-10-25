@@ -44,6 +44,7 @@ describe OrdersController do
       must_respond_with :not_found
     end
 
+# NEED TO FIX ##############
     it "returns succes if the order exists and the change is valid" do
       payment_data = {
         email: "example@example.com",
@@ -81,6 +82,7 @@ describe OrdersController do
       # this updates the order
       patch order_path(orders(:order1)), params: order_data
       ###### need buyer_name
+      # NEED FIX ##############
 
       # get checkout_path(order_id)
 
