@@ -42,17 +42,12 @@ class Merchant < ApplicationRecord
 
   def total_revenue
     completed_orders = sort_orders_by_status("complete")
-
-
     sum = 0
     completed_orders.each do |order|
       order[:order_products].each do |op|
-
         sum += op.subtotal
-  
       end
     end
     return sum
-    # return sum_of_all_completed
   end
 end
