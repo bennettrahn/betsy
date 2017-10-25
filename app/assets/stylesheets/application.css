@@ -21,7 +21,14 @@ table tbody tr td {
 table tbody tr td a {
   color: black
 }
-
+li {
+  list-style-type: none;
+}
+.total-revenue {
+  width: 300px;
+  text-align: center;
+  margin-left: 200px;
+}
 /*html, body, main, header, h2, h3 {
   font-family: 'Quicksand', sans-serif;
   color: white;

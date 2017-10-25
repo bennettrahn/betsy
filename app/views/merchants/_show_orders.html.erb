@@ -24,6 +24,7 @@ status
               <% if order[:order].status != "complete" %>
                 <th>Mark as Complete</th>
               <% end %>
+              <th>Revenue Earned</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,7 @@ status
               <% if order[:order].status != "complete" %>
               <td><%= op.status == 'complete' ? "Already completed!" : (link_to "Complete Order", update_status_path(op), method: :patch, class:'button') %></td>
               <% end %>
+              <td><%= op.product.price %></td>
             </tr>
             <% end %>
           </tbody>
