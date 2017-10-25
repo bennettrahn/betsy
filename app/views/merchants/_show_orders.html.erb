@@ -21,7 +21,9 @@ status
               <th>Subtotal</th>
               <th>Order Placed</th>
               <th>Status</th>
-              <th>Mark as Complete</th>
+              <% if order[:order].status != "complete" %>
+                <th>Mark as Complete</th>
+              <% end %>
             </tr>
           </thead>
           <tbody>
@@ -32,7 +34,9 @@ status
               <td><%= op.subtotal %></td>
               <td><%= op.updated_at %></td>
               <td><%= op.status %></td>
-              <td><%= link_to "Complete Order", products_path, class:'button'%></td>
+              <% if order[:order].status != "complete" %>
+              <td><%= op.status == 'complete' ? "Already completed!" : (link_to "Complete Order", update_status_path(op), method: :patch, class:'button') %></td>
+              <% end %>
             </tr>
             <% end %>
           </tbody>

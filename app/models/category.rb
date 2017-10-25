@@ -14,7 +14,7 @@ class Category < ApplicationRecord
 
     Category.all.where(name: category.downcase).each do |c|
 
-      c.products.each do |prod|
+      c.products.not_retired.each do |prod|
         all_products_for_season_cat << prod
       end
     end

@@ -1,5 +1,22 @@
 class OrderProductsController < ApplicationController
   # before_action :find_op_by_params_id, only: [:edit, :update]
+  def update_status
+    @op = OrderProduct.find_by(id: params[:id])
+    @op.status = "complete"
+    @op.save
+    if @op.order.order_complete?
+      @op.order.status = "complete"
+      @op.order.save
+      flash[:status] = :success
+      flash[:message] = "Order has been completed and shipped to buyer"
+      redirect_to merchant_path(@op.product.merchant)
+      return
+    end
+    flash[:status] = :success
+    flash[:message] = "Product has been added to order, Order is waiting on other products before shipping."
+    redirect_to merchant_path(@op.product.merchant)
+  end
+
   def update
     @op = OrderProduct.find_by(id: params[:id])
     # @product = @op.product
