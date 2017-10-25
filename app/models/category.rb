@@ -9,7 +9,7 @@ class Category < ApplicationRecord
   end
 
   def self.root_page_seasonal_pick
-    category = "Halloween"
+    category = "halloween"
     all_products_for_season_cat = []
 
     Category.all.where(name: category).each do |c|
