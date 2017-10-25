@@ -1,21 +1,22 @@
 <section>
-  <h1> Receipt </h1>
+  <h1> RECEIPT </h1>
 
   <h3> <%= @payment_info.buyer_name %>'s Purchase Summary: </h3>
 
   <ul>
-    <li>Name: </li>
-    <li>Email: </li>
+    <li>Name: <%= @payment_info.buyer_name %></li>
+    <li>Email: <%= @payment_info.email %></li>
+    <li>Address: <%= @payment_info.mailing_address %></li>
     <li>Card number: ####-####-####- <%= @last_four_cc %></li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>Expiration date: <%= @payment_info.expiration %></li>
   </ul>
 
 
   <% @order.products.each do |product| %>
-  <p><%= product.name %></p>
+  <p><%= link_to product.name, product_path(product.id) %></p>
   <p>$<%= '%.2f' % product.price %></p>
+  <p><%= product.created_at %></p>
+
   <p><%= link_to "Buy it again!", product_path(product.id), class: "button" %></p>
   <% end %>
 

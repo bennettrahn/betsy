@@ -76,10 +76,4 @@ describe PaymentInfo do
     end
   end
 
-  describe "last_four_cc" do
-    it "returns a string of the last four characters of card_number" do
-
-    end
-  end
-
 end
