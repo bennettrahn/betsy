@@ -56,7 +56,7 @@ describe Category do
       product.save
 
       product.reload
-
+      # NEED FIX ##############
       array_products = Category.root_page_seasonal_pick
       array_products.must_be_instance_of Array
       array_products[0].must_be_instance_of Product
