@@ -44,7 +44,7 @@
   This product is retired.
   <% if session[:merchant_id] == @product.merchant_id %>
     <p>
-      this is a button
+      <%= link_to @product.retired ? "Unretire Product" : "Retire Product", retire_product_path(@product), method: :patch, class: "button" %>
     </p>
   <% end %>
 </section>
