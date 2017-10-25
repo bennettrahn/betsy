@@ -76,9 +76,14 @@ describe PaymentInfo do
     end
   end
 
-  describe "last_four_cc" do
-    it "returns a string of the last four characters of card_number" do
+  describe "#last_four_cc" do
+    it "can be called" do
+      payment_info.must_respond_to :last_four_cc
+    end
 
+    it "returns a string of the last four characters of card_number" do
+      payment_info.card_number = "12345"
+      payment_info.last_four_cc.must_equal "2345"
     end
   end
 

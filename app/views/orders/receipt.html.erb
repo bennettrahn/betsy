@@ -4,25 +4,40 @@
   <h3> <%= @payment_info.buyer_name %>'s Purchase Summary: </h3>
 
   <ul>
-    <li>Name: </li>
-    <li>Email: </li>
+    <li>Name: <%= @payment_info.buyer_name %></li>
+    <li>Email: <%= @payment_info.email %></li>
+    <li>Address: <%= @payment_info.mailing_address %></li>
     <li>Card number: ####-####-####- <%= @last_four_cc %></li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>Expiration date: <%= @payment_info.expiration %></li>
   </ul>
 
 
-  <% @order.products.each do |product| %>
-  <p><%= product.name %></p>
-  <p>$<%= '%.2f' % product.price %></p>
-  <p><%= link_to "Buy it again!", product_path(product.id), class: "button" %></p>
+  <% if session[:merchant_id] %>
+    <% @order.products.each do |prod| %>
+      <% if prod.merchant_id == session[:merchant_id] %>
+        <%= link_to prod.name, product_path(prod.id) %>
+        $<%= '%.2f' % prod.price %>
+        Order placed on: <%= prod.created_at %>
+        Order Status: <%= @order.status %>
+      <% end %>
+    <% end %>
+
+  <% else %>
+    <% @order.products.each do |product| %>
+      <p><%= link_to product.name, product_path(product.id) %></p>
+      <p>$<%= '%.2f' % product.price %></p>
+      <p>Order placed on: <%= product.created_at %></p>
+
+      <p><%= link_to "Buy it again!", product_path(product.id), class: "button" %></p>
+    <% end %>
+
+    <p>Order Status: <%= @order.status %></p>
+
+    <!-- ADD TOTAL PRICE -->
+
+    <p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
+
+    <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
+
   <% end %>
-
-  <p>Order Status: <%= @order.status %></p>
-  <!-- maybe add the address that it will be shipped to? -->
-  <p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
-
-  <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
-
 </section>
