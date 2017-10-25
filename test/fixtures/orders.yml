@@ -6,3 +6,6 @@ order1:
 
 order2:
   status: "pending"
+
+order3:
+  status: "complete"

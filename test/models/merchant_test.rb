@@ -106,7 +106,7 @@ describe Merchant do
       it "counts the completed orders total money" do
         merchant = merchants(:lauren)
         should_return = merchant.total_revenue
-        should_return.must_equal 0
+        should_return.must_equal products(:tripod).price
       end
     end
 
