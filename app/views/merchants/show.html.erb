@@ -30,16 +30,16 @@
       <%if session[:merchant_id] == @merchant.id %>
       <td>
         <% if product.retired %>
-          <span>--Retired--</span>
+        <span>--Retired--</span>
         <% else %>
-          <span>
+        <span>
           <%= form_for product do |f| %>
 
           <%= f.text_field :inventory%>
 
           <%= submit_tag "Update inventory", class: "button" %>
           <% end %>
-          </span>
+        </span>
         <% end %>
       </td>
       <td><%= link_to "Edit Info", edit_product_path(product), class: "button" %></td>
@@ -50,8 +50,8 @@
   </tbody>
 </table>
 
-<%# if @merchant.id == session[:merchant_id] %>
-<%# above line does not work.  %>
+<% if @merchant.id == session[:merchant_id] %>
+<!-- <%# above line does not work.  %> -->
 <h4>Orders waiting to be fulfilled:</h4>
 <%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
 
@@ -72,18 +72,15 @@
         <%=  "No money made yet!" %>
       </td>
       <% else %>
-      <% @complete_orders.each do |order| %>
       <tr>
         <td>
-          <%= '%.2f' % sum = order[:order_products].sum(&:subtotal) %>
+          $<%='%.2f' % @merchant.total_revenue%>
         </td>
-
-        <% end  %>
       </tr>
       <% end %>
     </tbody>
   </table>
-  <%# end %>
+  <% end %>
 
   <%# TODO %>
   <%# all money %>

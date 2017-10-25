@@ -12,4 +12,7 @@ class Order < ApplicationRecord
     end
     return incomplete == 0 ? true : false
   end
+
+
+
 end

@@ -102,6 +102,14 @@ describe Merchant do
       end
     end
 
+    describe "total_revenue" do
+      it "counts the completed orders total money" do
+        merchant = merchants(:lauren)
+        should_return = merchant.total_revenue
+        should_return.must_equal 0
+      end
+    end
+
   end
 
 end
