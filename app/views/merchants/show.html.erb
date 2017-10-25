@@ -1,14 +1,21 @@
-<h2><%= @merchant.username %>'s Page</h2>
+<section>
+  <h2><%= @merchant.username %>'s Page</h2>
 
-<%= link_to "Back to Merchants List", merchants_path, class: "button" %>
-<% if @merchant.id == session[:merchant_id] %>
-<%# link_to "Edit", edit_merchant_path(@merchant.id), class: "button" %>
-<%= link_to "Add Product", new_product_path, class: "button" %>
-<%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
-<%end %>
+  <div>
+    <%= link_to "Back to Merchants List", merchants_path, class: "button" %>
+    <% if @merchant.id == session[:merchant_id] %>
+    <%# link_to "Edit", edit_merchant_path(@merchant.id), class: "button" %>
+    <%= link_to "Add Product", new_product_path, class: "button" %>
+    <%# link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
+    <%end %>
+  </div>
+</section>
 
-<h3><%= @merchant.username %>'s Products:</h3>
-<table>
+<!-- line -->
+
+<h5 class="category-name">Products:</h5>
+
+<table class='products-table'>
   <thead>
     <tr>
       <th>Product</th>
@@ -27,7 +34,7 @@
       <td><p><%= link_to product.name, product_path(product.id) %></p></td>
       <td>$<%= '%.2f' % product.price %></td>
       <td><%= product.inventory %></td>
-      <%#if session[:merchant_id] == @merchant.id %>
+      <%if session[:merchant_id] == @merchant.id %>
       <td>
         <% if product.retired %>
           <span>--Retired--</span>
@@ -44,14 +51,16 @@
       </td>
       <td><%= link_to "Edit Info", edit_product_path(product), class: "button" %></td>
       <td><%= link_to product.retired ? "Unretire Product" : "Retire Product", retire_product_path(product), method: :patch, class: "button" %></td>
-      <%# end %>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
 </table>
 
+
+
 <% if @merchant.id == session[:merchant_id] %>
-<%# above line does not work.  %>
+
 <h4>Orders waiting to be fulfilled:</h4>
 <%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
 
