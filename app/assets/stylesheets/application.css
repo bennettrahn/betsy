@@ -193,13 +193,13 @@ a {
 }
 
 body {
-  color: rgb(84, 87, 107);
+  color: rgb(17, 26, 88);
 }
 
 .wrap {
   width: 90%;
   margin: 0 auto;
-  max-width: 700px;
+  max-width: 900px;
 }
 
 /***********/
