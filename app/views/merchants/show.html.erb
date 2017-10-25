@@ -25,7 +25,7 @@
     <% @merchant.products.each do |product| %>
     <tr>
       <td><p><%= link_to product.name, product_path(product.id) %></p></td>
-      <td><%= product.price %></td>
+      <td>$<%= '%.2f' % product.price %></td>
       <td><%= product.inventory %></td>
       <%if session[:merchant_id] == @merchant.id %>
       <td>
@@ -75,7 +75,7 @@
       <% @complete_orders.each do |order| %>
       <tr>
         <td>
-          <%= sum = order[:order_products].sum(&:subtotal) %>
+          <%= '%.2f' % sum = order[:order_products].sum(&:subtotal) %>
         </td>
 
         <% end  %>

@@ -32,13 +32,13 @@ status
             <tr>
               <td><%= link_to op.product.name, product_path(op.product) %></td>
               <td><%= op.quantity %></td>
-              <td><%= op.subtotal %></td>
+              <td>$<%= '%.2f' % op.subtotal %></td>
               <td><%= op.updated_at %></td>
               <td><%= op.status %></td>
               <% if order[:order].status != "complete" %>
               <td><%= op.status == 'complete' ? "Already completed!" : (link_to "Complete Order", update_status_path(op), method: :patch, class:'button') %></td>
               <% end %>
-              <td><%= op.product.price %></td>
+              <td>$<%= '%.2f' % op.product.price %></td>
             </tr>
             <% end %>
           </tbody>
