@@ -13,7 +13,7 @@
 
 <!-- line -->
 
-<h5 class="category-name">Products:</h5>
+<h3>Products</h3>
 
 <table class='products-table'>
   <thead>
@@ -61,37 +61,53 @@
 
 <% if @merchant.id == session[:merchant_id] %>
 
-<h4>Orders waiting to be fulfilled:</h4>
+<h3>Orders</h3>
+
+<ul id='total_boxes'>
+  <li class='total_box'>
+    <h6>Total Revenue</h6>
+    <p>
+      <% if @complete_orders.empty? %>
+        No money made yet!
+      <% else %>
+        $<%='%.2f' % @merchant.total_revenue%>
+      <% end %>
+    </p>
+  </li>
+
+  <li class='total_box'>
+    <h6>Total Completed Orders</h6>
+    <p>
+      <%=@complete_orders.count%>
+    </p>
+  </li>
+
+  <li class='total_box'>
+    <h6>Waiting Revenue</h6>
+    <p>
+      <% if @paid_orders.empty? %>
+        No orders waiting!
+      <% else %>
+        not correct yet
+        $<%='%.2f' % @merchant.total_revenue%>
+      <% end %>
+    </p>
+  </li>
+
+  <li class='total_box'>
+    <h6>Waiting Orders</h6>
+    <p>
+      <%=@paid_orders.count%>
+    </p>
+  </li>
+</ul>
+
+<h4>Waiting to be fulfilled:</h4>
 <%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
 
 <h4>Completed orders:</h4>
 <%= render partial: "show_orders", locals: {input_orders: @complete_orders} %>
 
-<h4>Total money made with 3Bae:</h4>
-<table class="total-revenue">
-  <thead>
-    <tr>
-      <th><%= "#{@merchant.name}'s " %>Total Revenue</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if @complete_orders.empty? %>
-    <tr>
-      <td>
-        <%=  "No money made yet!" %>
-      </td>
-      <% else %>
-      <tr>
-        <td>
-          $<%='%.2f' % @merchant.total_revenue%>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <% end %>
 
-  <%# TODO %>
-  <%# all money %>
-  <%# all products sold %>
-  <%# all customers who have bought products %>
+
+<% end %>
