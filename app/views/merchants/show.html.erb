@@ -2,9 +2,9 @@
 
 <%= link_to "Back to Merchants List", merchants_path, class: "button" %>
 <% if @merchant.id == session[:merchant_id] %>
-  <%# link_to "Edit", edit_merchant_path(@merchant.id), class: "button" %>
-  <%= link_to "Add Product", new_product_path, class: "button" %>
-  <%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
+<%# link_to "Edit", edit_merchant_path(@merchant.id), class: "button" %>
+<%= link_to "Add Product", new_product_path, class: "button" %>
+<%= link_to "Delete", merchant_path(@merchant.id), method: :delete, data: { confirm: "Are you sure?" }, class: "alert button" %>
 <%end %>
 
 <h3><%= @merchant.username %>'s Products:</h3>
@@ -50,16 +50,42 @@
   </tbody>
 </table>
 
-<% if @merchant.id == session[:merchant_id] %>
+<%# if @merchant.id == session[:merchant_id] %>
+<%# above line does not work.  %>
+<h4>Orders waiting to be fulfilled:</h4>
+<%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
 
-  <h4>Orders waiting to be fulfilled:</h4>
-  <%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
+<h4>Completed orders:</h4>
+<%= render partial: "show_orders", locals: {input_orders: @complete_orders} %>
 
-  <h4>Completed orders:</h4>
-  <%= render partial: "show_orders", locals: {input_orders: @complete_orders} %>
-<% end %>
+<h4>Total money made with 3Bae:</h4>
+<table class="total-revenue">
+  <thead>
+    <tr>
+      <th><%= "#{@merchant.name}'s " %>Total Revenue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @complete_orders.empty? %>
+    <tr>
+      <td>
+        <%=  "No money made yet!" %>
+      </td>
+      <% else %>
+      <% @complete_orders.each do |order| %>
+      <tr>
+        <td>
+          <%= sum = order[:order_products].sum(&:subtotal) %>
+        </td>
 
-<%# TODO %>
-<%# all money %>
-<%# all products sold %>
-<%# all customers who have bought products %>
+        <% end  %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%# end %>
+
+  <%# TODO %>
+  <%# all money %>
+  <%# all products sold %>
+  <%# all customers who have bought products %>
