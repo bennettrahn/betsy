@@ -45,8 +45,9 @@ html, main, h1, h2, h3, a {
   height: 700px;*/
 }
 body {
-  background-color: rgb(249, 212, 164);
+  background-color: rgb(198, 191, 185);
 }
+
 .menu {
   border-top: 1px solid white;
   border-bottom: 1px solid white;
