@@ -6,8 +6,7 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :categories
   belongs_to :merchant
 
-  # default_scope { where(retired: true) }
-  scope :not_retired, -> { where(retired: nil) }
+  scope :not_retired, -> { where(retired: false) }
 
   validates :name, presence: true, uniqueness: true
 
