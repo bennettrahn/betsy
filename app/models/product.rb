@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   belongs_to :merchant
 
   # default_scope { where(retired: true) }
-  scope :not_retired, -> { where(retired: nil) }
+  scope :not_retired, -> { where(retired: false) }
 
   validates :name, presence: true, uniqueness: true
 
