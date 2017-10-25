@@ -34,9 +34,7 @@ describe OrdersController do
       get order_path(order_id + 1)
       must_respond_with :not_found
     end
-
   end
-
 
   describe "update" do
     it "returns not_found when given an invaild id" do
@@ -45,15 +43,18 @@ describe OrdersController do
     end
 
 # NEED TO FIX ##############
-    it "returns succes if the order exists and the change is valid" do
+    it "returns success if the order exists and the change is valid" do
       payment_data = {
-        email: "example@example.com",
-        buyer_name: "name",
-        cvv: "123",
-        card_number: "123456",
-        zipcode: "12345",
-        mailing_address: "12 34th st",
-        expiration: "12/34"
+        payment_info: {
+          email: "example@example.com",
+          buyer_name: "name",
+          cvv: "123",
+          card_number: "123456",
+          zipcode: "12345",
+          mailing_address: "12 34th st",
+          expiration: "12/34"
+        }
+
       }
 
       orders(:order1).must_be :valid?
@@ -78,16 +79,49 @@ describe OrdersController do
 
   describe "receipt" do
     it "shows the receipt after a successful update/checkout" do
-      # need to run update checkout methods before this works??
-      # this updates the order
-      patch order_path(orders(:order1)), params: order_data
-      ###### need buyer_name
-      # NEED FIX ##############
 
-      # get checkout_path(order_id)
+      payment_data = {
+        payment_info: {
+          email: "example@example.com",
+          buyer_name: "name",
+          cvv: "123",
+          card_number: "123456",
+          zipcode: "12345",
+          mailing_address: "12 34th st",
+          expiration: "12/34"
+        }
 
-      get order_receipt_path(:order1)
+      }
+      patch order_path(orders(:order1)), params: payment_data
+
+      get order_receipt_path(orders(:order1))
       must_respond_with :success
+    end
+
+    it "cannot see a receipt twice; receipts will only show immediately after a purchase" do
+      payment_data = {
+        payment_info: {
+          email: "example@example.com",
+          buyer_name: "name",
+          cvv: "123",
+          card_number: "123456",
+          zipcode: "12345",
+          mailing_address: "12 34th st",
+          expiration: "12/34"
+        }
+      }
+      patch order_path(orders(:order1)), params: payment_data
+
+      get order_receipt_path(orders(:order1))
+      must_respond_with :success
+
+      get order_receipt_path(orders(:order1))
+      must_respond_with :redirect
+      flash[:status].must_equal :failure
+    end
+
+    it "shows the receipt to the merchant who is the owner of the orderproduct" do
+      
     end
   end
 

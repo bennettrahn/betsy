@@ -12,7 +12,7 @@ class Category < ApplicationRecord
     category = "Halloween"
     all_products_for_season_cat = []
 
-    Category.all.where(name: category.downcase).each do |c|
+    Category.all.where(name: category).each do |c|
 
       c.products.not_retired.each do |prod|
         all_products_for_season_cat << prod
