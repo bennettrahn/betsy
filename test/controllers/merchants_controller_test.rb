@@ -151,8 +151,15 @@ describe MerchantsController do
     end
 
     it "tells you you're already logged in if you're logged in." do
-      # TODO: make this test
+      #log in again
+      merchant = merchants(:anders)
+      login(merchant)
+      login(merchant)
+
+      flash[:status].must_equal :failure
+      flash[:message].must_equal "You're already logged in, Bae!"
     end
+
   end
 
   describe "logout" do
