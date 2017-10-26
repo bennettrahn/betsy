@@ -30,4 +30,34 @@ describe Order do
       end
     end
   end
+
+  describe "order_complete?" do
+    it "can be called" do
+      order = orders(:order3)
+      order.must_respond_to :order_complete?
+    end
+    it "returns true if the all order product status is complete" do
+      op = order_products(:four)
+      order = orders(:order1)
+      op.status = "complete"
+      op.save
+
+      order.order_complete?.must_equal true
+    end
+
+    it "returns false if the order is not complete" do
+      order_products(:four)
+      order = orders(:order1)
+
+      order.order_complete?.must_equal false
+    end
+
+    #TODO: what if there are no orderproducts?
+    # it "sets flash[:status] to failure is there are no orderproducts" do
+    #   OrderProducts.destroy_all
+    #   order = orders(:order1)
+    #
+    #   order.order_complete?.
+    # end
+  end
 end

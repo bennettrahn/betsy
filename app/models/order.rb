@@ -7,6 +7,7 @@ class Order < ApplicationRecord
 
   def order_complete?
     incomplete = 0
+
     self.order_products.each do |op|
       if op.status != "complete"
         incomplete += 1
