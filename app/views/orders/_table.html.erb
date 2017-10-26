@@ -1,15 +1,3 @@
-<h1> Receipt </h1>
-
-<h3> <%= @payment_info.buyer_name %>'s Purchase Summary: </h3>
-
-<ul>
-  <li>Name: <%= @payment_info.buyer_name %></li>
-  <li>Email: <%= @payment_info.email %></li>
-  <li>Address: <%= @payment_info.mailing_address %></li>
-  <li>Card number: ####-####-####- <%= @last_four_cc %></li>
-  <li>Expiration date: <%= @payment_info.expiration %></li>
-</ul>
-
 <ul>
   <li>
     <table class='order_info_table'>
@@ -40,22 +28,34 @@
         </tr>
       </thead>
 
-      <tbody>
+      <%# any buyer %>
+      <tbody class='<%= visible %>'>
       <% @order.order_products.each do |op| %>
-        <%# if op.product.merchant_id == session[:merchant_id] %>
         <tr>
           <td><%= link_to op.product.name, product_path(op.product_id) %></td>
           <td><%= op.quantity %></td>
           <td><%= readable_price(op.subtotal) %></td>
-          <td class='align_right <%= hidden %>'>
+          <td class='align_right'>
             <%= link_to "Buy it again!", product_path(op.product_id), class: "button" %>
           </td>
         </tr>
+        <% end %>
+
+      <p class='align_right'><%= "Check #{@payment_info.email} to track your shipping!" %></p>
+      <p class='align_right'><%=  link_to "Get back to shopping!", root_path, class: "button"%></p>
+      </tbody>
+
+      <tbody class='<%= hidden %>'>
+      <% @order.order_products.each do |op| %>
+        <% if op.product.merchant_id == session[:merchant_id] %>
+        <tr>
+          <td><%= link_to op.product.name, product_path(op.product_id) %></td>
+          <td><%= op.quantity %></td>
+          <td><%= readable_price(op.subtotal) %></td>
+        </tr>
+        <% end %>
         <% end %>
       </tbody>
     </table>
   </li>
 </ul>
-
-<p class='align_right <%= hidden %>'><%= "Check #{@payment_info.email} to track your shipping!" %></p>
-<p class='align_right <%= hidden %>'><%=  link_to "Get back to shopping!", root_path, class: "button"%></p>
