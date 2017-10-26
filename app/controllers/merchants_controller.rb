@@ -39,10 +39,16 @@ class MerchantsController < ApplicationController
     redirect_to products_path
   end
 
-  def show
+  def show(status: nil)
     @paid_orders = @merchant.sort_orders_by_status("paid")
     @complete_orders = @merchant.sort_orders_by_status("complete")
-
+    if params[:status] == "paid" || params[:status] == nil
+      @filtered_orders = @paid_orders
+      @title = "Waiting to be fulfilled:"
+    elsif params[:status] == "complete"
+      @filtered_orders = @complete_orders
+      @title = "Completed orders:"
+    end
   end
 
   def destroy
