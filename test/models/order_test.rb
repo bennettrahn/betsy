@@ -30,4 +30,14 @@ describe Order do
       end
     end
   end
+
+  describe "order_complete?" do
+    it "returns true if the order product is complete" do
+
+    end
+
+    it "returns false if the order is not complete" do
+
+    end
+  end
 end
