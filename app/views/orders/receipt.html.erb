@@ -12,6 +12,7 @@
   </ul>
 
   <% if flash[:receipt] == @order.payment_info.buyer_name %>
+  <%= render partial: 'table', locals: {hidden: "visible"} %>
 
     <ul>
       <li>
@@ -64,52 +65,6 @@
     <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
 
   <% else %>
-    <ul>
-      <li>
-        <table class='order_info_table'>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th class='align_right'>Order Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= @order.id %></td>
-              <td><%= readable_date(@order.updated_at)%></td>
-              <td><%= @order.status %></td>
-              <td class='align_right'> <%= @order.order_total %></td>
-              </td></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class='products_info_table'>
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @order.order_products.each do |op| %>
-              <% if op.product.merchant_id == session[:merchant_id] %>
-                <tr>
-                  <td><%= link_to op.product.name, product_path(op.product_id) %></td>
-                  <td><%= op.quantity %></td>
-                  <td>$<%= readable_price(op.product.price) %></td>
-                  <td class='align_right'>
-                  </td>
-                </tr>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
-      </li>
-    </ul>
+  <%= render partial: 'table', locals: {hidden: "hidden"} %>
   <% end %>
 </section>
