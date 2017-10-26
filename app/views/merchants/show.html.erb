@@ -70,7 +70,7 @@
       <% if @complete_orders.empty? %>
         No money made yet!
       <% else %>
-        $<%='%.2f' % @merchant.total_revenue%>
+        $<%='%.2f' % @merchant.total_revenue('complete')%>
       <% end %>
     </p>
   </li>
@@ -90,7 +90,7 @@
         No orders waiting!
       <% else %>
         not correct yet
-        $<%='%.2f' % @merchant.total_revenue%>
+        $<%='%.2f' % @merchant.total_revenue('paid')%>
       <% end %>
     </p>
   </li>

@@ -25,7 +25,7 @@
 
   <p>Order Status: <%= @order.status %></p>
 
-  <!-- ADD TOTAL PRICE -->
+
 
   <p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
 
@@ -38,6 +38,9 @@
         $<%= '%.2f' % prod.price %>
         Order placed on: <%= prod.created_at %>
         Order Status: <%= @order.status %>
+        <p>
+          Order Total: <%=@order.order_total %>
+        </p>
       <% end %>
     <% end %>
 <% end %>
