@@ -20,7 +20,12 @@ class MerchantsController < ApplicationController
         flash[:message] = "Successfully logged in as returning merchant #{merchant.name}"
       end
 
-      session[:merchant_id] = merchant.id
+      if session[:merchant_id] = merchant.id
+        flash[:status] = :failure
+        flash[:message] = "You're already logged in, Bae!"
+      else
+        session[:merchant_id] = merchant.id
+      end
 
     else
       flash[:status] = :failure
