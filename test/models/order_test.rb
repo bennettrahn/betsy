@@ -53,11 +53,11 @@ describe Order do
     end
 
     #TODO: what if there are no orderproducts?
-    # it "return nil" do
+    # it "sets flash[:status] to failure is there are no orderproducts" do
     #   OrderProducts.destroy_all
     #   order = orders(:order1)
     #
-    #   order.order_complete?.must_equal nil
+    #   order.order_complete?.
     # end
   end
 end
