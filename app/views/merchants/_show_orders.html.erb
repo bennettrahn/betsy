@@ -24,7 +24,7 @@ status
           <td><%= link_to order[:order].id, order_receipt_path(order[:order].id) %></td>
           <td><%= order[:order].updated_at %></td>
           <td><%= order[:order].status %></td>
-          <td class='align_right'>order total</td>
+          <td class='align_right'><%= order[:order].order_total(merchant: @merchant) %></td>
         </tr>
       </tbody>
     </table>

@@ -5,6 +5,7 @@ class Order < ApplicationRecord
 
   scope :not_retired, -> { where(retired: false) }
 
+
   def order_complete?
     incomplete = 0
 
@@ -14,6 +15,22 @@ class Order < ApplicationRecord
       end
     end
     return incomplete == 0 ? true : false
+  end
+
+  def order_total(merchant: nil)
+    total = 0
+    ops = nil
+    if merchant
+      ops = self.order_products.select { |op|
+        op.merchant == merchant
+      }
+    else
+      ops = self.order_products
+    end
+    ops.each do |order_product|
+      total += order_product.subtotal
+    end
+    return total
   end
 
 end
