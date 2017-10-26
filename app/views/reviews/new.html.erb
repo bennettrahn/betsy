@@ -1,4 +1,6 @@
 <h1> Write a new Review: </h1>
+<section class="wrappy">
+
 <%= form_for @review do |f| %>
 
   <% rating_array = [] %>
@@ -20,3 +22,4 @@
   <%= f.submit "Submit", class:'button' %>
 
 <% end %>
+</section>
