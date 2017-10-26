@@ -89,7 +89,6 @@
       <% if @paid_orders.empty? %>
         No orders waiting!
       <% else %>
-        not correct yet
         $<%='%.2f' % @merchant.total_revenue('paid')%>
       <% end %>
     </p>
