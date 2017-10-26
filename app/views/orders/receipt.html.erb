@@ -30,7 +30,7 @@
               <td><%= @order.id %></td>
               <td><%= @order.updated_at %></td>
               <td><%= @order.status %></td>
-              <td class='align_right'>Order total</td>
+              <td class='align_right'><%= @order.order_total %></td>
             </tr>
           </tbody>
         </table>
@@ -40,7 +40,7 @@
             <tr>
               <th>Product</th>
               <th>Quantity</th>
-              <th>Price</th>
+              <th>Subtotal</th>
             </tr>
           </thead>
 
@@ -49,7 +49,7 @@
             <tr>
               <td><%= link_to op.product.name, product_path(op.product_id) %></td>
               <td><%= op.quantity %></td>
-              <td>$<%= '%.2f' % op.product.price %></td>
+              <td>$<%= op.subtotal%></td>
               <td class='align_right'>
                 <%= link_to "Buy it again!", product_path(op.product_id), class: "button" %>
               </td>
