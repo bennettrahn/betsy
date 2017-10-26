@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order_by_params_id, only: [:show, :update, :destroy, :checkout, :receipt, :check_merchant_is_prod_owner]
   before_action :check_order_session, only: [:receipt]
+  before_action :check_cart, only:[:show]
 
   def index
     @orders = Order.all
@@ -56,12 +57,10 @@ private
 
   def find_order_by_params_id
     @order = Order.find_by(id: params[:id] || params[:order_id])
-    puts "IN FIND ORDER BY PARAMS"
     head :not_found unless @order
   end
 
   def check_order_session
-    puts "IN CHECK ORDER SESSION"
     if (flash[:receipt] != @order.payment_info.buyer_name) && check_merchant_is_prod_owner != true
       flash[:status] = :failure
       flash[:message] = "Sorry, you cannot view that receipt."
@@ -83,6 +82,15 @@ private
       end
     end
     return false
+  end
+
+  def check_cart
+    if session[:cart] != params[:id].to_i
+      flash[:status] = :failure
+      flash[:message] = "Sorry, you cannot view that order."
+      redirect_to root_path
+    end
+
   end
 
 end
