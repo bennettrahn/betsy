@@ -79,12 +79,16 @@ class OrderProductsController < ApplicationController
     @op = OrderProduct.find_by(id: params[:id])
     @order = Order.find_by(id: @op.order.id)
     # if there is still content in the cart, show
-    if session[:cart]
-      save_and_flash(@op, edit: "delete", save: @op.destroy, name: "item")
-      redirect_to(order_path(@order))
-    else
+
+    puts "ORDER: #{@order.inspect}, #{@order.products.count}"
+
+    save_and_flash(@op, edit: "delete", save: @op.destroy, name: "item")
+
+    if @order.order_products.empty?
+      session[:cart] = nil
       redirect_to order_empty_cart_path(:cart)
-      # redirect_to(order_path(@order))
+    else
+      redirect_to order_path(@order)
     end
   end
 

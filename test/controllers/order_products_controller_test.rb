@@ -10,15 +10,63 @@ describe OrderProductsController do
   end
 
   describe "update_status" do
-    it "sets flash[:status] to success when order is saved " do
+    it "if entire order is complete, sets flash[:status] to success when order is saved with specific message, redirects merchant show page, and sets the orderproduct status and orders status to complete" do
+      #arrange
+      order_prod = order_products(:two)
 
+      #assert
+      patch update_status_path(order_prod.id)
+
+      #act
+      order_prod.reload
+      flash[:status].must_equal :success
+      order_prod.status.must_equal "complete"
+      order_prod.order.status.must_equal"complete"
+      flash[:message].must_equal "Order has been completed and shipped to buyer"
     end
 
+    it "if order status is not complete, it was set flash[:status] to success and message to 'order has been completed and shipped to buyer', and the order status will not be complete" do
+      #arrange
+      order_prod = order_products(:two)
+
+      #assert
+      patch update_status_path(order_prod.id)
+
+      #act
+      order_prod.reload
+      flash[:status].must_equal :success
+      order_prod.status.must_equal "complete"
+      order_prod.order.status.must_equal "pending"
+      flash[:message].must_equal "Product has been added to order, Order is waiting on other products before shipping."
+    end
   end
 
   describe "destroy" do
+    it "deletes the orderproduct and redirects to order_path if there are still other orderproducts in the cart" do
+      order_prod = order_products(:two)
+      order_prod_2 = order_products(:three)
+      order = orders(:order4)
 
+      puts "ORDER PROD: #{order_prod}"
+      order = order_prod.order
+      puts "order id: #{order}"
 
+      puts "ORDER PROD ID: #{order_prod.id}"
+      delete order_product_path(order_prod.id)
+
+      must_respond_with :redirect
+      must_redirect_to order_path(order)
+    end
+
+    it "deletes the orderproduct and redirects to order_empty_cart_path if no more orderproducts in the order" do
+      order_prod = order_products(:four)
+      order = order_prod.order.id
+
+      delete order_product_path(order_prod)
+
+      must_respond_with :redirect
+      must_redirect_to order_empty_cart_path
+    end
   end
 
   describe "create" do

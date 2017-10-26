@@ -13,6 +13,4 @@ class Order < ApplicationRecord
     return incomplete == 0 ? true : false
   end
 
-
-
 end
