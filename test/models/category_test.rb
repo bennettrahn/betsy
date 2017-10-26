@@ -50,7 +50,7 @@ describe Category do
     end
 
     it "returns an array of Product objects" do
-      halloween_category = Category.create!(name: "Halloween")
+      halloween_category = Category.create!(name: "halloween")
       product = products(:tricycle)
       product.categories << halloween_category
 
