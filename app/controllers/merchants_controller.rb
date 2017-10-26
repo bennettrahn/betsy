@@ -20,7 +20,12 @@ class MerchantsController < ApplicationController
         flash[:message] = "Successfully logged in as returning merchant #{merchant.name}"
       end
 
-      session[:merchant_id] = merchant.id
+      if session[:merchant_id] = merchant.id
+        flash[:status] = :failure
+        flash[:message] = "You're already logged in, Bae!"
+      else
+        session[:merchant_id] = merchant.id
+      end
 
     else
       flash[:status] = :failure
@@ -39,10 +44,16 @@ class MerchantsController < ApplicationController
     redirect_to products_path
   end
 
-  def show
+  def show(status: nil)
     @paid_orders = @merchant.sort_orders_by_status("paid")
     @complete_orders = @merchant.sort_orders_by_status("complete")
-
+    if params[:status] == "paid" || params[:status] == nil
+      @filtered_orders = @paid_orders
+      @title = "Waiting to be fulfilled:"
+    elsif params[:status] == "complete"
+      @filtered_orders = @complete_orders
+      @title = "Completed orders:"
+    end
   end
 
   def destroy
