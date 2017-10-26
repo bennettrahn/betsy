@@ -32,12 +32,24 @@ describe Order do
   end
 
   describe "order_complete?" do
-    it "returns true if the order product is complete" do
+    it "can be called" do
+      order = orders(:order3)
+      order.must_respond_to :order_complete?
+    end
+    it "returns true if the all order product status is complete" do
+      op = order_products(:four)
+      order = orders(:order1)
+      op.status = "complete"
+      op.save
 
+      order.order_complete?.must_equal true
     end
 
     it "returns false if the order is not complete" do
+      order = orders(:order2)
+      
 
+      order.order_complete?.must_equal false
     end
   end
 end
