@@ -46,8 +46,8 @@ describe Order do
     end
 
     it "returns false if the order is not complete" do
-      order = orders(:order2)
-      
+      order_products(:four)
+      order = orders(:order1)
 
       order.order_complete?.must_equal false
     end
