@@ -51,5 +51,13 @@ describe Order do
 
       order.order_complete?.must_equal false
     end
+
+    #TODO: what if there are no orderproducts?
+    # it "return nil" do
+    #   OrderProducts.destroy_all
+    #   order = orders(:order1)
+    #
+    #   order.order_complete?.must_equal nil
+    # end
   end
 end
