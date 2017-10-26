@@ -14,7 +14,7 @@
 
 <body >
 <section class="background">
-
+  <% unless current_page?(root_path) %>
   <header class="page-header row">
     <h2 class="heading columns small-12 large-6">
       <%= link_to "3Bae", root_path %>
@@ -83,6 +83,7 @@
         </div>
       </div>
     </nav>
+    <% end %>
 </section>
   <main class="wrap">
     <!-- this is the flash section -->
