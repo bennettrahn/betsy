@@ -26,13 +26,23 @@ describe OrdersController do
   end
 
   describe "show" do
-    it "returns success when given a vaild id" do
-      get order_path(order_id)
+    it "returns success when given the current cart id." do
+      product_params = {
+        product_id: products(:tricycle).id,
+        quantity: 1
+      }
+      post create_order_product_path, params: product_params
+
+      get order_path(session[:cart])
       must_respond_with :success
     end
     it "returns not_found when given an invaild id" do
       get order_path(order_id + 1)
       must_respond_with :not_found
+    end
+    it "wont show past orders" do
+      get order_path(order_id)
+      must_redirect_to root_path
     end
   end
 
@@ -121,7 +131,7 @@ describe OrdersController do
     end
 
     it "shows the receipt to the merchant who is the owner of the orderproduct" do
-      
+
     end
   end
 

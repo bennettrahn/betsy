@@ -80,8 +80,6 @@ class OrderProductsController < ApplicationController
     @order = Order.find_by(id: @op.order.id)
     # if there is still content in the cart, show
 
-    puts "ORDER: #{@order.inspect}, #{@order.products.count}"
-
     save_and_flash(@op, edit: "delete", save: @op.destroy, name: "item")
 
     if @order.order_products.empty?

@@ -44,14 +44,11 @@ describe OrderProductsController do
   describe "destroy" do
     it "deletes the orderproduct and redirects to order_path if there are still other orderproducts in the cart" do
       order_prod = order_products(:two)
-      order_prod_2 = order_products(:three)
+      order_products(:three)
       order = orders(:order4)
 
-      puts "ORDER PROD: #{order_prod}"
       order = order_prod.order
-      puts "order id: #{order}"
 
-      puts "ORDER PROD ID: #{order_prod.id}"
       delete order_product_path(order_prod.id)
 
       must_respond_with :redirect
@@ -60,12 +57,12 @@ describe OrderProductsController do
 
     it "deletes the orderproduct and redirects to order_empty_cart_path if no more orderproducts in the order" do
       order_prod = order_products(:four)
-      order = order_prod.order.id
+      order_prod.order.id
 
-      delete order_product_path(order_prod)
+      delete order_product_path(order_prod.id)
 
       must_respond_with :redirect
-      must_redirect_to order_empty_cart_path
+      must_redirect_to order_empty_cart_path(:cart)
     end
   end
 
