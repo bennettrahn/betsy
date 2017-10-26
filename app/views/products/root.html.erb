@@ -1,16 +1,16 @@
+<section class-"homepage">
 <section class="welcome">
   <% if session[:merchant_id] %>
   <h1> Welcome Back, Bae</h1>
   <% else %>
-  <h1> Welcome, Bae</h1>
+  <h1> Hey, Bae</h1>
   <% end %>
 </section>
-
 <section class="spotlight">
-  <h5>Spotlight | <small> Something, just for you</small></h5>
+  <h2 class="spooky-spot">Spotlight | <small> Something just for you</small> </h2>
   <% @spot = Product.not_retired.sample %>
   <div class="">
-    <p><%= link_to @spot.name.capitalize, product_path(@spot.id) %>|
+    <p><%= link_to @spot.name.capitalize, product_path(@spot.id) %> |
     $<%='%.2f' % @spot.price%></p>
     <%= link_to product_path(@spot.id) do %>
     <p class="spotlight-image"><%= image_tag @spot.photo_url %></p>
@@ -25,12 +25,15 @@
   <section class="small-2 large-4 columns">
     <div class="crop-image">
       <%= link_to product_path(product.id) do %>
+      <%= link_to product.name.capitalize, product_path(product.id) %> |
+      $<%='%.2f' % product.price%>
       <%= image_tag product.photo_url %>
       <% end %>
     </div>
-    <%= link_to product.name.capitalize, product_path(product.id) %> |
-    $<%='%.2f' % product.price%>
+
 
   </section>
   <% end %>
+</section>
+
 </section>

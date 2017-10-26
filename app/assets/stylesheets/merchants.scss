@@ -10,9 +10,9 @@ h3.merchant-heading {
   margin: 5% 0%;
 }
 
-// .order_list {
-//
-// }
+.order_list {
+  color: rgb(63, 92, 153);
+}
 
 table tbody tr td {
   color: black
@@ -58,7 +58,7 @@ table tbody tr td a {
   justify-content: space-around;
 }
 .total_box {
-  background-color: rgb(114, 103, 94);
+  background-color: rgb(21, 142, 116);
   color: white;
   text-align: center;
   padding: 0;
@@ -66,6 +66,7 @@ table tbody tr td a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .total_box h6 {

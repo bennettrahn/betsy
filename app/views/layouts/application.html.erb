@@ -75,7 +75,7 @@
       </div>
 
       <div class="dropdown columns large-3">
-        <span><%= link_to "All Categories", categories_path, class: "button-link" %></span>
+        <span><%= link_to "All Categories", products_path, class: "button-link" %></span>
         <div class="dropdown-content">
           <% Category.all.each do |category| %>
           <%= link_to "#{category.name}", category_path(category.id)%>
