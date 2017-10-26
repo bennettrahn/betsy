@@ -27,6 +27,8 @@ li {
 html, main, h1, h2, h3, a {
   font-family: 'Quicksand', sans-serif;
   color: black;
+}
+h1 {
   text-align: center;
 }
 .background {
