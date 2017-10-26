@@ -128,7 +128,7 @@ color:rgb(43, 80, 82);
 
 .button-link {
   color: white;
-  font-weight: bold;
+  /*font-weight: bold;*/
   font-size: 20px;
 }
 
@@ -181,6 +181,7 @@ a {
 
 body {
   color: rgb(17, 26, 88);
+  font-family: 'Quicksand', sans-serif;
 }
 
 .wrappy {
