@@ -1,11 +1,13 @@
-<main class="wrap">
+<section class="wrappy">
 <h2 class="category"> <%= @category.name %></h2>
-<section>
-<% @category.products.not_retired.each do |prod| %>
 
+  <section class="row">
+<% @category.products.not_retired.each do |prod| %>
+  <section class="category-products small-2 large-4 columns">
 <p><%= link_to prod.name.capitalize, product_path(prod.id) %></p>
 <p>$<%= '%.2f' % prod.price %></p>
-<p class="image"><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
+<p class="cat-image"><%= image_tag "#{prod.photo_url}", alt:"image"%></p>
+</section>
 <% end %>
 </section>
-</main>
+</section>
