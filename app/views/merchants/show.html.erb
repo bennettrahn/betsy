@@ -80,6 +80,7 @@
     <p>
       <%=@complete_orders.count%>
     </p>
+    <%= link_to "See Completed Orders", merchant_path(@merchant, status: "complete"), class:"button" %>
   </li>
 
   <li class='total_box'>
@@ -99,18 +100,22 @@
     <p>
       <%=@paid_orders.count%>
     </p>
+      <%= link_to "See Orders Waiting Fulfillment", merchant_path(@merchant, status: "paid"), class:"button" %>
   </li>
 </ul>
 
-<div class="order_list">
+<!-- <div class="order_list">
   <h4>Waiting to be fulfilled:</h4>
-  <%= render partial: "show_orders", locals: {input_orders: @paid_orders} %>
-</div>
+  <%# render partial: "show_orders", locals: {input_orders: @paid_orders} %>
+</div> -->
 
-<div class="order_list">  
-  <h4>Completed orders:</h4>
-  <%= render partial: "show_orders", locals: {input_orders: @complete_orders} %>
+
+<% if @filtered_orders %>
+<div class="order_list">
+  <h4><%= @title %></h4>
+  <%= render partial: "show_orders", locals: {input_orders: @filtered_orders} %>
 </div>
+<% end %>
 
 
 

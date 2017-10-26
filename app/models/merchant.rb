@@ -7,7 +7,6 @@ class Merchant < ApplicationRecord
   validates :email, presence: {message: "Please enter an email"}, uniqueness: true
 
   validates_format_of :email, :with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "Please enter your email in this format: example@example.com"
-
   def self.from_auth_hash(provider, auth_hash)
     merchant = new
     merchant.provider = provider
@@ -18,6 +17,11 @@ class Merchant < ApplicationRecord
 
     return merchant
   end
+
+
+  # def merchant_orders
+  #   Order.joins(:products).where(products: {merchant: merchant})
+  # end
 
   def relevant_orders
     relevant_orders = []
