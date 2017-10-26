@@ -13,16 +13,16 @@
 </head>
 
 <body >
-<section class="background">
-  <% unless current_page?(root_path) %>
-  <header class="page-header row">
-    <h2 class="heading columns small-12 large-6">
-      <%= link_to "3Bae", root_path %>
-    </h2>
+  <section class="background">
 
-    <div class="top-nav float-right small-12 large-6">
+    <header class="page-header row">
+      <h2 class="heading columns small-12 large-6">
+        <%= link_to "3Bae", root_path %>
+      </h2>
 
-      <% if session[:merchant_id] %>
+      <div class="top-nav float-right small-12 large-6">
+
+        <% if session[:merchant_id] %>
         <div class="dropdown">
           <span class="button-link"> Create </span>
           <div class="dropdown-content">
@@ -32,86 +32,87 @@
         </div>
 
         <%= link_to merchant_path(session[:merchant_id]) do %>
-          <%= image_tag "your_page.png", size: "45x45"  %>
+        <%= image_tag "your_page.png", size: "45x45"  %>
         <% end %>
 
         <%= link_to logout_path do %>
-          <%= image_tag "unlock.png", size: "40x40"  %>
+        <%= image_tag "unlock.png", size: "40x40"  %>
         <% end %>
 
         <% else %>
-          <%= link_to '/auth/github' do %>
-            <%= image_tag "login_key.png", size: "40x40"  %>
-          <% end %>
+        <%= link_to '/auth/github' do %>
+        <%= image_tag "login_key.png", size: "40x40"  %>
+        <% end %>
         <% end %>
 
         <%= link_to root_path do %>
-          <%= image_tag "address-icon.png", size: "40x40" %>
+        <%= image_tag "address-icon.png", size: "40x40" %>
         <% end %>
 
         <%= link_to session[:cart] ? order_path(session[:cart]) : order_empty_cart_path(:cart) do %>
-          <%= image_tag 'blue_cart.png', size: "40x40" %>
+        <%= image_tag 'blue_cart.png', size: "40x40" %>
         <% end %>
 
-  </header>
+      </header>
 
-    <nav class="menu row">
-      <div class="dropdown columns large-3">
-        <span><%= link_to "All Merchants", merchants_path, class: "button-link" %></span>
-        <div class="dropdown-content">
-          <% Merchant.all.each do |merchant| %>
-          <%= link_to "#{merchant.username}", merchant_path(merchant.id) %>
-          <% end %>
+<% unless current_page?(root_path) %>
+      <nav class="menu row">
+        <div class="dropdown columns large-3">
+          <span><%= link_to "All Merchants", merchants_path, class: "button-link" %></span>
+          <div class="dropdown-content">
+            <% Merchant.all.each do |merchant| %>
+            <%= link_to "#{merchant.username}", merchant_path(merchant.id) %>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="dropdown columns large-3">
-        <span><%= link_to "All Products", products_path, class: "button-link" %></span>
-        <div class="dropdown-content">
-          <% Product.not_retired.each do |product| %>
-          <%= link_to product.name, product_path(product.id)%>
-          <% end  %>
+        <div class="dropdown columns large-3">
+          <span><%= link_to "All Products", products_path, class: "button-link" %></span>
+          <div class="dropdown-content">
+            <% Product.not_retired.each do |product| %>
+            <%= link_to product.name, product_path(product.id)%>
+            <% end  %>
+          </div>
         </div>
-      </div>
 
-      <div class="dropdown columns large-3">
-        <span><%= link_to "All Categories", products_path, class: "button-link" %></span>
-        <div class="dropdown-content">
-          <% Category.all.each do |category| %>
-          <%= link_to "#{category.name}", category_path(category.id)%>
-          <% end  %>
+        <div class="dropdown columns large-3">
+          <span><%= link_to "All Categories", products_path, class: "button-link" %></span>
+          <div class="dropdown-content">
+            <% Category.all.each do |category| %>
+            <%= link_to "#{category.name}", category_path(category.id)%>
+            <% end  %>
+          </div>
         </div>
-      </div>
-    </nav>
-    <% end %>
-</section>
-  <main class="wrap">
-    <!-- this is the flash section -->
-    <% if flash[:message] %>
+      </nav>
+      <% end %>
+    </section>
+    <main>
+      <!-- this is the flash section -->
+      <% if flash[:message] %>
       <section class="row status <%= flash[:status] %>">
         <h3><%= flash[:status] == :failure ? "A problem occurred: " : "" %><%= flash[:message] %></h3>
 
         <% if flash[:details] %>
-          <ul>
-            <% flash[:details].each do |name, problems| %>
-              <% problems.each do |problem| %>
-                <li>
-                  <%= name %>: <%= problem %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
+        <ul>
+          <% flash[:details].each do |name, problems| %>
+          <% problems.each do |problem| %>
+          <li>
+            <%= name %>: <%= problem %>
+          </li>
+          <% end %>
+          <% end %>
+        </ul>
         <% end %>
       </section>
-    <% end %>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
 
-  </main>
-  <footer>
-    <nav>
-      <!-- <h2>FOOTER STUFF - copyright, contact details</h2> -->
-    </nav>
-  </footer>
-</body>
-</html>
+    </main>
+    <footer>
+      <nav>
+        <!-- <h2>FOOTER STUFF - copyright, contact details</h2> -->
+      </nav>
+    </footer>
+  </body>
+  </html>
