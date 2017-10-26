@@ -21,6 +21,6 @@ module ApplicationHelper
   end
 
   def readable_price(price)
-    '%.2f' % price
+    '$' + '%.2f' % price
   end
 end
