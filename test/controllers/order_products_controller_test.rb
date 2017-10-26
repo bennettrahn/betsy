@@ -12,7 +12,7 @@ describe OrderProductsController do
   describe "update_status" do
     it "if entire order is complete, sets flash[:status] to success when order is saved with specific message, redirects merchant show page, and sets the orderproduct status and orders status to complete" do
       #arrange
-      order_prod = order_products(:two)
+      order_prod = order_products(:four)
 
       #assert
       patch update_status_path(order_prod.id)
