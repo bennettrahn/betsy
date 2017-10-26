@@ -14,7 +14,6 @@
   <% if flash[:receipt] == @order.payment_info.buyer_name %>
 
     <ul>
-      <%# input_orders.each do |order| %>
       <li>
         <table class='order_info_table'>
           <thead>
@@ -28,9 +27,9 @@
           <tbody>
             <tr>
               <td><%= @order.id %></td>
-              <td><%= @order.updated_at %></td>
+              <td><%= readable_date(@order.updated_at)%></td>
               <td><%= @order.status %></td>
-              <td class='align_right'>Order total</td>
+              <td class='align_right'></td>
             </tr>
           </tbody>
         </table>
@@ -45,11 +44,11 @@
           </thead>
 
           <tbody>
-            <% @order.order_products.each do |op| %>
+          <% @order.order_products.each do |op| %>
             <tr>
               <td><%= link_to op.product.name, product_path(op.product_id) %></td>
               <td><%= op.quantity %></td>
-              <td>$<%= '%.2f' % op.product.price %></td>
+              <td>$<%= readable_price(op.product.price) %></td>
               <td class='align_right'>
                 <%= link_to "Buy it again!", product_path(op.product_id), class: "button" %>
               </td>
@@ -65,7 +64,6 @@
 
   <% else %>
     <ul>
-      <%# input_orders.each do |order| %>
       <li>
         <table class='order_info_table'>
           <thead>
@@ -79,7 +77,7 @@
           <tbody>
             <tr>
               <td><%= @order.id %></td>
-              <td><%= @order.updated_at %></td>
+              <td><%= readable_date(@order.updated_at)%></td>
               <td><%= @order.status %></td>
               <td class='align_right'>Order total</td>
             </tr>
@@ -101,7 +99,7 @@
                 <tr>
                   <td><%= link_to op.product.name, product_path(op.product_id) %></td>
                   <td><%= op.quantity %></td>
-                  <td>$<%= '%.2f' % op.product.price %></td>
+                  <td>$<%= readable_price(op.product.price) %></td>
                   <td class='align_right'>
                   </td>
                 </tr>

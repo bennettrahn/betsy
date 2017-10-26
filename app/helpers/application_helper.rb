@@ -15,4 +15,12 @@ module ApplicationHelper
        "five-stars"
     end
   end
+
+  def readable_date(date)
+    date.strftime("%A, %b %d").html_safe
+  end
+
+  def readable_price(price)
+    '%.2f' % price
+  end
 end
