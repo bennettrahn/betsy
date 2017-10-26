@@ -45,10 +45,7 @@
             </tr>
           </thead>
 
-          <%#@order.products.each do |product| %>
-            <p><%#= link_to product.name, product_path(product.id) %></p>
-            <p>$<%#= '%.2f' % product.price %></p>
-            <p>Order placed on: <%#= product.created_at %></p>
+
 
           <tbody>
             <% @order.order_products.each do |op| %>
@@ -70,6 +67,18 @@
     <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
 
   <% else %>
+    <% @order.products.each do |prod| %>
+      <% if prod.merchant_id == session[:merchant_id] %>
+        <%= link_to prod.name, product_path(prod.id) %>
+        $<%= '%.2f' % prod.price %>
+        Order placed on: <%= prod.created_at %>
+        Order Status: <%= @order.status %>
+        <p>
+          Order Total: <%=@order.order_total %>
+        </p>
+      <% end %>
+    <% end %>
+<% end %>
 
     <ul>
       <%# input_orders.each do |order| %>

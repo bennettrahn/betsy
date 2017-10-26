@@ -7,12 +7,12 @@
     <section id="codeword"></section>
 
     <% if session[:merchant_id] %>
-    <h1> Welcome Back, Bae</h1>
+    <h1 class="hey-bae"> <%= link_to "Welcome Back, Bae", products_path  %></h1>
     <% else %>
-    <h1> Hey, Bae</h1>
+    <h1 class="hey-bae"><%= link_to "Hey, Bae", products_path %> </h1>
     <% end %>
   </section>
-  <section class="spotlight">
+  <section class="spotlight ">
     <h2 class="spooky-spot">Spotlight | <small> Something just for you</small> </h2>
     <% @spot = Product.not_retired.sample %>
     <div class="">
@@ -23,11 +23,11 @@
         <% end %>
       </div>
     </section>
-    
+
     <h2 class="spooky">Spooky Seasonal Hits | <small> Boo! </small> </h2>
-    <section class="row">
+    <section class="row spooky-row">
       <%@all_products_for_season_cat.each do |product|%>
-      <section class="small-2 large-4 columns">
+      <section class="small-2 large-5 columns">
         <div class="crop-image">
           <%= link_to product_path(product.id) do %>
           <%= link_to product.name.capitalize, product_path(product.id) %> |
