@@ -1,8 +1,8 @@
 <div class='row head-w-button'>
-  <h2 id='product-name' class='columns small-6 large-9'>
+  <h2 id='product-name' class='columns small-12 large-9'>
     <%= @product.name.capitalize %>
   </h2>
-  <%= link_to "Back to All Products", products_path, class: "button columns small-6 large-3 head-button"%>
+  <%= link_to "Back to All Products", products_path, class: "button columns small-12 large-3 head-button"%>
 </div>
 
 <div class='row'>
@@ -54,9 +54,9 @@
 
 <section id='reviews' >
   <div class='row head-w-button'>
-    <h3 class="reviews columns small-6">Reviews</h3>
+    <h3 class="reviews columns small-12 large-9'">Reviews</h3>
     <% if session[:merchant_id] != @product.merchant_id %>
-      <%= link_to "Write a Review", new_product_review_path(@product), class: "button columns small-6 large-3 head-button" %>
+      <%= link_to "Write a Review", new_product_review_path(@product), class: "button columns small-12 large-3 head-button" %>
     <% end %>
   </div>
   <p class="reviews">
