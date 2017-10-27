@@ -8,9 +8,7 @@ class CategoriesController < ApplicationController
     # @by_cat = Category.view_by_category
   end
 
-  def show ;
-    # @category = Category.find(params[:id])
-  end
+  def show ; end
 
   def new
     @category = Category.new
