@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe OrderProduct do
-  let (:op) { order_products(:one) }
+  let (:op) { order_products(:five) }
   let (:order) { orders(:order1) }
   let (:product) { products(:tricycle)}
 
