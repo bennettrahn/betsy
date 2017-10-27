@@ -9,83 +9,91 @@
   <%= image_tag "#{@product.photo_url}", alt:"image",  class:'columns small-12 large-5', id:'product-image' %>
 
   <section class='details columns small-12 large-6'>
-    <p>
+    <section class="description">
+      <strong>Description: </strong>
       <%= @product.description %>
-    </p>
-    <p>
-      <%= readable_price(@product.price) %>
-    </p>
+    </section>
+    <section class="description">
+      <strong>Price: </strong><%= readable_price(@product.price) %>
+    </section>
 
     <div class='dashboard'>
       <% if @product.retired != true %>
-        <p>
-          <em>Currently in stock:</em> <%= @product.inventory %>
-        </p>
-        <div class='input-button' >
-          <%= form_tag create_order_product_path(product_id: @product.id), method: :post do %>
+      <p>
+        <em>Currently in stock:</em> <%= @product.inventory %>
+      </p>
+      <div class='input-button' >
+        <%= form_tag create_order_product_path(product_id: @product.id), method: :post do %>
 
-          <%= text_field_tag "quantity", 1, class:'field' %>
+        <%= text_field_tag "quantity", 1, class:'field' %>
 
-          <%= submit_tag "Add to Cart", class: "buy button" %>
-          <% end %>
-        </div>
-        <% if session[:merchant_id] == @product.merchant_id %>
-          <div class='input-button'>
-              <%= form_for @product do |f| %>
-
-              <%= f.text_field :inventory, class:'field'%>
-
-              <%= submit_tag "Update inventory", class: "button" %>
-              <% end %>
-          </div>
-          <%= link_to "Edit Info", edit_product_path(@product), class: "button", id:"edit-button" %>
+        <%= submit_tag "Add to Cart", class: "buy button" %>
         <% end %>
+      </div>
+      <% if session[:merchant_id] == @product.merchant_id %>
+      <div class='input-button'>
+        <%= form_for @product do |f| %>
+
+        <%= f.text_field :inventory, class:'field'%>
+
+        <%= submit_tag "Update inventory", class: "button" %>
+        <% end %>
+      </div>
+      <%= link_to "Edit Info", edit_product_path(@product), class: "button", id:"edit-button" %>
+      <% end %>
       <% else %>
-        <p>
-          This product has been retired.
-        </p>
-        <% if session[:merchant_id] == @product.merchant_id %>
-          <%= link_to @product.retired ? "Unretire Product" : "Retire Product", retire_product_path(@product), method: :patch, class: "button" %>
-        <% end %>
+      <p>
+        This product has been retired.
+      </p>
+      <% if session[:merchant_id] == @product.merchant_id %>
+      <%= link_to @product.retired ? "Unretire Product" : "Retire Product", retire_product_path(@product), method: :patch, class: "button" %>
+      <% end %>
       <% end %>
     </div>
   </section>
 
 </div>
+<section class="wrap-city">
 
 <section id='reviews' >
   <div class='row head-w-button'>
-    <h3 class="reviews columns small-12 large-9'">Reviews</h3>
+    <h2 class="reviews columns small-12 large-9'">Reviews:</h2>
     <% if session[:merchant_id] != @product.merchant_id %>
-      <%= link_to "Write a Review", new_product_review_path(@product), class: "button columns small-12 large-3 head-button" %>
+    <%= link_to "Write a Review", new_product_review_path(@product), class: "button columns small-12 large-3 head-button" %>
     <% end %>
   </div>
-  <p class="reviews">
-    <strong>Average rating:</strong>
+  <p class="reviews-display">
+    <section class="rating">Average rating:</section>
     <%= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %>
   </p>
 
   <ul class="reviews">
+    <% count = 0 %>
     <% @product.reviews.each do |review| %>
-      <li>
+    <li>
+      <section class="individual">
+        <% count += 1 %>
+        <strong><%= "Review #{count}:" %></strong>
         <p class="reviews"><%= render partial:"/layouts/stars", locals: {rating: review.rating} %></p>
         <p class="reviews"><em><%= readable_date(review.created_at) %></em></p>
         <p class="reviews"><%= review.text %></p>
-      </li>
+      </section>
+    </li>
     <% end %>
   </ul>
+</section>
+
 </section>
 
 
 
 
 
-
 <!-- <section>
-  <h3>Categories:</h3>
-  <% @product.categories.each do |cat| %>
-  <h3><% cat.name%></h3>
-  <% end  %>
+<h3>Categories:</h3>
+<% @product.categories.each do |cat| %>
+<h3><% cat.name%></h3>
+<% end  %>
 </section> -->
 
 <%# link_to "Delete", product_path(@product), class: "alert button", method: "delete", data: { confirm: "Are you sure?" } %>
