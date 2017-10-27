@@ -19,12 +19,14 @@
         <td><%= op.quantity %></td>
         <td>$<%= '%.2f' % op.subtotal %></td>
         <td>
-          <%= form_tag order_product_path(op.id, product_id: op.product_id), method: :patch do %>
+          <div class= 'input-button'>
+            <%= form_tag order_product_path(op.id, product_id: op.product_id), method: :patch do %>
 
-          <%= text_field_tag "quantity" %>
+            <%= text_field_tag :quantity, "", class:'field' %>
 
-          <%= submit_tag "Update Quantity", class: "button" %>
-          <% end %>
+            <%= submit_tag "Update Quantity", class: "button" %>
+            <% end %>
+          </div>
         </td>
         <td><%= link_to "Delete from cart", order_product_path(op.id), method: :delete,
         data: { confirm: 'Are you sure?' }%></td>
