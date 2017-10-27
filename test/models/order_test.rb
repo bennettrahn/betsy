@@ -59,5 +59,22 @@ describe Order do
     #
     #   order.order_complete?.
     # end
+
+  end
+
+  describe "order_total" do
+    it "returns the total of the whole order if no merchant is passed" do
+      orders(:order4).order_total.must_equal products(:tripod).price + products(:tricycle).price
+    end
+
+    it "returns the total of the products belonging to a merchant if one is passed" do
+      orders(:order4).order_total(merchant: merchants(:lauren)).must_equal products(:tripod).price
+    end
+
+    it "returns 0 when there are no products" do
+      orders(:order4).order_total(merchant: merchants(:bennett)).must_equal 0
+
+      orders(:order6).order_total.must_equal 0
+    end
   end
 end

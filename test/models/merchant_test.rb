@@ -125,7 +125,8 @@ describe Merchant do
       end
 
       it "returns 0 if no orders for that status" do
-        
+        merchant = merchants(:bennett)
+        merchant.total_revenue('paid').must_equal 0
       end
     end
 

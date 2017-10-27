@@ -15,6 +15,11 @@ describe OrderProduct do
       op.must_respond_to :product
       op.product.must_be_kind_of Product
     end
+
+    it "has a merchant" do
+      op.must_respond_to :merchant
+      op.merchant.must_be_kind_of Merchant
+    end
   end
 
   describe "vaildations" do

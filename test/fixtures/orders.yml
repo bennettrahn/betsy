@@ -15,3 +15,6 @@ order4:
 
 order5:
   status: "paid"
+
+order6:
+  status: 'pending'
