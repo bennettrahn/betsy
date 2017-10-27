@@ -69,7 +69,7 @@
     <% @product.reviews.each do |review| %>
       <li>
         <p class="reviews"><%= render partial:"/layouts/stars", locals: {rating: review.rating} %></p>
-        <p class="reviews"><em><%= review.created_at %></em></p>
+        <p class="reviews"><em><%= readable_date(review.created_at) %></em></p>
         <p class="reviews"><%= review.text %></p>
       </li>
     <% end %>
