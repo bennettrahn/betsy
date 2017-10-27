@@ -6,7 +6,7 @@
   <div class="emptycart">
     <p><%= link_to spot.name, product_path(spot.id)%></p>
     <p>Price: <%= readable_price(spot.price) %></p>
-    <p class="image"><%= image_tag "#{spot.photo_url}", alt:"image"%></p>
+    <p class="image"><%= image_tag "#{spot.photo_url}", alt:"image", size: "300x300"%></p>
     <p><%= link_to "More Info", product_path(spot.id), class: "button"%></p>
     <p><%= form_tag create_order_product_path(product_id: spot.id), method: :post do %></p>
 
