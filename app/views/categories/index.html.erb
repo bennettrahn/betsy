@@ -6,7 +6,7 @@
     <h4><%= cat.name.capitalize %></h4>
     <% cat.products.not_retired.each do |prod| %>
     <p><%= link_to prod.name, product_path(prod.id) %></p>
-    <p>$<%= prod.price %></p>
+    <p><%= readable_price(prod.price) %></p>
     <p><%= image_tag "#{prod.photo_url}", alt:"image", size: "100x100"%></p>
     <% end %>
     <%# can we have an associated image for a category or that would be too much because then you'd have to include that in the form when creating a new category? %>

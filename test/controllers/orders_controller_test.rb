@@ -89,7 +89,8 @@ describe OrdersController do
 
   describe "receipt" do
     it "shows the receipt after a successful update/checkout" do
-
+      merchant = merchants(:anders)
+      login(merchant)
       payment_data = {
         payment_info: {
           email: "example@example.com",
@@ -109,6 +110,7 @@ describe OrdersController do
     end
 
     it "cannot see a receipt twice; receipts will only show immediately after a purchase" do
+
       payment_data = {
         payment_info: {
           email: "example@example.com",
@@ -130,8 +132,28 @@ describe OrdersController do
       flash[:status].must_equal :failure
     end
 
-    it "shows the receipt to the merchant who is the owner of the orderproduct" do
+    it "shows the receipt to the merchant who is the owner of the orderproduct; so a merchant can see a receipt twice" do
+      merchant = merchants(:anders)
+      login(merchant)
 
+      payment_data = {
+        payment_info: {
+          email: "example@example.com",
+          buyer_name: "name",
+          cvv: "123",
+          card_number: "123456",
+          zipcode: "12345",
+          mailing_address: "12 34th st",
+          expiration: "12/34"
+        }
+      }
+      patch order_path(orders(:order1)), params: payment_data
+
+      get order_receipt_path(orders(:order1))
+      must_respond_with :success
+
+      get order_receipt_path(orders(:order1))
+      must_respond_with :success
     end
   end
 

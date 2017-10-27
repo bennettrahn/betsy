@@ -13,7 +13,7 @@
       <%= @product.description %>
     </p>
     <p>
-      $<%= '%.2f' % @product.price %>
+      <%= readable_price(@product.price) %>
     </p>
 
     <div class='dashboard'>
