@@ -40,6 +40,11 @@ describe MerchantsController do
       end
 
       # not sure how to test filters - since it is entirely a view thing?
+      it "returns a success status when parameters are passed in - for filtering orders" do
+        merchant = merchants(:bennett)
+        get merchant_path(merchant, status: "complete")
+        must_respond_with :success
+      end
     end
 
     describe "destroy" do
