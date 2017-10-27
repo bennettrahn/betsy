@@ -41,7 +41,6 @@
       </tr>
   </tbody>
 </table>
-<h3>Grand Total: $<%= '%.2f' % @order.order_products.sum(&:subtotal) %></h3>
 
 <p><%= link_to "Proceed to Checkout", checkout_path(@order.id), class: "button buy" %></p>
 
