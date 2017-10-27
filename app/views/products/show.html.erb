@@ -12,15 +12,13 @@
     <section class="description">
       <strong>Description: </strong>
       <%= @product.description %>
-    </p>
-    <p>
-      <%= readable_price(@product.price) %>
-    </p>
-    <p>Average rating: <%= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %></p>
-  </section>
-  <section class="description">
-    <strong>Price: </strong><%= readable_price(@product.price) %>
-  </section>
+    </section>
+    <section class="description">
+      <strong>Price: </strong><%= readable_price(@product.price) %>
+    </section>
+    <section class="description">
+      <strong>Average rating: <%= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %></strong>
+    </section>
 
     <div class='dashboard'>
       <% if @product.retired != true %>
@@ -62,11 +60,12 @@
 
 <section id='reviews' >
   <div class='row head-w-button'>
-    <h2 class="reviews columns small-12 large-9'">Reviews:</h2>
+    <h3 class="reviews columns small-12 large-9'">Reviews:</h3>
     <% if session[:merchant_id] != @product.merchant_id %>
     <%= link_to "Write a Review", new_product_review_path(@product), class: "button columns small-12 large-3 head-button" %>
     <% end %>
   </div>
+
   <%#  <p class="reviews">
     <strong>Average rating:</strong>
     <%#= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %>
