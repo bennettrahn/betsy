@@ -15,6 +15,8 @@
     <p>
       <%= readable_price(@product.price) %>
     </p>
+    <p>Average rating: <%= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %></p>
+
 
     <div class='dashboard'>
       <% if @product.retired != true %>
@@ -60,10 +62,10 @@
       <%= link_to "Write a Review", new_product_review_path(@product), class: "button columns small-12 large-3 head-button" %>
     <% end %>
   </div>
-  <p class="reviews">
+  <%#  <p class="reviews">
     <strong>Average rating:</strong>
-    <%= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %>
-  </p>
+    <%#= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %>
+  <%# </p> %>
 
   <ul class="reviews">
     <% @product.reviews.each do |review| %>

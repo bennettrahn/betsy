@@ -17,7 +17,7 @@
       <tr>
         <td><%= link_to op.product.name, product_path(op.product) %></td>
         <td><%= op.quantity %></td>
-        <td>$<%= '%.2f' % op.subtotal %></td>
+        <td><%= readable_price(op.subtotal) %></td>
         <td>
           <div class= 'input-button'>
             <%= form_tag order_product_path(op.id, product_id: op.product_id), method: :patch do %>
@@ -41,7 +41,7 @@
       </tr>
   </tbody>
 </table>
-<h3>Grand Total: $<%= '%.2f' % @order.order_products.sum(&:subtotal) %></h3>
+<h3>Grand Total: <%= readable_price(@order.order_products.sum(&:subtotal)) %></h3>
 
 <p><%= link_to "Proceed to Checkout", checkout_path(@order.id), class: "button buy" %></p>
 
