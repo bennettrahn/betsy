@@ -8,8 +8,8 @@
     <%= @product.description %>
   </p>
   <p>
-    <strong>Price: $</strong>
-    <%= '%.2f' % @product.price %>
+    <strong>Price: </strong>
+    <%= readable_price(@product.price) %>
   </p>
   <p>
     <strong>Average rating:</strong>
