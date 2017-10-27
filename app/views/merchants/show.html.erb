@@ -39,10 +39,10 @@
         <% if product.retired %>
         <span>--Retired--</span>
         <% else %>
-        <span>
+        <span class='input-button'>
           <%= form_for product do |f| %>
 
-          <%= f.text_field :inventory%>
+          <%= f.text_field :inventory, class:'field'%>
 
           <%= submit_tag "Update inventory", class: "button" %>
           <% end %>
