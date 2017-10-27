@@ -17,6 +17,20 @@ describe CategoriesController do
     end
   end
 
+  describe "show" do
+    it "returns a success status if given a valid category id" do
+      cat = categories(:book)
+      get category_path(cat.id)
+      must_respond_with :success
+    end
+
+    it "returns a not_found status if given an invalid category id" do
+      invalid_cat_id = Category.last.id + 1
+      get category_path(invalid_cat_id)
+      must_respond_with :not_found
+    end
+  end
+
   describe "not logged in user" do
     describe "new" do
       it "returns a flash[:status] of failure, and redirects to products path" do
