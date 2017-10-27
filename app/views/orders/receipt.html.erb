@@ -26,7 +26,8 @@
             <tr>
               <th>Product</th>
               <th>Quantity</th>
-              <th>Subtotal</th>
+              <th></th>
+              <th class='align_right'>Subtotal</th>
             </tr>
           </thead>
           <tbody>
@@ -34,10 +35,10 @@
             <tr>
               <td><%= link_to op.product.name, product_path(op.product_id) %></td>
               <td><%= op.quantity %></td>
-              <td><%= readable_price(op.subtotal) %></td>
-              <td class='align_right'>
+              <td>
                 <%= link_to "Buy it again!", product_path(op.product_id), class: "button" %>
               </td>
+              <td class='align_right'><%= readable_price(op.subtotal) %></td>
             </tr>
             <% end %>
           </tbody>
@@ -72,7 +73,7 @@
             <tr>
               <th>Product</th>
               <th>Quantity</th>
-              <th>Subtotal</th>
+              <th class='align_right'>Subtotal</th>
             </tr>
           </thead>
           <tbody>
@@ -81,7 +82,7 @@
             <tr>
               <td><%= link_to op.product.name, product_path(op.product_id) %></td>
               <td><%= op.quantity %></td>
-              <td><%= readable_price(op.subtotal) %></td>
+              <td class='align_right'><%= readable_price(op.subtotal) %></td>
             </tr>
             <% end %>
             <% end %>

@@ -28,10 +28,17 @@
             <% end %>
           </div>
         </td>
-        <td><%= link_to "Delete from cart", order_product_path(op.id), method: :delete,
+        <td><%= link_to "Delete from cart", order_product_path(op.id), method: :delete, class:'button',
         data: { confirm: 'Are you sure?' }%></td>
       </tr>
     <% end %>
+      <tr>
+        <td></td>
+        <td><strong>Total:</strong></td>
+        <td><%= readable_price(@order.order_total) %></td>
+        <td></td>
+        <td></td>
+      </tr>
   </tbody>
 </table>
 <h3>Grand Total: $<%= '%.2f' % @order.order_products.sum(&:subtotal) %></h3>
