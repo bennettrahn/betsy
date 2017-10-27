@@ -1,69 +1,90 @@
-<main class="wrap">
-<section>
-  <h1>
+<div class='row head-w-button'>
+  <h2 id='product-name' class='columns small-6 large-9'>
     <%= @product.name.capitalize %>
-  </h1>
-  <p>
-    <strong>Description: </strong>
-    <%= @product.description %>
-  </p>
-  <p>
-    <strong>Price: $</strong>
-    <%= '%.2f' % @product.price %>
-  </p>
-  <p>
+  </h2>
+  <%= link_to "Back to All Products", products_path, class: "button columns small-6 large-3 head-button"%>
+</div>
+
+<div class='row'>
+  <%= image_tag "#{@product.photo_url}", alt:"image",  class:'columns small-12 large-5', id:'product-image' %>
+
+  <section class='details columns small-12 large-6'>
+    <p>
+      <%= @product.description %>
+    </p>
+    <p>
+      <%= '%.2f' % @product.price %>
+    </p>
+
+    <div class='dashboard'>
+      <% if @product.retired != true %>
+        <p>
+          <em>Currently in stock:</em> <%= @product.inventory %>
+        </p>
+        <div class='input-button' >
+          <%= form_tag create_order_product_path(product_id: @product.id), method: :post do %>
+
+          <%= text_field_tag "quantity", 1, class:'field' %>
+
+          <%= submit_tag "Add to Cart", class: "buy button" %>
+          <% end %>
+        </div>
+        <% if session[:merchant_id] == @product.merchant_id %>
+          <div class='input-button'>
+              <%= form_for @product do |f| %>
+
+              <%= f.text_field :inventory, class:'field'%>
+
+              <%= submit_tag "Update inventory", class: "button" %>
+              <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>
+          This product has been retired.
+        </p>
+        <% if session[:merchant_id] == @product.merchant_id %>
+          <%= link_to @product.retired ? "Unretire Product" : "Retire Product", retire_product_path(@product), method: :patch, class: "button" %>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+</div>
+
+<section id='reviews' >
+  <div class='row head-w-button'>
+    <h3 class="reviews columns small-6">Reviews</h3>
+    <% if session[:merchant_id] != @product.merchant_id %>
+      <%= link_to "Write a Review", new_product_review_path(@product), class: "button columns small-6 large-3 head-button" %>
+    <% end %>
+  </div>
+  <p class="reviews">
     <strong>Average rating:</strong>
     <%= render partial:"/layouts/stars", locals: {rating: @product.average_rating} %>
   </p>
+
+  <ul class="reviews">
+    <% @product.reviews.each do |review| %>
+      <li>
+        <p class="reviews"><%= render partial:"/layouts/stars", locals: {rating: review.rating} %></p>
+        <p class="reviews"><em><%= review.created_at %></em></p>
+        <p class="reviews"><%= review.text %></p>
+      </li>
+    <% end %>
+  </ul>
 </section>
 
-<section>
+
+
+
+
+
+<!-- <section>
   <h3>Categories:</h3>
   <% @product.categories.each do |cat| %>
-    <h3><%= cat.name%></h3>
+  <h3><% cat.name%></h3>
   <% end  %>
-</section>
+</section> -->
 
-<p class="image"><%= image_tag "#{@product.photo_url}", alt:"image"%></p>
-
-<% if @product.retired != true %>
-<section>
-  <em>Currently in stock:</em> <%= @product.inventory %>
-</section>
-
-<section>
-  <%= form_tag create_order_product_path(product_id: @product.id), method: :post do %>
-
-  <%= text_field_tag "quantity", 1 %>
-
-  <%= submit_tag "Add to Cart", class: "buy button" %>
-  <% end %>
-</section>
-<% else %>
-<section>
-  This product is retired.
-  <% if session[:merchant_id] == @product.merchant_id %>
-    <p>
-      <%= link_to @product.retired ? "Unretire Product" : "Retire Product", retire_product_path(@product), method: :patch, class: "button" %>
-    </p>
-  <% end %>
-</section>
-<% end %>
-
-  <p>Reviews:
-    <% @product.reviews.each do |review| %>
-  </p>
-  <%= review.text %>
-  <%= render partial:"/layouts/stars", locals: {rating: review.rating} %>
-  <% end %>
-
-
-
-<p><%= link_to "Back to All Products", products_path, class: "button" %></p>
-<p><%= link_to "Write a Review", new_product_review_path(@product), class: "button" %></p>
-<% if session[:merchant_id] == @product.merchant_id %>
-<p><%= link_to "Edit", edit_product_path(@product), class: "button" %></p>
-<!-- maybe include retire button -->
-<% end %>
 <%# link_to "Delete", product_path(@product), class: "alert button", method: "delete", data: { confirm: "Are you sure?" } %>
-</main>
