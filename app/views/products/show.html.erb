@@ -38,6 +38,7 @@
               <%= submit_tag "Update inventory", class: "button" %>
               <% end %>
           </div>
+          <%= link_to "Edit Info", edit_product_path(@product), class: "button", id:"edit-button" %>
         <% end %>
       <% else %>
         <p>
