@@ -1,0 +1,61 @@
+<ul>
+  <li>
+    <table class='order_info_table'>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th class='align_right'>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @order.id %></td>
+          <td><%= readable_date(@order.updated_at)%></td>
+          <td><%= @order.status %></td>
+          <td class='align_right'><%= readable_price(@order.order_total) %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class='products_info_table'>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+
+      <%# any buyer %>
+      <tbody class='<%= visible %>'>
+      <% @order.order_products.each do |op| %>
+        <tr>
+          <td><%= link_to op.product.name, product_path(op.product_id) %></td>
+          <td><%= op.quantity %></td>
+          <td><%= readable_price(op.subtotal) %></td>
+          <td class='align_right'>
+            <%= link_to "Buy it again!", product_path(op.product_id), class: "button" %>
+          </td>
+        </tr>
+        <% end %>
+
+      <p class='align_right'><%= "Check #{@payment_info.email} to track your shipping!" %></p>
+      <p class='align_right'><%=  link_to "Get back to shopping!", root_path, class: "button"%></p>
+      </tbody>
+
+      <tbody class='<%= hidden %>'>
+      <% @order.order_products.each do |op| %>
+        <% if op.product.merchant_id == session[:merchant_id] %>
+        <tr>
+          <td><%= link_to op.product.name, product_path(op.product_id) %></td>
+          <td><%= op.quantity %></td>
+          <td><%= readable_price(op.subtotal) %></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </li>
+</ul>

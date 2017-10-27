@@ -16,7 +16,7 @@
           <% end %>
         </div>
       <p class="prod-name"><%= link_to product.name.capitalize, product_path(product.id) %> |
-      $<%='%.2f' % product.price%></p>
+      <%= readable_price(product.price)%></p>
       </section>
     <% end %>
     </section>

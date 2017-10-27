@@ -22,9 +22,9 @@ status
       <tbody>
         <tr>
           <td><%= link_to order[:order].id, order_receipt_path(order[:order].id) %></td>
-          <td><%= order[:order].updated_at %></td>
+          <td><%= readable_date(order[:order].updated_at) %></td>
           <td><%= order[:order].status %></td>
-          <td class='align_right'><%= order[:order].order_total(merchant: @merchant) %></td>
+          <td class='align_right'><%= readable_price(order[:order].order_total(merchant: @merchant)) %></td>
         </tr>
       </tbody>
     </table>
@@ -47,7 +47,7 @@ status
               <% if order[:order].status != "complete" %>
               <td><%= op.status == 'complete' ? "Already completed!" : (link_to "Complete Product", update_status_path(op), method: :patch, class:'button') %></td>
               <% end %>
-              <td class='align_right'>$<%= '%.2f' % op.subtotal %></td>
+              <td class='align_right'><%= readable_price(op.subtotal) %></td>
             </tr>
             <% end %>
           </tbody>

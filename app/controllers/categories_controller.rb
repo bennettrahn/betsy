@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :must_be_logged_in, only: [:new, :create]
+  before_action :find_id_by_params, only: [:show]
 
   def index
     @categories = Category.all
@@ -7,8 +8,8 @@ class CategoriesController < ApplicationController
     # @by_cat = Category.view_by_category
   end
 
-  def show
-    @category = Category.find(params[:id])
+  def show ;
+    # @category = Category.find(params[:id])
   end
 
   def new
@@ -30,5 +31,12 @@ class CategoriesController < ApplicationController
 
   def category_params
     return params.require(:category).permit(:name)
+  end
+
+  def find_id_by_params
+    @category = Category.find_by(id: params[:id])
+    unless @category
+      head :not_found
+    end
   end
 end

@@ -1,48 +1,93 @@
-<section>
-  <h1> Receipt </h1>
-
-  <h3> <%= @payment_info.buyer_name %>'s Purchase Summary: </h3>
-
-  <ul>
-    <li>Name: <%= @payment_info.buyer_name %></li>
-    <li>Email: <%= @payment_info.email %></li>
-    <li>Address: <%= @payment_info.mailing_address %></li>
-    <li>Card number: ####-####-####- <%= @last_four_cc %></li>
-    <li>Expiration date: <%= @payment_info.expiration %></li>
-  </ul>
-
+<section class="wrappy">
+  <%= render partial: 'buyerinfo' %>
   <% if flash[:receipt] == @order.payment_info.buyer_name %>
-
-  <% @order.products.each do |product| %>
-    <p><%= link_to product.name, product_path(product.id) %></p>
-    <p>$<%= '%.2f' % product.price %></p>
-    <p>Order placed on: <%= product.created_at %></p>
-
-    <p>
-      <%= link_to "Buy it again!", product_path(product.id), class: "button" %>
-    </p>
-  <% end %>
-
-  <p>Order Status: <%= @order.status %></p>
-
-
-
-  <p><%= "Check #{@payment_info.email} to track your shipping!" %></p>
-
-  <p><%=  link_to "Get back to shopping!", root_path,  class: "button"%></p>
-
+    <ul>
+      <li>
+        <table class='order_info_table'>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th class='align_right'>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @order.id %></td>
+              <td><%= readable_date(@order.updated_at)%></td>
+              <td><%= @order.status %></td>
+              <td class='align_right'><%= readable_price(@order.order_total) %></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class='products_info_table'>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @order.order_products.each do |op| %>
+            <tr>
+              <td><%= link_to op.product.name, product_path(op.product_id) %></td>
+              <td><%= op.quantity %></td>
+              <td><%= readable_price(op.subtotal) %></td>
+              <td class='align_right'>
+                <%= link_to "Buy it again!", product_path(op.product_id), class: "button" %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+    <p class='align_right'><%= "Check #{@payment_info.email} to track your shipping!" %></p>
+    <p class='align_right'><%=  link_to "Get back to shopping!", root_path, class: "button"%></p>
   <% else %>
-    <% @order.products.each do |prod| %>
-      <% if prod.merchant_id == session[:merchant_id] %>
-        <%= link_to prod.name, product_path(prod.id) %>
-        $<%= '%.2f' % prod.price %>
-        Order placed on: <%= prod.created_at %>
-        Order Status: <%= @order.status %>
-        <p>
-          Order Total: <%=@order.order_total %>
-        </p>
-      <% end %>
-    <% end %>
-<% end %>
-
+    <ul>
+      <li>
+        <table class='order_info_table'>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th class='align_right'>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @order.id %></td>
+              <td><%= readable_date(@order.updated_at)%></td>
+              <td><%= @order.status %></td>
+              <td class='align_right'><%= readable_price(@order.order_total) %></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class='products_info_table'>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @order.order_products.each do |op| %>
+            <% if op.product.merchant_id == session[:merchant_id] %>
+            <tr>
+              <td><%= link_to op.product.name, product_path(op.product_id) %></td>
+              <td><%= op.quantity %></td>
+              <td><%= readable_price(op.subtotal) %></td>
+            </tr>
+            <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+  <% end %>
 </section>
