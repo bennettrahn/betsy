@@ -38,6 +38,8 @@ describe MerchantsController do
         get merchant_path(merchant)
         must_respond_with :success
       end
+
+      # not sure how to test filters - since it is entirely a view thing?
     end
 
     describe "destroy" do

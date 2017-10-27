@@ -102,11 +102,31 @@ describe Merchant do
       end
     end
 
+    describe "sort_orders_by_status" do
+      it "returns the order hashes like relevant_orders, but only for a certain status" do
+        merchant = merchants(:lauren)
+        merchant.sort_orders_by_status('paid').each do |order|
+          order[:order].status.must_equal "paid"
+        end
+      end
+      # the no orders edge case is tested above in relevant_orders
+    end
+
     describe "total_revenue" do
       it "counts the completed orders total money" do
         merchant = merchants(:lauren)
-        should_return = merchant.total_revenue
+        should_return = merchant.total_revenue('complete')
         should_return.must_equal products(:tripod).price
+      end
+      it "does the same for paid (waiting to be completed) orders" do
+        merchant = merchants(:anders)
+        should_return = merchant.total_revenue('paid')
+        should_return.must_equal products(:tricycle).price
+      end
+
+      it "returns 0 if no orders for that status" do
+        merchant = merchants(:bennett)
+        merchant.total_revenue('paid').must_equal 0
       end
     end
 

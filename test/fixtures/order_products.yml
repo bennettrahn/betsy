@@ -3,7 +3,8 @@
 one:
   quantity: 1
   product: tricycle
-  status: ""
+  order: order5
+  status: "paid"
 
 two:
   quantity: 1
@@ -21,4 +22,10 @@ four:
   quantity: 1
   product: tricycle
   order: order1
+  status: ""
+
+five:
+  quantity: 1
+  product: tripod
+  order: order3
   status: ""

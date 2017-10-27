@@ -12,3 +12,9 @@ order3:
 
 order4:
   status: "pending"
+
+order5:
+  status: "paid"
+
+order6:
+  status: 'pending'

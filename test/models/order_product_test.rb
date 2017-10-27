@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe OrderProduct do
-  let (:op) { order_products(:one) }
+  let (:op) { order_products(:five) }
   let (:order) { orders(:order1) }
   let (:product) { products(:tricycle)}
 
@@ -14,6 +14,11 @@ describe OrderProduct do
     it "has a product" do
       op.must_respond_to :product
       op.product.must_be_kind_of Product
+    end
+
+    it "has a merchant" do
+      op.must_respond_to :merchant
+      op.merchant.must_be_kind_of Merchant
     end
   end
 
